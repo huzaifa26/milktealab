@@ -1,0 +1,15 @@
+.emailIcon{
+    background-image: url("../../Assets/images/emailicon.png");
+    background-repeat: no-repeat;
+    text-indent: 20px;
+    background-size: clamp(16px,0.562vw,23px);
+    background-position: 0px,10px;
+}
+
+.passwordIcon{
+    background-image: url("../../Assets/images/passwordicon.png");
+    background-repeat: no-repeat;
+    text-indent: 20px;
+    background-size: clamp(16px,0.562vw,23px);
+    background-position: 0px,10px;
+}
