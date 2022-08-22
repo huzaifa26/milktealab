@@ -4,9 +4,9 @@ export default function PropgressModal(props){
     }
     return(
         <>
-        {/* <div className="w-[calc(100vw)] h-[100vh] absolute top-[0%] left-[calc(0%-17.547584187408493vw)] bg-black opacity-30">
-        </div> */}
-        <div className="w-[calc(100vw)] h-[100vh] absolute z-40 top-[0%] left-[calc(0%-17.547584187408493vw)] bg-gray-400">
+        <div className="w-[calc(100vw)] h-[100vh] absolute top-[calc(0%-90px)] left-[calc(0%-17.547584187408493vw)] bg-black opacity-30">
+        </div>
+        <div className="w-[calc(100vw)] h-[100vh] absolute z-40 top-[calc(0%-90px)] left-[calc(0%-17.547584187408493vw)]">
             
             <div className="w-[61vw] shadow-md h-[51.45vh] min-h-[82.95625942684767vh] min-w-[91.50805270863836vw] overflow-x-hidden  flex flex-col opacity-100 relative z-50 bg-white top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-[30px]">
                 <img onClick={hideModal} src="/images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[5%] text-gray-300"/>

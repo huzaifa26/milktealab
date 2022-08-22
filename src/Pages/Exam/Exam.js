@@ -1,21 +1,98 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { URL } from "../../App";
+import AddExamModal from "./AddExamModal";
+import EditExamModsl from "./EditExamModsl";
+import AddQuestionModel from "./AddQuestionModal";
+
 export default function Exam(props){
+    const [addExamModel,setAddExamModel]=useState(false);
+    const [editExamModel,setEditExamModel]=useState(false);
+    const [addQuestionModel,setAddQuestionModel]=useState(false);
+    const [editQuestionModel,setEditQuestionModel]=useState(false);
+    const [singleExam,setSingleExam]=useState(false);
+    const [examData,setExamData]=useState([])
+
+    const showAddExamModelHandler=()=>{
+        setAddExamModel(true)
+    }
+    const hideAddExamModelHandler=()=>{
+        setAddExamModel(false)
+    }
+
+    const showEditExamnModelHandler=()=>{
+        setEditExamModel(true)
+    }
+
+    const hideEditExamModelHandler=()=>{
+        setEditExamModel(false)
+    }
+
+    const showAddQuestionModelHandler=()=>{
+        setAddQuestionModel(true)
+    }
+    const hideAddQuestionModelHandler=()=>{
+        setAddQuestionModel(false)
+    }
+
+    const showEditQuestionModelHandler=()=>{
+        setEditQuestionModel(true)
+    }
+
+    const hideEditQuestionModelHandler=()=>{
+        setEditQuestionModel(false)
+    }
+
+    useEffect(()=>{
+        axios.get(URL+"/exam").then((res)=>{
+            setExamData(res.data.res);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },[addExamModel,editExamModel])
+
     return(
+        <>
+        {addExamModel &&
+            <AddExamModal hideAddExamModelHandler={hideAddExamModelHandler}></AddExamModal>
+        }
+        {editExamModel &&
+            <EditExamModsl singleExam={singleExam} hideAddQuestionModelHandler={hideEditExamModelHandler}></EditExamModsl>
+        }
+
+        {addQuestionModel &&
+            <AddQuestionModel examData={examData} hideAddQuestionModelHandler={hideAddQuestionModelHandler}></AddQuestionModel>
+        }
+        {/* {editQuestionModel &&
+            <EditExamModsl singleExam={singleExam} hideAddQuestionModelHandler={hideEditExamModelHandler}></EditExamModsl>
+        } */}
         <div className="w-[100%] h-[100%]">
-            <div className="">
-                <table class="table-auto w-[90%] ml-[30px] mt-[30px]">
+            <div className="w-[91%] h-[100%] m-auto">
+                <div className="flex gap-[10px]">
+                    <button onClick={showAddExamModelHandler} class="h-[4.3518518518519vh] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
+                        Add Exam
+                    </button>
+                    <button onClick={showAddQuestionModelHandler} class="h-[4.3518518518519vh] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
+                        Add Question
+                    </button>
+                </div>
+                <table class="table-auto w-[90%] mt-[30px]">
                     <thead>
                         <tr className="flex border-b-[2px] justify-between">
                             <th className="text-left">Chapter Title</th>
                             <th className="w-[11.42vw] text-center">Progress</th>
+                           <th className="w-[16.5vw] text-center">Actions</th>
+
                         </tr>
                     </thead>
                     <tbody>
+                        {examData.map((e)=>{return(
                         <tr className="flex my-[20px] justify-between">
                             <td className="flex gap-[10px]">
                                 <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
                                 <div className="flex flex-col">
-                                    <h3>Drinking Exam</h3>
-                                    <p>Basic Knowledge of our drinks.</p>
+                                    <h3>{e.title}</h3>
+                                    <p>{e.description}</p>
                                 </div>
                             </td>
                             <td className="flex flex-col text-blue-400">
@@ -24,94 +101,19 @@ export default function Exam(props){
                                     <div className="w-[33%] h-[100%] bg-blue-400"></div>
                                 </div>
                             </td>
-                        </tr>
-
-                        <tr className="flex my-[20px] justify-between">
-                            <td className="flex gap-[10px]">
-                                <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
-                                <div className="flex flex-col">
-                                    <h3>Drinking Exam</h3>
-                                    <p>Basic Knowledge of our drinks.</p>
-                                </div>
-                            </td>
-                            <td className="flex flex-col text-blue-400">
-                            <h2 className="w-[11.42vw] text-center">Finished</h2>
-
-                                <div className="w-[11.42vw] h-[3px] bg-gray-200">
-                                    <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                </div>
+                            <td className="flex gap-[5px]">
+                                <button onClick={()=>{setSingleExam(e);showEditExamnModelHandler(true);}} type="submit" className="bg-[#81c2ff] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Edit</button>
+                                <button type="submit" className="bg-[#e96857] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Delete</button>
                             </td>
                         </tr>
-
-                        <tr className="flex my-[20px] justify-between">
-                            <td className="flex gap-[10px]">
-                                <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
-                                <div className="flex flex-col">
-                                    <h3>Drinking Exam</h3>
-                                    <p>Basic Knowledge of our drinks.</p>
-                                </div>
-                            </td>
-                            <td className="flex flex-col text-blue-400">
-                            <h2 className="w-[11.42vw] text-center">Finished</h2>
-                                <div className="w-[11.42vw] h-[3px] bg-gray-200">
-                                    <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr className="flex my-[20px] justify-between">
-                            <td className="flex gap-[10px]">
-                                <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
-                                <div className="flex flex-col">
-                                    <h3>Drinking Exam</h3>
-                                    <p>Basic Knowledge of our drinks.</p>
-                                </div>
-                            </td>
-                            <td className="flex flex-col text-blue-400">
-                            <h2 className="w-[11.42vw] text-center">Finished</h2>
-                                <div className="w-[11.42vw] h-[3px] bg-gray-200">
-                                    <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr className="flex my-[20px] justify-between">
-                            <td className="flex gap-[10px]">
-                                <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
-                                <div className="flex flex-col">
-                                    <h3>Drinking Exam</h3>
-                                    <p>Basic Knowledge of our drinks.</p>
-                                </div>
-                            </td>
-                            <td className="flex flex-col text-blue-400">
-                            <h2 className="w-[11.42vw] text-center">Finished</h2>
-                                <div className="w-[11.42vw] h-[3px] bg-gray-200">
-                                    <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr className="flex my-[20px] justify-between">
-                            <td className="flex gap-[10px]">
-                                <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
-                                <div className="flex flex-col">
-                                    <h3>Drinking Exam</h3>
-                                    <p>Basic Knowledge of our drinks.</p>
-                                </div>
-                            </td>
-                            <td className="flex gap-[0.4vw] flex-col text-blue-400">
-                                <h2 className="w-[11.42vw] text-center">Finished</h2>
-                                <div className="w-[11.42vw] h-[3px] bg-gray-200">
-                                    <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                </div>
-                            </td>
-                        </tr>
+                        )})}
+                       
                     </tbody>
                 </table>
             </div>
 
-            <div className="pb-[100px]">
-                <table class="table-auto w-[90%] ml-[30px] mt-[30px]">
+            <div className="w-[91%] h-[100%] m-auto pb-[100px]">
+                <table class="table-auto w-[90%] mt-[30px]">
                     <thead>
                         <tr className="flex border-b-[2px] justify-between">
                             <th className="text-left">Exam Title</th>
@@ -158,7 +160,7 @@ export default function Exam(props){
                     </tbody>
                 </table>
             </div>
-            
         </div>
+        </>
     )
 }

@@ -39,6 +39,16 @@ export default function Layout(props){
         subheading="Please read every single announcement"
     }
 
+    if(location.pathname === "/download-material"){
+        heading="Download Materials";
+        subheading="All of the materials you need will be available to download";
+    }
+
+    if(location.pathname === "/exam"){
+        heading="Frachise Training Exam";
+        subheading="You must pass all exam before opening, and must score 80% or above";
+    }
+
     return(
         <div class="flex h-screen">
             <div class="flex-1 flex overflow-y-scroll">
@@ -97,15 +107,15 @@ export default function Layout(props){
                         </div>
                     </nav>
 
-                    <div className="flex flex-col w-[100%] min-h-[100vh]">
-                        <header class="flex justify-between items-center py-[1.1861vh]">
-                            <div class="flex justify-between items-center flex-1 mr-[20px]">
+                    <div className=" w-[100%] min-h-[100vh]">
+                        <header class="flex justify-between items-center py-[1.1861vh] w-[91%] m-auto">
+                            <div class="flex justify-between items-center flex-1">
                                 <div className="flex justify-between w-[100%] items-center ">
                                     <div>
                                     <h2 className="text-[clamp(32px,1.58vw,64px)] font-bold">{heading}</h2>
                                     <h2 className="text-[#a4a5a5] w-[28.27vw] text-[clamp(14px,0.78vw,32px)]">{subheading}</h2>
                                     </div>
-                                    <div className="flex items-center gap-[50px]">
+                                    <div className="flex  items-center gap-[50px]">
                                         <input className="bg-[#e2e2e2] h-[5.19vh] w-[13.59vw] text-[clamp(14px,0.58vw,24px)] rounded-full indent-[10px]" type="text" placeholder="Search Member's name"></input>
                                         <div className="flex flex-col justify-center items-center">
                                             <div className="flex gap-[10px] items-center">

@@ -17,6 +17,7 @@ export default function Dashboard(props){
             <PropgressModal hideModalHandler={hideModalHandler}></PropgressModal>
         }
         <div className="w-[100%] h-[100%]">
+            
             <table class="table-auto w-[90%] ml-[30px] mt-[30px]">
                 <thead>
                     <tr className="flex border-b-[2px]">
