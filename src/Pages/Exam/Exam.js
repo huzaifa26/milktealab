@@ -4,8 +4,10 @@ import { URL } from "../../App";
 import AddExamModal from "./AddExamModal";
 import EditExamModsl from "./EditExamModsl";
 import AddQuestionModel from "./AddQuestionModal";
+import { useNavigate } from "react-router-dom";
 
 export default function Exam(props){
+    const navigate=useNavigate();
     const [addExamModel,setAddExamModel]=useState(false);
     const [editExamModel,setEditExamModel]=useState(false);
     const [addQuestionModel,setAddQuestionModel]=useState(false);
@@ -87,7 +89,7 @@ export default function Exam(props){
                     </thead>
                     <tbody>
                         {examData.map((e)=>{return(
-                        <tr className="flex my-[20px] justify-between">
+                        <tr onClick={()=>{navigate("/admin-question",{state:e})}} className="flex my-[20px] justify-between">
                             <td className="flex gap-[10px]">
                                 <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
                                 <div className="flex flex-col">

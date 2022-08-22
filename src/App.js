@@ -19,6 +19,7 @@ import Exam from "./Pages/Exam/Exam";
 import Announcement from "./Pages/Announcement/Announcement";
 import Protected from "./Components/Protexted";
 import MessageBoard from "./Pages/MessageBoard/MessageBoard";
+import AdminShowQuestion from "./Pages/Exam/AdminShowQuestion";
 
 export const URL="http://localhost:5000/api";
 
@@ -39,6 +40,7 @@ function App() {
             <Route path="/exam" element={<Layout><Exam /></Layout>}></Route>
             <Route path="/announcement" element={<Layout><Announcement /></Layout>}></Route>
             <Route path="/message-board" element={<Layout><MessageBoard /></Layout>}></Route>
+            <Route path="/admin-question" element={<Layout><AdminShowQuestion /></Layout>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

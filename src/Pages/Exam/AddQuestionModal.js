@@ -26,15 +26,15 @@ export default function AddQuestionModal(props){
             op3:formRef.current.op3.value,
             op4:formRef.current.op4.value,
             correctOp:formRef.current.co.value === "1"? formRef.current.op1.value :formRef.current.co.value === "2"?formRef.current.op2.value:formRef.current.co.value === "3"?formRef.current.op3.value:formRef.current.co.value === "4"?formRef.current.op4.value:0,
-            datetime:datetime
+            createdTime:datetime
         }
         console.log(data);
-        // axios.post(URL+"/exam",data).then((res)=>{
-        //     console.log(res);
-        //     props.hideAddQuestionModelHandler()
-        // }).catch((err)=>{
-        //     console.log(err);
-        // })
+        axios.post(URL+"/question",data).then((res)=>{
+            console.log(res);
+            props.hideAddQuestionModelHandler()
+        }).catch((err)=>{
+            console.log(err);
+        })
     }
 
 
