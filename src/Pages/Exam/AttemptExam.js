@@ -33,8 +33,6 @@ export default function AttemptExam(props){
     }
 
     const getData=(data)=>{
-        console.log(data);
-        console.log(counter);
 
         axios.post(URL+"/attemptedQuestion",data).then((res)=>{
             console.log(res);
@@ -44,10 +42,11 @@ export default function AttemptExam(props){
                 if(questions.length>0){
                     setCounter(counter=>counter+1);
                 }
+                console.log(questions.length)
                 if(questions.length===0){
-                    setQuizFinished(true);
+                    toast.
                     axios.post(URL+"/result",data).then((res)=>{
-                        console.log(res);
+                        console.log(res.data.res);
                     }).catch(err=>{
                         console.log(err);
                     })

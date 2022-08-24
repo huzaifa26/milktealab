@@ -36,7 +36,7 @@ function App() {
 
   return (
     <>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
         <Route path="/application" element={<Application></Application>}></Route>
           <Route path="/" element={<Login />}></Route>

@@ -67,8 +67,7 @@ export default function Exam(props){
     const [result,setResult]=useState([]);
 
     useEffect(()=>{
-        axios.get(URL+"/result"+user.id).then((res)=>{
-            console(res.data.res);
+        axios.get(URL+"/result/"+user.id).then((res)=>{
             setResult(res.data.res);
         }).catch(err=>{
             console.log(err);
@@ -114,9 +113,9 @@ export default function Exam(props){
                         </tr>
                     </thead>
                     <tbody>
-                        {examData.map((e)=>{return(
-                        <tr onClick={()=>examonClickhanlder(e)} className="flex my-[20px] justify-between">
-                            <td className="cursor-pointer flex gap-[10px]">
+                    {examData.map((e)=>{return(
+                        <tr className="flex my-[20px] justify-between">
+                            <td onClick={()=>examonClickhanlder(e)} className="cursor-pointer flex gap-[10px]">
                                 <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
                                 <div className="flex flex-col">
                                     <h3>{e.title}</h3>
@@ -135,7 +134,6 @@ export default function Exam(props){
                                     {/* <button type="submit" className="bg-[#e96857] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Delete</button> */}
                                 </td>
                             }
-                            
                         </tr>
                         )})}
                        
@@ -153,17 +151,20 @@ export default function Exam(props){
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className="flex my-[20px] justify-between">
-                            <td className="flex gap-[10px]">
-                                <div className="flex flex-col">
-                                    <h3>Drinking Exam</h3>
-                                </div>
-                            </td>
-                            <td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
-                                <img className="w-[1.07vw]" src="/images/tick-g.png"/>
-                                <h2 className=" text-center">98%</h2>
-                            </td>
-                        </tr>
+                        {result.map((r)=>{return(
+                            <tr className="flex my-[20px] justify-between">
+                                <td className="flex gap-[10px]">
+                                    <div className="flex flex-col">
+                                        <h3>{r.exam.title}</h3>
+                                    </div>
+                                </td>
+                                <td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
+                                    <img className="w-[1.07vw]" src={r.result>79?"/images/tick-g.png":r.result<79?"/images/x-mark-b.png":r.attemptedQuestions!==r.totalquestion?"/images/x-mark-r.png":""}/>
+                                    <h2 className=" text-center">{r.result}%</h2>
+                                </td>
+                            </tr>
+                        )})}
+                        
 
                         <tr className="flex my-[20px] justify-between">
                             <td className="flex gap-[10px]">

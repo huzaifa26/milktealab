@@ -68,7 +68,16 @@ export default function Layout(props){
         heading="Message Board";
         subheading="Message your training Manager";
     }
+
+    if(location.pathname === "/futuredashboard"){
+        heading="Future Frachisee Dashboard";
+        subheading="Your status of becoming Milk Tea Lab Fracchisee";
+    }
     
+    if(location.pathname === "/managerdashboard"){
+        heading="Dashboard";
+        subheading="Manage your Franchisee";
+    }
     const logoutHandler=()=>{
         localStorage.removeItem("user");
         navigate("/");
@@ -167,7 +176,7 @@ export default function Layout(props){
                                                 <div className="w-[1.87vw] rounded-full"><img src="/images/user-mock.png" alt=""></img></div>
                                                 <div className="flex flex-col">
                                                     <h2>{user.userName}</h2>
-                                                    <p>{user.role}</p>
+                                                    <p className="text-[14px] text-[#A4A5AD]">{user.role}</p>
                                                 </div>
                                                 <div className="rotate-180">
                                                     <img className="cursor-pointer" ref={imgRef} onClick={arrowOnClickHandler} src="/images/arrow.png" alt=""></img>

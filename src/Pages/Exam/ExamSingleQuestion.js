@@ -35,6 +35,8 @@ export default function ExamSingleQuestion(props){
         formRef.current.co[3].checked=false;
         props.getData(data);
     }
+
+    
     return(
         <form ref={formRef} onSubmit={nextExamhandler} className="flex-1 flex flex-col gap-[18px] items-start w-[60%] m-auto justify-center ">
                         <h2>Question {props?.counter}</h2>

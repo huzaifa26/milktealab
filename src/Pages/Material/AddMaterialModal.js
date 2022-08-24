@@ -47,10 +47,10 @@ export default function AddMaterialModal(props){
 
     return(
         <>
-            <div className="w-[calc(100vw)] h-[100vh] absolute top-[calc(0%-90px)] left-[calc(0%-17.547584187408493vw)] bg-black opacity-30">
+            <div className="w-[calc(100vw)] h-[100vh] fixed top-[calc(0%)] left-[calc(0%)] bg-black opacity-30">
             </div>
 
-            <div className="w-[calc(100vw)]  h-[100vh] absolute z-40 top-[calc(0%-90px)] left-[calc(0%-17.547584187408493vw)]">
+            <div className="w-[calc(100vw)]  h-[100vh] fixed top-[calc(0%)] left-[calc(0%)] z-40">
                 <div className="shadow-md h-[51.45vh] max-h-[70.95625942684767vh] max-w-[60vw] overflow-x-hidden  flex flex-col opacity-100 relative z-50 bg-white top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-[30px]">
                     
                     <div>

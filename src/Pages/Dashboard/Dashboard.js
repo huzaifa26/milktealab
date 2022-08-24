@@ -73,8 +73,8 @@ export default function Dashboard(props){
             <PropgressModal hideModalHandler={hideModalHandler}></PropgressModal>
         }
         <div className="w-[100%] h-[100%]">
-            
-            <table class="table-auto w-[90%] ml-[30px] mt-[30px]">
+        <div className="w-[91%] m-auto">
+            <table class="table-auto w-[100%] mt-[30px]">
                 <thead>
                     <tr className="flex border-b-[2px]">
                         <th className="flex-1 text-left">Member Name</th>
@@ -120,6 +120,7 @@ export default function Dashboard(props){
 
                 </tbody>
                 </table>
+            </div>
         </div>
         </>
     )

@@ -32,11 +32,11 @@ export default function Setting(){
                     </div>
 
                     <div className="text-[1vw] flex gap-[20px]">
-                    <label className="inline-block w-[180px] font-bold ">Old password:</label><input type={"password"} className="inline-block text-[#a4a5a5] bg-[#f4f5f5] rounded-full indent-2"></input>
+                    <label className="inline-block w-[180px] font-bold ">Old password:</label><input autoComplete="off" type={"password"} className="inline-block text-[#a4a5a5] bg-[#f4f5f5] rounded-full indent-2"></input>
                     </div>
 
                     <div className="text-[1vw] flex gap-[20px]">
-                        <label className="inline-block w-[180px] font-bold ">New password:</label><input type={"password"} className="inline-block text-[#a4a5a5] bg-[#f4f5f5] rounded-full indent-2"></input>
+                        <label className="inline-block w-[180px] font-bold ">New password:</label><input autoComplete="off" type={"password"} className="inline-block text-[#a4a5a5] bg-[#f4f5f5] rounded-full indent-2"></input>
                     </div>
                     <div className="flex justify-center">
                         <button className="bg-[#e6ecff] w-[8.1vw] rounded-full">Save</button>
