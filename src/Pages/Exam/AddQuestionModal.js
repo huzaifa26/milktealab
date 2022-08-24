@@ -13,7 +13,6 @@ export default function AddQuestionModal(props){
     const examFormHandler=(e)=>{
         e.preventDefault();
 
-        console.log(formRef.current.title.value)
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const currentTime = moment().tz(timezone).format();
         const datetime = currentTime.slice(0, 19).replace('T', ' ');
@@ -89,6 +88,7 @@ export default function AddQuestionModal(props){
                         <div className="flex justify-center mt-[20px] self-center">
                             <button type="submit" className="bg-[#81c2ff] w-[14.25vw] h-[4.351vh] text-white font-bold rounded-full">Apply now</button>
                         </div>
+                        
                     </form>
                 </div>   
             </div>

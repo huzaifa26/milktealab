@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'VAGRound';
+    src: URL('/public/Visby Round CF Heavy/VAG Round.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'VAGBold';
+    src: URL('/public/Visby Round CF Heavy/Visby Round CF Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'VAGHeavy';
+    src: URL('/public/Visby Round CF Heavy/Visby Round CF Heavy.ttf') format('truetype');
+}
+
+h1,h2{
+font-family: VAGHeavy;
+}
+
+h3,h4,p,input,button,label,tr,th,td,textarea,select{
+    font-family: VAGBold;
+    outline: none !important;
+}
+  
 .active{
     border-left: 3px solid #1fbaf8;
     background-color: #cce9f6;

@@ -48,10 +48,32 @@ export default function Exam(props){
     useEffect(()=>{
         axios.get(URL+"/exam").then((res)=>{
             setExamData(res.data.res);
+            console.log(res);
         }).catch((err)=>{
             console.log(err);
         })
     },[addExamModel,editExamModel])
+    let user=localStorage.getItem(("user"));
+    user=JSON.parse(user);
+
+    const examonClickhanlder=(e)=>{
+        if(user.role === "admin"){
+            navigate("/admin-question",{state:e})
+            return;
+        }
+        navigate("/attempt-exam",{state:e})
+    }
+
+    const [result,setResult]=useState([]);
+
+    useEffect(()=>{
+        axios.get(URL+"/result"+user.id).then((res)=>{
+            console(res.data.res);
+            setResult(res.data.res);
+        }).catch(err=>{
+            console.log(err);
+        })
+    },[])
 
     return(
         <>
@@ -70,27 +92,31 @@ export default function Exam(props){
         } */}
         <div className="w-[100%] h-[100%]">
             <div className="w-[91%] h-[100%] m-auto">
-                <div className="flex gap-[10px]">
-                    <button onClick={showAddExamModelHandler} class="h-[4.3518518518519vh] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
-                        Add Exam
-                    </button>
-                    <button onClick={showAddQuestionModelHandler} class="h-[4.3518518518519vh] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
-                        Add Question
-                    </button>
-                </div>
+
+                {user.role === "admin" && 
+                    <div className="flex gap-[10px]">
+                        <button onClick={showAddExamModelHandler} class="h-[4.3518518518519vh] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
+                            Add Exam
+                        </button>
+                        <button onClick={showAddQuestionModelHandler} class="h-[4.3518518518519vh] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
+                            Add Question
+                        </button>
+                    </div>
+                }
+                
                 <table class="table-auto w-[90%] mt-[30px]">
                     <thead>
                         <tr className="flex border-b-[2px] justify-between">
                             <th className="text-left">Chapter Title</th>
                             <th className="w-[11.42vw] text-center">Progress</th>
-                           <th className="w-[16.5vw] text-center">Actions</th>
+                           {user.role === "admin" && <th className="w-[16.5vw] text-center">Actions</th>}
 
                         </tr>
                     </thead>
                     <tbody>
                         {examData.map((e)=>{return(
-                        <tr onClick={()=>{navigate("/admin-question",{state:e})}} className="flex my-[20px] justify-between">
-                            <td className="flex gap-[10px]">
+                        <tr onClick={()=>examonClickhanlder(e)} className="flex my-[20px] justify-between">
+                            <td className="cursor-pointer flex gap-[10px]">
                                 <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
                                 <div className="flex flex-col">
                                     <h3>{e.title}</h3>
@@ -103,10 +129,13 @@ export default function Exam(props){
                                     <div className="w-[33%] h-[100%] bg-blue-400"></div>
                                 </div>
                             </td>
-                            <td className="flex gap-[5px]">
-                                <button onClick={()=>{setSingleExam(e);showEditExamnModelHandler(true);}} type="submit" className="bg-[#81c2ff] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Edit</button>
-                                <button type="submit" className="bg-[#e96857] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Delete</button>
-                            </td>
+                            {user.role === "admin" && 
+                                <td className="flex gap-[5px]">
+                                    <button onClick={()=>{setSingleExam(e);showEditExamnModelHandler(true);}} type="submit" className="bg-[#81c2ff] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Edit</button>
+                                    {/* <button type="submit" className="bg-[#e96857] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Delete</button> */}
+                                </td>
+                            }
+                            
                         </tr>
                         )})}
                        
@@ -114,6 +143,7 @@ export default function Exam(props){
                 </table>
             </div>
 
+            {user.role !== "admin" &&
             <div className="w-[91%] h-[100%] m-auto pb-[100px]">
                 <table class="table-auto w-[90%] mt-[30px]">
                     <thead>
@@ -162,6 +192,7 @@ export default function Exam(props){
                     </tbody>
                 </table>
             </div>
+            }
         </div>
         </>
     )

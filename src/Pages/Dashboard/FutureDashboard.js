@@ -1,7 +1,7 @@
 export default function FutureDashboard(){
     return(
-        <div className="w-[80%] m-auto flex flex-col my-auto">
-            <div className="flex items-center">
+        <div className="w-[100%] flex flex-col my-auto">
+            <div className="w-[91%] m-auto flex items-center mt-[20vh]">
                 <div className="flex-1 flex flex-col items-center text-[#b6b6b6]">
                     <img className="w-[5.29vw]" src="/images/join.png" alt=""></img>
                     <h2 className="text-[20px] font-bold">Join as a member</h2>

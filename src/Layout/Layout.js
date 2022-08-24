@@ -1,9 +1,15 @@
 import PreviousMap from "postcss/lib/previous-map";
 import { Children, useState } from "react";
-import { Routes, Route, Outlet, NavLink,useLocation,Link } from "react-router-dom";
+import { useNavigate, NavLink,useLocation,Link } from "react-router-dom";
 import { useRef } from "react";
+import userEvent from "@testing-library/user-event";
 
 export default function Layout(props){
+    let user;
+    user=localStorage.getItem("user");
+    user=JSON.parse(user);
+
+    const navigate=useNavigate();
     const location=useLocation()
     const imgRef=useRef();
     const dropdownRef=useRef();
@@ -13,7 +19,6 @@ export default function Layout(props){
         console.log(11)
         imgRef.current.classList.toggle("rotate");
         dropdownRef.current.classList.toggle("showdropdown");
-        
     }
 
     let heading='';
@@ -47,6 +52,26 @@ export default function Layout(props){
     if(location.pathname === "/exam"){
         heading="Frachise Training Exam";
         subheading="You must pass all exam before opening, and must score 80% or above";
+    }
+
+    if(location.pathname === "/admin-question"){
+        heading="Exam Questions";
+        subheading="";
+    }
+
+    if(location.pathname === "/attempt-exam"){
+        heading="Exam";
+        subheading="";
+    }
+
+    if(location.pathname === "/message-board"){
+        heading="Message Board";
+        subheading="Message your training Manager";
+    }
+    
+    const logoutHandler=()=>{
+        localStorage.removeItem("user");
+        navigate("/");
     }
 
     return(
@@ -96,10 +121,30 @@ export default function Layout(props){
                                         </li>
                                     </NavLink>
 
-                                    <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]  " to="/dashboard">
+                                    <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/dashboard"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
                                             <img className="w-[1.51vw] h-[2.96vh]" src="/images/megaphone.png"></img>
                                             <h2>Dashboard</h2>
+                                        </li>
+                                    </NavLink>
+                                    <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/message-board"}>
+                                        <li className="flex items-center gap-[8px] -[100%] h-[60px]">
+                                            <img className="w-[1.51vw] h-[2.96vh]" src="/images/megaphone.png"></img>
+                                            <h2>Message Board</h2>
+                                        </li>
+                                    </NavLink>
+
+                                    <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/futuredashboard"}>
+                                        <li className="flex items-center gap-[8px] -[100%] h-[60px]">
+                                            <img className="w-[1.51vw] h-[2.96vh]" src="/images/megaphone.png"></img>
+                                            <h2>FutureDashboard</h2>
+                                        </li>
+                                    </NavLink>
+
+                                    <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/managerdashboard"}>
+                                        <li className="flex items-center gap-[8px] -[100%] h-[60px]">
+                                            <img className="w-[1.51vw] h-[2.96vh]" src="/images/megaphone.png"></img>
+                                            <h2>managerdashboard</h2>
                                         </li>
                                     </NavLink>
                                 </ul>
@@ -121,8 +166,8 @@ export default function Layout(props){
                                             <div className="flex gap-[10px] items-center">
                                                 <div className="w-[1.87vw] rounded-full"><img src="/images/user-mock.png" alt=""></img></div>
                                                 <div className="flex flex-col">
-                                                    <h2>Kaman loi</h2>
-                                                    <p>Admin</p>
+                                                    <h2>{user.userName}</h2>
+                                                    <p>{user.role}</p>
                                                 </div>
                                                 <div className="rotate-180">
                                                     <img className="cursor-pointer" ref={imgRef} onClick={arrowOnClickHandler} src="/images/arrow.png" alt=""></img>
@@ -130,7 +175,7 @@ export default function Layout(props){
                                             </div>
                                             <div ref={dropdownRef} className="bg-white hidden divide-y-2 absolute z-[100] top-[10%] shadow-md w-[10vw]">
                                                 <Link to={"/setting"}><div className="cursor-pointer w-[100%] text-center py-[4px]">Setting</div></Link>
-                                                <div className="cursor-pointer w-[100%] text-center py-[4px]">Logout</div>
+                                                <div onClick={logoutHandler} className="cursor-pointer w-[100%] text-center py-[4px]">Logout</div>
                                             </div>
                                         </div>
                                     </div>

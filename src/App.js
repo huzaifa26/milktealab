@@ -17,13 +17,23 @@ import Training from "./Pages/Training/Training";
 import Material from "./Pages/Material/Material";
 import Exam from "./Pages/Exam/Exam";
 import Announcement from "./Pages/Announcement/Announcement";
-import Protected from "./Components/Protexted";
+import Protected from "./Components/Protected";
 import MessageBoard from "./Pages/MessageBoard/MessageBoard";
 import AdminShowQuestion from "./Pages/Exam/AdminShowQuestion";
+import AttemptExam from "./Pages/Exam/AttemptExam";
+import { useEffect } from "react";
 
-export const URL="http://localhost:5000/api";
+// export const URL="http://localhost:5000/api";
+// export const URL="https://milktealab.herokuapp.com/api";
+export const URL="https://7467-182-177-132-61.eu.ngrok.io/api";
+
 
 function App() {
+
+  let user;
+  user=localStorage.getItem("user");
+  user=JSON.parse(user);
+
   return (
     <>
         <BrowserRouter>
@@ -31,16 +41,27 @@ function App() {
         <Route path="/application" element={<Application></Application>}></Route>
           <Route path="/" element={<Login />}></Route>
           <Route path="/" element={<Protected />}>
-            <Route path="/dashboard" element={<Layout><Dashboard /></Layout>}></Route>
-            <Route path="/futuredashboard" element={<Layout><FutureDashboard /></Layout>}></Route>
-            <Route path="/managerdashboard" element={<Layout><ManagerDashboard /></Layout>}></Route>
-            <Route path="/setting" element={<Layout><Setting /></Layout>}></Route>
-            <Route path="/training" element={<Layout><Training /></Layout>}></Route>
-            <Route path="/download-material" element={<Layout><Material /></Layout>}></Route>
-            <Route path="/exam" element={<Layout><Exam /></Layout>}></Route>
-            <Route path="/announcement" element={<Layout><Announcement /></Layout>}></Route>
-            <Route path="/message-board" element={<Layout><MessageBoard /></Layout>}></Route>
-            <Route path="/admin-question" element={<Layout><AdminShowQuestion /></Layout>}></Route>
+              {/* <Route path="/dashboard" element={
+                <Layout>
+                {
+                  user?.role === "admin"?<Dashboard />:
+                  user?.role === "member"?<MessageBoard />:
+                  user?.role === "manager"?<ManagerDashboard />:
+                  user?.role === "frachisee"?<FutureDashboard />:null}
+                </Layout>}>
+
+              </Route> */}
+              <Route path="/dashboard" element={<Layout><Dashboard /></Layout>}></Route>
+              <Route path="/futuredashboard" element={<Layout><FutureDashboard /></Layout>}></Route>
+              <Route path="/managerdashboard" element={<Layout><ManagerDashboard /></Layout>}></Route>
+              <Route path="/setting" element={<Layout><Setting /></Layout>}></Route>
+              <Route path="/training" element={<Layout><Training /></Layout>}></Route>
+              <Route path="/download-material" element={<Layout><Material /></Layout>}></Route>
+              <Route path="/exam" element={<Layout><Exam /></Layout>}></Route>
+              <Route path="/announcement" element={<Layout><Announcement /></Layout>}></Route>
+              <Route path="/message-board" element={<Layout><MessageBoard /></Layout>}></Route>
+              <Route path="/admin-question" element={<Layout><AdminShowQuestion /></Layout>}></Route>
+              <Route path="/attempt-exam" element={<Layout><AttemptExam /></Layout>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

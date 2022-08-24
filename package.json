@@ -1,5 +1,6 @@
 {
   "name": "milk-tea-lab",
+  "homepage": "http://admin.milktealab.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,6 +16,8 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8",
+    "socket.io-client": "^4.5.1",
+    "timeago": "^1.6.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

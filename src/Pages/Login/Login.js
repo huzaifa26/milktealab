@@ -2,7 +2,7 @@ import { useRef } from "react";
 import "./Login.css";
 import axios from "axios";
 import { URL } from "../../App";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login(){
     const navigate=useNavigate();
@@ -50,9 +50,11 @@ export default function Login(){
                     <button class="h-[4.3518518518519vh] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
                         Submit
                     </button>
+                    <Link to={"/application"}>
                     <button class="mb-[4.443vh] h-[4.3518518518519vh] my-1 rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-white border-2 border-[#e0e0e0] text-[#e0e0e0] font-bold uppercase">
                         Apply for free
                     </button>
+                    </Link>
                     
                 </div>
             </form>
