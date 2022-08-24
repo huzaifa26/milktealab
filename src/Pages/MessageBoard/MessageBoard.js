@@ -1,4 +1,4 @@
-import { useState,useEffect, useRef } from "react";
+import { useState,useEffect, useRef, useCallback } from "react";
 import axios from "axios";
 import { URL } from "../../App";
 import "./MessageBoard.css";
@@ -9,7 +9,7 @@ import { async } from "@firebase/util";
 export default function MessageBoard(props){
     const scrollRef=useRef();
 
-    const socket=useRef();
+    // const socket=useRef();
     const [users,setUsers]=useState([]);
     const [user,setUser]=useState([]);
     const [conversation,setConversation]=useState([]);
@@ -21,27 +21,27 @@ export default function MessageBoard(props){
     let logUser=localStorage.getItem("user");
     logUser=JSON.parse(logUser);
 
-    useEffect(() => {
-        socket.current=io("ws://localhost:8900");
-        socket.current.on("getMessage", (data) => {
-            setArriavalMessage({
-            sender: data.senderId,
-            message: data.text,
-            createdTime: Date.now(),
-          });
-        });
-      }, []);
+    // useEffect(() => {
+    //     socket.current=io("ws://localhost:8900");
+    //     socket.current.on("getMessage", (data) => {
+    //         setArriavalMessage({
+    //         sender: data.senderId,
+    //         message: data.text,
+    //         createdTime: Date.now(),
+    //       });
+    //     });
+    //   }, []);
 
     useEffect(()=>{
-        arriavalMessage && (currentChat && currentChat[1]?.id === arriavalMessage.sender) && setMessage(prev=>[...prev,arriavalMessage]);
+        arriavalMessage && (currentChat && currentChat[1]?.id === arriavalMessage?.sender) && setMessage(prev=>[...prev,arriavalMessage]);
     },[arriavalMessage, currentChat])
 
-    useEffect(()=>{
-        socket.current.emit("addUser",logUser?.id);
-        socket.current.on("getUsers",(users)=>{
-            // console.log(users);
-        });
-    },[logUser])
+    // useEffect(()=>{
+    //     socket.current.emit("addUser",logUser?.id);
+    //     socket.current.on("getUsers",(users)=>{
+    //         // console.log(users);
+    //     });
+    // },[logUser])
 
     useEffect(()=>{
         axios.get(URL+"/user").then((res)=>{
@@ -53,15 +53,7 @@ export default function MessageBoard(props){
     },[])
 
     const [fetchConvo,setFecthConvo]=useState(false);
-    useEffect(()=>{
-        console.log(logUser.id);
-        axios.get(URL+"/conversation/"+logUser.id).then((res)=>{
-            setConversation(res.data.res);
-            console.log(res.data.res);
-        }).catch(err=>{
-            console.log(err);
-        })
-    },[logUser?.id,fetchConvo])
+
 
     useEffect(()=>{
         scrollRef.current?.scrollIntoView({behavior:"smooth"});
@@ -92,11 +84,11 @@ export default function MessageBoard(props){
 
         let id2=currentChat && currentChat[1]?.id;
 
-        await socket.current.emit("sendMessage",{
-            senderId:logUser.id,
-            recieverId:id2,
-            text:newMessage
-        })
+        // await socket.current.emit("sendMessage",{
+        //     senderId:logUser.id,
+        //     recieverId:id2,
+        //     text:newMessage
+        // })
 
         axios.post(URL+"/message",newMessageData).then((res)=>{
             newMessageData.id=res.data.res.insertedId;
@@ -107,7 +99,7 @@ export default function MessageBoard(props){
         })
     }
 
-    const createNewConversation=(e)=>{
+    const createNewConversation=useCallback((e)=>{
         let bool=false
         conversation?.forEach(chat => {
             if(+e.target.value === +chat[1].id){
@@ -132,7 +124,17 @@ export default function MessageBoard(props){
         }).catch((err)=>{
             console.log(err);
         })
-    }
+    },[])
+
+    useEffect(()=>{
+        console.log(logUser.id);
+        axios.get(URL+"/conversation/"+logUser.id).then((res)=>{
+            setConversation(res.data.res);
+            console.log(res.data.res);
+        }).catch(err=>{
+            console.log(err);
+        })
+    },[logUser?.id,createNewConversation])
 
     return(
     <div className="w-[100%] h-[100%] pt-[20px]">
