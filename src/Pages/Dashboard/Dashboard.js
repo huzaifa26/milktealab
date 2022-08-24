@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { URL } from "../../App";
 import PropgressModal from "./PropgressModal";
 
+
 export default function Dashboard(props){
     let user;
     user=localStorage.getItem("user");
@@ -10,6 +11,7 @@ export default function Dashboard(props){
 
     const [users,setUsers]=useState([]);
     const [managers,setManagers]=useState([]);
+    const [userId,setUserId]=useState(null);
 
     const [showModal,setShowModal]=useState(false);
     const showModalHandler=()=>{
@@ -70,7 +72,7 @@ export default function Dashboard(props){
     return(
         <>
         {showModal &&
-            <PropgressModal hideModalHandler={hideModalHandler}></PropgressModal>
+            <PropgressModal userId={userId} hideModalHandler={hideModalHandler}></PropgressModal>
         }
         <div className="w-[100%] h-[100%]">
         <div className="w-[91%] m-auto">
@@ -100,7 +102,7 @@ export default function Dashboard(props){
                                     <option value={"member"} selected={u.role === "member"?true:false}>Member</option>
                                 </select>
                             </td>
-                            <td className="flex-1"><button onClick={showModalHandler} className="bg-[#36c0f8] text-white h-[2.26vh] min-h-[30px] rounded-full w-[8vw]">Check Status</button></td>
+                            <td className="flex-1"><button onClick={()=>{showModalHandler();setUserId(u.id)}} className="bg-[#36c0f8] text-white h-[2.26vh] min-h-[30px] rounded-full w-[8vw]">Check Status</button></td>
                             <td className="flex-1"><button className="bg-[#36f87a] text-white h-[2.26vh] min-h-[30px] rounded-full w-[10vw]">Check Message</button></td>
 
                             <td className="flex-1">

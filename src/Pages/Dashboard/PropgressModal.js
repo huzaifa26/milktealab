@@ -1,7 +1,46 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { URL } from "../../App";
+
 export default function PropgressModal(props){
     const hideModal=()=>{
         props.hideModalHandler()
     }
+
+
+    const [result,setResult]=useState([]);
+
+    useEffect(()=>{
+        let userId=props?.userId;
+        axios.get(URL+"/result/"+userId).then((res)=>{
+            console.log(res.data.res)
+            setResult(res.data.res);
+        }).catch(err=>{
+            console.log(err);
+        })
+    },[])
+
+    const [examData,setExamData]=useState([])
+
+    useEffect(()=>{
+        axios.get(URL+"/exam").then((res)=>{
+            setExamData(res.data.res);
+            console.log(res);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },[])
+
+    const [trainingData,setTrainingData]=useState([]);
+
+    useEffect(()=>{
+        axios.get(URL+"/training").then((res)=>{
+            setTrainingData(res.data.res);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },[])
+
     return(
         <>
         <div className="w-[calc(100vw)] h-[100vh] fixed top-[calc(0%)] left-[calc(0%)] bg-black opacity-30">
@@ -21,101 +60,25 @@ export default function PropgressModal(props){
                                 </tr>
                             </thead>
                             <tbody >
-                            <tr className="flex my-[20px] justify-between">
-                                <td className="flex-1 flex gap-[10px]">
-                                    <div className="w-[50px] h-[50px] bg-slate-400 rounded-full"></div>
-                                    <div className="flex flex-col">
-                                        <h3>Chapter 1</h3>
-                                        <p>Introduction to Milk Tea Lab</p>
-                                    </div>
-                                </td>
-                                <td className="flex-1 flex flex-col">
-                                    <h2 className="text-blue-400 w-[100px] text-center">33%</h2>
-                                    <div className="w-[100px] h-[3px] bg-gray-200">
-                                        <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr className="flex my-[20px] justify-between">
-                                    <td className="flex-1 flex gap-[10px]">
-                                        <div className="w-[50px] h-[50px] bg-slate-400 rounded-full"></div>
-                                        <div className="flex flex-col">
-                                            <h3>Chapter 1</h3>
-                                            <p>Introduction to Milk Tea Lab</p>
-                                        </div>
-                                    </td>
-                                    <td className="flex-1 flex flex-col">
-                                        <h2 className="text-blue-400 w-[100px] text-center">33%</h2>
-                                        <div className="w-[100px] h-[3px] bg-gray-200">
-                                            <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-
+                            {trainingData.length> 0 ?trainingData.map((t)=>{
+                                return(
                                 <tr className="flex my-[20px] justify-between">
-                                    <td className="flex-1 flex gap-[10px]">
-                                        <div className="w-[50px] h-[50px] bg-slate-400 rounded-full"></div>
-                                        <div className="flex flex-col">
-                                            <h3>Chapter 1</h3>
-                                            <p>Introduction to Milk Tea Lab</p>
+                                    <td className="cursor-pointer flex gap-[10px]">
+                                        <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
+                                        <div  className="flex flex-col">
+                                            <h3>{t.title}</h3>
+                                            <p>{t.description}</p>
                                         </div>
                                     </td>
-                                    <td className="flex-1 flex flex-col">
-                                        <h2 className="text-blue-400 w-[100px] text-center">33%</h2>
-                                        <div className="w-[100px] h-[3px] bg-gray-200">
+                                    <td className=" flex flex-col">
+                                        <h2 className="text-blue-400 w-[11.42vw] text-center">33%</h2>
+                                        <div className="w-[11.42vw] h-[3px] bg-gray-200">
                                             <div className="w-[33%] h-[100%] bg-blue-400"></div>
                                         </div>
                                     </td>
                                 </tr>
-
-                                <tr className="flex my-[20px] justify-between">
-                                    <td className="flex-1 flex gap-[10px]">
-                                        <div className="w-[50px] h-[50px] bg-slate-400 rounded-full"></div>
-                                        <div className="flex flex-col">
-                                            <h3>Chapter 1</h3>
-                                            <p>Introduction to Milk Tea Lab</p>
-                                        </div>
-                                    </td>
-                                    <td className="flex-1 flex flex-col">
-                                        <h2 className="text-blue-400 w-[100px] text-center">33%</h2>
-                                        <div className="w-[100px] h-[3px] bg-gray-200">
-                                            <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr className="flex my-[20px] justify-between">
-                                    <td className="flex-1 flex gap-[10px]">
-                                        <div className="w-[50px] h-[50px] bg-slate-400 rounded-full"></div>
-                                        <div className="flex flex-col">
-                                            <h3>Chapter 1</h3>
-                                            <p>Introduction to Milk Tea Lab</p>
-                                        </div>
-                                    </td>
-                                    <td className="flex-1 flex flex-col">
-                                        <h2 className="text-blue-400 w-[100px] text-center">33%</h2>
-                                        <div className="w-[100px] h-[3px] bg-gray-200">
-                                            <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr className="flex my-[20px] justify-between">
-                                    <td className="flex-1 flex gap-[10px]">
-                                        <div className="w-[50px] h-[50px] bg-slate-400 rounded-full"></div>
-                                        <div className="flex flex-col">
-                                            <h3>Chapter 1</h3>
-                                            <p>Introduction to Milk Tea Lab</p>
-                                        </div>
-                                    </td>
-                                    <td className="flex-1 flex flex-col">
-                                        <h2 className="text-blue-400 w-[100px] text-center">33%</h2>
-                                        <div className="w-[100px] h-[3px] bg-gray-200">
-                                            <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                )
+                            }):trainingData.length===0?<h2>No Videos.</h2>:<h2>Loading Videos</h2>}
                             </tbody>
                         </table>
                     </div>
@@ -132,158 +95,53 @@ export default function PropgressModal(props){
                                 </tr>
                             </thead>
                             <tbody>
+                            {examData.map((e)=>{return(
                                 <tr className="flex my-[20px] justify-between">
-                                    <td className="flex-1 flex gap-[10px]">
-                                        <div className="w-[50px] h-[50px] bg-slate-400 rounded-full"></div>
+                                    <td className="cursor-pointer flex gap-[10px]">
+                                        <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
                                         <div className="flex flex-col">
-                                            <h3>Drinking Exam</h3>
-                                            <p>Basic Knowledge of our drinks.</p>
+                                            <h3>{e.title}</h3>
+                                            <p>{e.description}</p>
                                         </div>
                                     </td>
-                                    <td className="flex-1 flex flex-col text-blue-400">
-                                    <h2 className="w-[100px] text-center">Finished</h2>
-
-                                        <div className="w-[100px] h-[3px] bg-gray-200">
+                                    <td className="flex flex-col text-blue-400">
+                                    <h2 className="w-[11.42vw] text-center">Finished</h2>
+                                        <div className="w-[11.42vw] h-[3px] bg-gray-200">
                                             <div className="w-[33%] h-[100%] bg-blue-400"></div>
                                         </div>
                                     </td>
                                 </tr>
-
-                                <tr className="flex my-[20px] justify-between">
-                                    <td className="flex-1 flex gap-[10px]">
-                                        <div className="w-[50px] h-[50px] bg-slate-400 rounded-full"></div>
-                                        <div className="flex flex-col">
-                                            <h3>Drinking Exam</h3>
-                                            <p>Basic Knowledge of our drinks.</p>
-                                        </div>
-                                    </td>
-                                    <td className="flex-1 flex flex-col text-blue-400">
-                                    <h2 className="w-[100px] text-center">Finished</h2>
-
-                                        <div className="w-[100px] h-[3px] bg-gray-200">
-                                            <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr className="flex my-[20px] justify-between">
-                                    <td className="flex-1 flex gap-[10px]">
-                                        <div className="w-[50px] h-[50px] bg-slate-400 rounded-full"></div>
-                                        <div className="flex flex-col">
-                                            <h3>Drinking Exam</h3>
-                                            <p>Basic Knowledge of our drinks.</p>
-                                        </div>
-                                    </td>
-                                    <td className="flex-1 flex flex-col text-blue-400">
-                                    <h2 className="w-[100px] text-center">Finished</h2>
-
-                                        <div className="w-[100px] h-[3px] bg-gray-200">
-                                            <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr className="flex my-[20px] justify-between">
-                                    <td className="flex-1 flex gap-[10px]">
-                                        <div className="w-[50px] h-[50px] bg-slate-400 rounded-full"></div>
-                                        <div className="flex flex-col">
-                                            <h3>Drinking Exam</h3>
-                                            <p>Basic Knowledge of our drinks.</p>
-                                        </div>
-                                    </td>
-                                    <td className="flex-1 flex flex-col text-blue-400">
-                                    <h2 className="w-[100px] text-center">Finished</h2>
-                                        <div className="w-[100px] h-[3px] bg-gray-200">
-                                            <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr className="flex my-[20px] justify-between">
-                                    <td className="flex-1 flex gap-[10px]">
-                                        <div className="w-[50px] h-[50px] bg-slate-400 rounded-full"></div>
-                                        <div className="flex flex-col">
-                                            <h3>Drinking Exam</h3>
-                                            <p>Basic Knowledge of our drinks.</p>
-                                        </div>
-                                    </td>
-                                    <td className="flex-1 flex flex-col text-blue-400">
-                                    <h2 className="w-[100px] text-center">Finished</h2>
-                                        <div className="w-[100px] h-[3px] bg-gray-200">
-                                            <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr className="flex my-[20px] justify-between">
-                                    <td className="flex-1 flex gap-[10px]">
-                                        <div className="w-[50px] h-[50px] bg-slate-400 rounded-full"></div>
-                                        <div className="flex flex-col">
-                                            <h3>Drinking Exam</h3>
-                                            <p>Basic Knowledge of our drinks.</p>
-                                        </div>
-                                    </td>
-                                    <td className="flex-1 flex flex-col text-blue-400">
-                                        <h2 className="w-[100px] text-center">Finished</h2>
-                                        <div className="w-[100px] h-[3px] bg-gray-200">
-                                            <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                )})}
                             </tbody>
-                        </table>
-                        </div>
+                </table>
+                </div>
 
+                <div className="pb-[100px]">
+                    <table class="table-auto w-[90%] ml-[30px] mt-[30px]">
+                        <thead>
+                            <tr className="flex border-b-[2px] justify-between">
+                                <th className="text-left">Exam Title</th>
+                                <th className=" text-center w-[11.49vw]">Your score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {result.length !== 0 ? result.map((r)=>{return(
+                                <tr className="flex my-[20px] justify-between">
+                                    <td className="flex gap-[10px]">
+                                        <div className="flex flex-col">
+                                            <h3>{r.exam.title}</h3>
+                                        </div>
+                                    </td>
+                                    <td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
+                                        <img className="w-[1.07vw]" src={r.result>79?"/images/tick-g.png":r.result<79?"/images/x-mark-b.png":r.attemptedQuestions!==r.totalquestion?"/images/x-mark-r.png":""}/>
+                                        <h2 className=" text-center">{r.result}%</h2>
+                                    </td>
+                                </tr>
+                            )}):result.length === 0?<h2>No Record to show.</h2>:<h2>Fetching Record.</h2>}
 
-
-                        <div className="pb-[100px]">
-                            <table class="table-auto w-[90%] ml-[30px] mt-[30px]">
-                                <thead>
-                                    <tr className="flex border-b-[2px] justify-between">
-                                        <th className="text-left">Exam Title</th>
-                                        <th className=" text-center w-[11.49vw]">Your score</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr className="flex my-[20px] justify-between">
-                                        <td className="flex gap-[10px]">
-                                            <div className="flex flex-col">
-                                                <h3>Drinking Exam</h3>
-                                            </div>
-                                        </td>
-                                        <td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
-                                            <img className="w-[1.07vw]" src="/images/tick-g.png"/>
-                                            <h2 className=" text-center">98%</h2>
-                                        </td>
-                                    </tr>
-
-                                    <tr className="flex my-[20px] justify-between">
-                                        <td className="flex gap-[10px]">
-                                            <div className="flex flex-col">
-                                                <h3>Drinking Exam</h3>
-                                            </div>
-                                        </td>
-                                        <td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
-                                            <img className="w-[1.07vw]" src="/images/x-mark-b.png"/>
-                                            <h2 className=" text-center">79%</h2>
-                                        </td>
-                                    </tr>
-
-                                    <tr className="flex my-[20px] justify-between">
-                                        <td className="flex gap-[10px]">
-                                            <div className="flex flex-col">
-                                                <h3>Drinking Exam</h3>
-                                            </div>
-                                        </td>
-                                        <td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
-                                            <img className="w-[1.07vw]" src="/images/x-mark-r.png"/>
-                                            <h2 className="ext-center">Not Finished</h2>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
+                        </tbody>
+                    </table>
+                </div>
 
 
 

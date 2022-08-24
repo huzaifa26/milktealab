@@ -164,32 +164,6 @@ export default function Exam(props){
                                 </td>
                             </tr>
                         )})}
-                        
-
-                        <tr className="flex my-[20px] justify-between">
-                            <td className="flex gap-[10px]">
-                                <div className="flex flex-col">
-                                    <h3>Drinking Exam</h3>
-                                </div>
-                            </td>
-                            <td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
-                                <img className="w-[1.07vw]" src="/images/x-mark-b.png"/>
-                                <h2 className=" text-center">79%</h2>
-                            </td>
-                        </tr>
-
-                        <tr className="flex my-[20px] justify-between">
-                            <td className="flex gap-[10px]">
-                                <div className="flex flex-col">
-                                    <h3>Drinking Exam</h3>
-                                </div>
-                            </td>
-                            <td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
-                                <img className="w-[1.07vw]" src="/images/x-mark-r.png"/>
-                                <h2 className="ext-center">Not Finished</h2>
-                            </td>
-                        </tr>
-
                     </tbody>
                 </table>
             </div>
