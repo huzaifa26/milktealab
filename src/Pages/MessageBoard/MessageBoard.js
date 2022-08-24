@@ -183,8 +183,8 @@ export default function MessageBoard(props){
                         <div className="flex my-[20px] self-end w-[100%] py-[10px] px-[10px] bg-[#f4f5f5] rounded-[10px]">
                             <textarea onChange={(e)=>setNewMessage(e.target.value)} value={newMessage} rows={"3"} placeholder="Type your message here" className="flex-1 bg-transparent flex py-[10px] "></textarea>
                             <div className="flex flex-col justify-around items-center py-[2vh]">
-                                <img className="cursor-pointer self-center w-[1.17vw] min-w-[25px]" src="/images/UploadFile.png"></img>
-                                <img onClick={handlesubmit} className="cursor-pointer w-[1.17vw] min-w-[25px]" src="/images/send.png"></img>
+                                <img className="cursor-pointer self-center w-[1.17vw] min-w-[25px]" src="./images/UploadFile.png"></img>
+                                <img onClick={handlesubmit} className="cursor-pointer w-[1.17vw] min-w-[25px]" src="./images/send.png"></img>
                             </div>
                         </div>
                     </div>

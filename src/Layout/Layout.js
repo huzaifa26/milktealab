@@ -91,68 +91,68 @@ export default function Layout(props){
                         <div class="flex flex-col w-full mx-auto">
                             {/* Side */}
                             <div class="flex w-[100%] justify-center items-center mt-[1.45vw] mb-[2.2vw]">
-                                <img className="w-[13.354vw]" src="/images/Logo.png" alt=""></img>
+                                <img className="w-[13.354vw]" src="./images/Logo.png" alt=""></img>
                             </div>
                             <div class="w-full h-full flex text-gray-900">
                                 <ul className="w-[100%]">
                                     <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/announcement"}>
                                         <li className="flex items-center gap-[8px] w-[100%] h-[60px]">
-                                            <img className="w-[1.51vw] h-[2.96vh]" src="/images/megaphone.png"></img>
+                                            <img className="w-[1.51vw] h-[2.96vh]" src="./images/megaphone.png"></img>
                                             <h2>Announcement</h2>
                                         </li>
                                     </NavLink>
 
                                     <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/#"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
-                                            <img className="w-[1.51vw] h-[2.96vh]" src="/images/megaphone.png"></img>
+                                            <img className="w-[1.51vw] h-[2.96vh]" src="./images/megaphone.png"></img>
                                             <h2>Inventory Order</h2>
                                         </li>
                                     </NavLink>
 
                                     <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/download-material"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
-                                            <img className="w-[1.51vw] h-[2.96vh]" src="/images/megaphone.png"></img>
+                                            <img className="w-[1.51vw] h-[2.96vh]" src="./images/megaphone.png"></img>
                                             <h2>Download Materials</h2>
                                         </li>
                                     </NavLink>
 
                                     <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/training"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
-                                            <img className="w-[1.51vw] h-[2.96vh]" src="/images/megaphone.png"></img>
+                                            <img className="w-[1.51vw] h-[2.96vh]" src="./images/megaphone.png"></img>
                                             <h2>Training Videos</h2>
                                         </li>
                                     </NavLink>
 
                                     <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/exam"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
-                                            <img className="w-[1.51vw] h-[2.96vh]" src="/images/megaphone.png"></img>
+                                            <img className="w-[1.51vw] h-[2.96vh]" src="./images/megaphone.png"></img>
                                             <h2>Franchise Training Exam</h2>
                                         </li>
                                     </NavLink>
 
                                     <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/dashboard"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
-                                            <img className="w-[1.51vw] h-[2.96vh]" src="/images/megaphone.png"></img>
+                                            <img className="w-[1.51vw] h-[2.96vh]" src="./images/megaphone.png"></img>
                                             <h2>Dashboard</h2>
                                         </li>
                                     </NavLink>
                                     <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/message-board"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
-                                            <img className="w-[1.51vw] h-[2.96vh]" src="/images/megaphone.png"></img>
+                                            <img className="w-[1.51vw] h-[2.96vh]" src="./images/megaphone.png"></img>
                                             <h2>Message Board</h2>
                                         </li>
                                     </NavLink>
 
                                     <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/futuredashboard"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
-                                            <img className="w-[1.51vw] h-[2.96vh]" src="/images/megaphone.png"></img>
+                                            <img className="w-[1.51vw] h-[2.96vh]" src="./images/megaphone.png"></img>
                                             <h2>FutureDashboard</h2>
                                         </li>
                                     </NavLink>
 
                                     <NavLink className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/managerdashboard"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
-                                            <img className="w-[1.51vw] h-[2.96vh]" src="/images/megaphone.png"></img>
+                                            <img className="w-[1.51vw] h-[2.96vh]" src="./images/megaphone.png"></img>
                                             <h2>managerdashboard</h2>
                                         </li>
                                     </NavLink>
@@ -173,13 +173,13 @@ export default function Layout(props){
                                         <input className="bg-[#e2e2e2] h-[5.19vh] w-[13.59vw] text-[clamp(14px,0.58vw,24px)] rounded-full indent-[10px]" type="text" placeholder="Search Member's name"></input>
                                         <div className="flex flex-col justify-center items-center">
                                             <div className="flex gap-[10px] items-center">
-                                                <div className="w-[1.87vw] rounded-full"><img src="/images/user-mock.png" alt=""></img></div>
+                                                <div className="w-[1.87vw] rounded-full"><img src="./images/user-mock.png" alt=""></img></div>
                                                 <div className="flex flex-col">
                                                     <h2>{user.userName}</h2>
                                                     <p className="text-[14px] text-[#A4A5AD]">{user.role}</p>
                                                 </div>
                                                 <div className="rotate-180">
-                                                    <img className="cursor-pointer" ref={imgRef} onClick={arrowOnClickHandler} src="/images/arrow.png" alt=""></img>
+                                                    <img className="cursor-pointer" ref={imgRef} onClick={arrowOnClickHandler} src="./images/arrow.png" alt=""></img>
                                                 </div>
                                             </div>
                                             <div ref={dropdownRef} className="bg-white hidden divide-y-2 absolute z-[100] top-[10%] shadow-md w-[10vw]">

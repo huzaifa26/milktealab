@@ -62,7 +62,7 @@ export default function Training(props){
                         return(
                         <tr className="flex my-[20px] justify-between">
                             <td onClick={()=>{setsingleTrainingData(t);setVideoModal(true);}} className="cursor-pointer flex gap-[10px]">
-                                <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
+                                <div className="w-[50px] h-[50px] rounded-full"><img src="./images/play.png"></img></div>
                                 <div  className="flex flex-col">
                                     <h3>{t.title}</h3>
                                     <p>{t.description}</p>

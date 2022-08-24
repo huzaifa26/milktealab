@@ -24,7 +24,7 @@ export default function ShowVideoModal(props){
             <div className="w-[calc(100vw)]  h-[100vh] absolute z-40 top-[calc(0%-121.44px)] left-[calc(0%-17.547584187408493vw)]">
                 <div className="shadow-md max-h-[70.95625942684767vh] max-w-[60vw] overflow-x-hidden  flex flex-col opacity-100 relative z-50 bg-white top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-[30px]">
                     <div>
-                        <img onClick={hideModal} src="/images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[5%] text-gray-300"/>
+                        <img onClick={hideModal} src="./images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[5%] text-gray-300"/>
                         <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[2.5%]">Add Training Videos</div>
                     </div>
                     <ReactPlayer 

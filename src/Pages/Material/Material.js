@@ -78,7 +78,7 @@ export default function Material(props){
                         return(
                         <tr className="flex my-[20px] justify-between">
                             <td className=" flex gap-[10px]">
-                                <div className="w-[50px] h-[50px] rounded-full"><img src="/images/download.png"></img></div>
+                                <div className="w-[50px] h-[50px] rounded-full"><img src="./images/download.png"></img></div>
                                 <div className="flex flex-col">
                                     <a className="font-bold" href={m.file}>
                                         <h3 className="font-bold">{m.title}</h3>

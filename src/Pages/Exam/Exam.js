@@ -116,7 +116,7 @@ export default function Exam(props){
                     {examData.map((e)=>{return(
                         <tr className="flex my-[20px] justify-between">
                             <td onClick={()=>examonClickhanlder(e)} className="cursor-pointer flex gap-[10px]">
-                                <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
+                                <div className="w-[50px] h-[50px] rounded-full"><img src="./images/play.png"></img></div>
                                 <div className="flex flex-col">
                                     <h3>{e.title}</h3>
                                     <p>{e.description}</p>
@@ -159,7 +159,7 @@ export default function Exam(props){
                                     </div>
                                 </td>
                                 <td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
-                                    <img className="w-[1.07vw]" src={r.result>79?"/images/tick-g.png":r.result<79?"/images/x-mark-b.png":r.attemptedQuestions!==r.totalquestion?"/images/x-mark-r.png":""}/>
+                                    <img className="w-[1.07vw]" src={r.result>79?"./images/tick-g.png":r.result<79?"./images/x-mark-b.png":r.attemptedQuestions!==r.totalquestion?"./images/x-mark-r.png":""}/>
                                     <h2 className=" text-center">{r.result}%</h2>
                                 </td>
                             </tr>

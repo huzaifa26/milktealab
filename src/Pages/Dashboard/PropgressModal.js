@@ -48,7 +48,7 @@ export default function PropgressModal(props){
         <div className="w-[calc(100vw)] h-[100vh] fixed z-40 top-[calc(0%)] left-[calc(0%)]">
             
             <div className="w-[61vw] shadow-md h-[51.45vh] min-h-[82.95625942684767vh] min-w-[91.50805270863836vw] overflow-x-hidden  flex flex-col opacity-100 relative z-50 bg-white top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-[30px]">
-                <img onClick={hideModal} src="/images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[5%] text-gray-300"/>
+                <img onClick={hideModal} src="./images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[5%] text-gray-300"/>
                 <div className="text-center bg-[#f4f5f5] min-h-[15%] pt-[2.5%]">Progress</div>
                 <div className="flex w-[100%]">
                     <div className="flex-1">
@@ -64,7 +64,7 @@ export default function PropgressModal(props){
                                 return(
                                 <tr className="flex my-[20px] justify-between">
                                     <td className="cursor-pointer flex gap-[10px]">
-                                        <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
+                                        <div className="w-[50px] h-[50px] rounded-full"><img src="./images/play.png"></img></div>
                                         <div  className="flex flex-col">
                                             <h3>{t.title}</h3>
                                             <p>{t.description}</p>
@@ -98,7 +98,7 @@ export default function PropgressModal(props){
                             {examData.map((e)=>{return(
                                 <tr className="flex my-[20px] justify-between">
                                     <td className="cursor-pointer flex gap-[10px]">
-                                        <div className="w-[50px] h-[50px] rounded-full"><img src="/images/play.png"></img></div>
+                                        <div className="w-[50px] h-[50px] rounded-full"><img src="./images/play.png"></img></div>
                                         <div className="flex flex-col">
                                             <h3>{e.title}</h3>
                                             <p>{e.description}</p>
@@ -133,7 +133,7 @@ export default function PropgressModal(props){
                                         </div>
                                     </td>
                                     <td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
-                                        <img className="w-[1.07vw]" src={r.result>79?"/images/tick-g.png":r.result<79?"/images/x-mark-b.png":r.attemptedQuestions!==r.totalquestion?"/images/x-mark-r.png":""}/>
+                                        <img className="w-[1.07vw]" src={r.result>79?"./images/tick-g.png":r.result<79?"./images/x-mark-b.png":r.attemptedQuestions!==r.totalquestion?"./images/x-mark-r.png":""}/>
                                         <h2 className=" text-center">{r.result}%</h2>
                                     </td>
                                 </tr>

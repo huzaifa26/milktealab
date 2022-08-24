@@ -43,7 +43,7 @@ export default function Application(props){
 
     return(
         <div className="w-[calc(100vw - 100%)] h-[100vh]">
-            <img className="w-[13.354vw] absolute top-[-4%] left-[5%]" src="/images/Logo.png" alt=""></img>
+            <img className="w-[13.354vw] absolute top-[-4%] left-[5%]" src="./images/Logo.png" alt=""></img>
             <div>
                 <h1 className="text-center text-[clamp(32px,2vw,82px)] font-bold my-[100px]">Application</h1>
 
