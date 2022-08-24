@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.c6106aa0.css",
-    "main.js": "/static/js/main.546cb0ab.js",
-    "static/media/Visby Round CF Heavy.ttf": "/static/media/Visby Round CF Heavy.76e50e5a30981aeb7ba8.ttf",
-    "static/media/Visby Round CF Bold.ttf": "/static/media/Visby Round CF Bold.fd8f29e6fe48ba27bd76.ttf",
-    "static/media/VAG Round.ttf": "/static/media/VAG Round.33feebb1b7c0e00826d4.ttf",
-    "index.html": "/index.html",
-    "main.c6106aa0.css.map": "/static/css/main.c6106aa0.css.map",
-    "main.546cb0ab.js.map": "/static/js/main.546cb0ab.js.map"
+    "main.css": "/milktealab/static/css/main.228c2e47.css",
+    "main.js": "/milktealab/static/js/main.af9b125d.js",
+    "static/media/Visby Round CF Heavy.ttf": "/milktealab/static/media/Visby Round CF Heavy.76e50e5a30981aeb7ba8.ttf",
+    "static/media/Visby Round CF Bold.ttf": "/milktealab/static/media/Visby Round CF Bold.fd8f29e6fe48ba27bd76.ttf",
+    "static/media/VAG Round.ttf": "/milktealab/static/media/VAG Round.33feebb1b7c0e00826d4.ttf",
+    "index.html": "/milktealab/index.html",
+    "main.228c2e47.css.map": "/milktealab/static/css/main.228c2e47.css.map",
+    "main.af9b125d.js.map": "/milktealab/static/js/main.af9b125d.js.map"
   },
   "entrypoints": [
-    "static/css/main.c6106aa0.css",
-    "static/js/main.546cb0ab.js"
+    "static/css/main.228c2e47.css",
+    "static/js/main.af9b125d.js"
   ]
 }
