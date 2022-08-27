@@ -9,7 +9,7 @@ import { async } from "@firebase/util";
 export default function MessageBoard(props){
     const scrollRef=useRef();
 
-    // const socket=useRef();
+    const socket=useRef();
     const [users,setUsers]=useState([]);
     const [user,setUser]=useState([]);
     const [conversation,setConversation]=useState([]);
@@ -21,27 +21,27 @@ export default function MessageBoard(props){
     let logUser=localStorage.getItem("user");
     logUser=JSON.parse(logUser);
 
-    // useEffect(() => {
-    //     socket.current=io("ws://localhost:8900");
-    //     socket.current.on("getMessage", (data) => {
-    //         setArriavalMessage({
-    //         sender: data.senderId,
-    //         message: data.text,
-    //         createdTime: Date.now(),
-    //       });
-    //     });
-    //   }, []);
+    useEffect(() => {
+        socket.current=io("ws://localhost:5000");
+        socket.current.on("getMessage", (data) => {
+            setArriavalMessage({
+            sender: data.senderId,
+            message: data.text,
+            createdTime: Date.now(),
+          });
+        });
+      }, []);
 
     useEffect(()=>{
         arriavalMessage && (currentChat && currentChat[1]?.id === arriavalMessage?.sender) && setMessage(prev=>[...prev,arriavalMessage]);
     },[arriavalMessage, currentChat])
 
-    // useEffect(()=>{
-    //     socket.current.emit("addUser",logUser?.id);
-    //     socket.current.on("getUsers",(users)=>{
-    //         // console.log(users);
-    //     });
-    // },[logUser])
+    useEffect(()=>{
+        socket.current.emit("addUser",logUser?.id);
+        socket.current.on("getUsers",(users)=>{
+            // console.log(users);
+        });
+    },[logUser])
 
     useEffect(()=>{
         axios.get(URL+"/user").then((res)=>{
@@ -84,11 +84,11 @@ export default function MessageBoard(props){
 
         let id2=currentChat && currentChat[1]?.id;
 
-        // await socket.current.emit("sendMessage",{
-        //     senderId:logUser.id,
-        //     recieverId:id2,
-        //     text:newMessage
-        // })
+        await socket.current.emit("sendMessage",{
+            senderId:logUser.id,
+            recieverId:id2,
+            text:newMessage
+        })
 
         axios.post(URL+"/message",newMessageData).then((res)=>{
             newMessageData.id=res.data.res.insertedId;
@@ -126,7 +126,7 @@ export default function MessageBoard(props){
         })
     },[])
 
-    useEffect(()=>{
+        useEffect(()=>{
         console.log(logUser.id);
         axios.get(URL+"/conversation/"+logUser.id).then((res)=>{
             setConversation(res.data.res);
@@ -152,7 +152,7 @@ export default function MessageBoard(props){
                 }
             </select>
             <div className="flex">
-                <div class="min-w-[20%] h-full flex flex-col text-gray-900  bg-gray-100">
+                <div class="w-[20%] min-w-[120px]  h-full flex flex-col text-gray-900  bg-gray-100">
                 <ul className=" w-[100%]">
                     {conversation && conversation.map((c)=>{
                         return(
@@ -165,9 +165,9 @@ export default function MessageBoard(props){
                     
                 </div>
                 {currentChat !== null ?
-                <div className="w-[73%] flex min-h-[35vw] max-h-[35vw] mb-[20px] overflow-y-scroll p-[25px] bg-[#f4fdff] rounded-[50px]">
+                <div className="xsm:w-[100%] w-[73%] flex min-h-[450px] max-h-[35vw] mb-[20px] overflow-y-scroll xsm:p-[3px] p-[25px] bg-[#f4fdff] rounded-[50px]">
                     <div className="flex flex-col justify-between flex-1">
-                        <div className="flex flex-col">
+                        <div className="flex xsm:min-w-[100%] flex-col">
                         {message && message.map((m)=>{
                             let own=false;
                             if (m.sId === logUser.id){

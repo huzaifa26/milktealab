@@ -24,8 +24,8 @@ import AttemptExam from "./Pages/Exam/AttemptExam";
 import { useEffect } from "react";
 
 // export const URL="http://localhost:5000/api";
-// export const URL="https://milktealab.herokuapp.com/api";
-export const URL="https://7467-182-177-132-61.eu.ngrok.io/api";
+export const URL="https://milktealab.herokuapp.com/api";
+// export const URL="https://5ed6-182-177-246-36.eu.ngrok.io/api";
 
 
 function App() {
@@ -41,16 +41,16 @@ function App() {
         <Route path="/application" element={<Application></Application>}></Route>
           <Route path="/" element={<Login />}></Route>
           <Route path="/" element={<Protected />}>
-              {/* <Route path="/dashboard" element={
+              <Route path="/dashboard" element={
                 <Layout>
                 {
                   user?.role === "admin"?<Dashboard />:
                   user?.role === "member"?<MessageBoard />:
                   user?.role === "manager"?<ManagerDashboard />:
-                  user?.role === "frachisee"?<FutureDashboard />:null}
+                  user?.role === "franchisee"?<FutureDashboard />:null}
                 </Layout>}>
 
-              </Route> */}
+              </Route>
               <Route path="/dashboard" element={<Layout><Dashboard /></Layout>}></Route>
               <Route path="/futuredashboard" element={<Layout><FutureDashboard /></Layout>}></Route>
               <Route path="/managerdashboard" element={<Layout><ManagerDashboard /></Layout>}></Route>

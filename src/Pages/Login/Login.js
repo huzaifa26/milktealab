@@ -3,6 +3,7 @@ import "./Login.css";
 import axios from "axios";
 import { URL } from "../../App";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Login(){
     const navigate=useNavigate();
@@ -20,7 +21,7 @@ export default function Login(){
             delete user.pass
             localStorage.setItem('user',JSON.stringify(user));
             navigate("/dashboard");
-            console.log(localStorage.getItem("user"))
+            toast("Login Successful")
         }).catch((err)=>{
             console.log(err);
         })
@@ -28,7 +29,7 @@ export default function Login(){
 
     return (
     <div class='bg-white h-screen w-screen flex justify-center items-center'>
-        <div class="px-6 py-3 rounded shadow-md w-[21.216vw]">
+        <div class="px-6 py-3 rounded min-w-[300px] shadow-lg w-[21.216vw]">
             <div class="flex flex-col items-center justify-center mt-[4.271vh] mb-4">
                 <h2 class="text-[clamp(32px,1.978vw,81px)] font-bold">Login</h2>
             </div>
@@ -47,13 +48,13 @@ export default function Login(){
                         <label className="flex items-center justify-center text-[clamp(12px,0.659vw,27px)] text-[#000] font-semibold"><input type={"checkbox"}/> Remember me.</label>
                         <p className="text-[clamp(12px,0.659vw,27px)] text-[#000] font-semibold">Forgot password?</p>
                     </div>
-                    <button class="h-[4.3518518518519vh] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
-                        Submit
-                    </button>
+                        <button class="h-[4.3518518518519vh] min-w-[150px] min-h-[30px] mt-[2.051vh] mb-[1.221vh] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
+                            Submit
+                        </button>
                     <Link to={"/application"}>
-                    <button class="mb-[4.443vh] h-[4.3518518518519vh] my-1 rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-white border-2 border-[#e0e0e0] text-[#e0e0e0] font-bold uppercase">
-                        Apply for free
-                    </button>
+                        <button class="mb-[4.443vh] min-w-[150px] min-h-[30px] h-[4.3518518518519vh] my-1 rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-white border-2 border-[#e0e0e0] text-[#e0e0e0] font-bold uppercase">
+                            Apply for free
+                        </button>
                     </Link>
                     
                 </div>

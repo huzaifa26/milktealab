@@ -4,6 +4,7 @@ import {storage} from "../../Components/Firebase";
 import { URL } from "../../App";
 import moment from "moment-timezone";
 import {ref,uploadBytes,getDownloadURL} from "firebase/storage"
+import { toast } from "react-toastify";
 
 export default function EditMaterialModal(props){
 
@@ -40,6 +41,8 @@ export default function EditMaterialModal(props){
                     data.file=url;
                     axios.put(URL+"/material",data).then((res)=>{
                         console.log(res);
+                        props.hideEditModalHandler()
+                        axios("File uploaded successfully");
                     }).catch((err)=>{
                         console.log(err);
                     })
@@ -52,6 +55,8 @@ export default function EditMaterialModal(props){
             console.log(data);
             axios.put(URL+"/material",data).then((res)=>{
                 console.log(res);
+                props.hideEditModalHandler()
+                toast("File uploaded successfully");
             }).catch((err)=>{
                 console.log(err);
             })
@@ -61,15 +66,15 @@ export default function EditMaterialModal(props){
 
     return(
         <>
-            <div className="w-[calc(100vw)] h-[100vh] absolute top-[calc(0%-90px)] left-[calc(0%-17.547584187408493vw)] bg-black opacity-30">
+            <div className="w-[calc(100vw)] h-[100vh] fixed top-[calc(0%)] left-[calc(0%)] bg-black opacity-30">
             </div>
 
-            <div className="w-[calc(100vw)]  h-[100vh] absolute z-40 top-[calc(0%-90px)] left-[calc(0%-17.547584187408493vw)]">
+            <div className="w-[calc(100vw)]  h-[100vh] fixed z-40 top-[calc(0%)] left-[calc(0%)]">
                 <div className="shadow-md h-[51.45vh] max-h-[70.95625942684767vh] max-w-[60vw] overflow-x-hidden  flex flex-col opacity-100 relative z-50 bg-white top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-[30px]">
                     
                     <div>
-                        <img onClick={hideModal} src="./images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[5%] text-gray-300"/>
-                        <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[2.5%]">Edit Announcement</div>
+                        <img onClick={hideModal} src="./images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[5%] text-gray-300 cursor-pointer"/>
+                        <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[2.5%]"><h2>Edit Material</h2></div>
                     </div>
                     <form ref={formRef} onSubmit={announcementFormHandler} className="flex-1 flex flex-col gap-[18px] items-center justify-center">
                         <div className="text-[1vw]">

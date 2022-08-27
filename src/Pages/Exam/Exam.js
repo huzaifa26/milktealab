@@ -44,17 +44,19 @@ export default function Exam(props){
     const hideEditQuestionModelHandler=()=>{
         setEditQuestionModel(false)
     }
+    
+    let user=localStorage.getItem(("user"));
+    user=JSON.parse(user);
 
     useEffect(()=>{
-        axios.get(URL+"/exam").then((res)=>{
+        axios.get(URL+"/exam/"+user.id).then((res)=>{
             setExamData(res.data.res);
             console.log(res);
         }).catch((err)=>{
             console.log(err);
         })
     },[addExamModel,editExamModel])
-    let user=localStorage.getItem(("user"));
-    user=JSON.parse(user);
+
 
     const examonClickhanlder=(e)=>{
         if(user.role === "admin"){
@@ -69,6 +71,7 @@ export default function Exam(props){
     useEffect(()=>{
         axios.get(URL+"/result/"+user.id).then((res)=>{
             setResult(res.data.res);
+            console.log(res.data.res)
         }).catch(err=>{
             console.log(err);
         })
@@ -94,43 +97,51 @@ export default function Exam(props){
 
                 {user.role === "admin" && 
                     <div className="flex gap-[10px]">
-                        <button onClick={showAddExamModelHandler} class="h-[4.3518518518519vh] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
+                        <button onClick={showAddExamModelHandler} class="min-w-[140px] h-[28.852777777778098px] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
                             Add Exam
                         </button>
-                        <button onClick={showAddQuestionModelHandler} class="h-[4.3518518518519vh] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
+                        <button onClick={showAddQuestionModelHandler} class="min-w-[140px] h-[28.852777777778098px] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
                             Add Question
                         </button>
                     </div>
                 }
+                <div className="overflow-x-auto">
                 
-                <table class="table-auto w-[90%] mt-[30px]">
+                <table class="min-w-[500px] table-auto w-[90%] mt-[30px]">
                     <thead>
                         <tr className="flex border-b-[2px] justify-between">
-                            <th className="text-left">Chapter Title</th>
-                            <th className="w-[11.42vw] text-center">Progress</th>
-                           {user.role === "admin" && <th className="w-[16.5vw] text-center">Actions</th>}
+                            <th className="flex-1 text-left">Chapter Title</th>
+                            {user.role === "member" &&
+                                <th className="flex-1 w-[11.42vw] text-center min-w-[155.9972px]">Progress</th>
+                            }
+                           {user.role === "admin" && <th className="flex-1 w-[16.5vw] text-center">Actions</th>}
 
                         </tr>
                     </thead>
                     <tbody>
-                    {examData.map((e)=>{return(
+                    {examData && examData.map((e)=>{
+                        let width= (e.attemptedQuestions / e.totalquestion)*100
+                        width=width+"%"
+                        return(
                         <tr className="flex my-[20px] justify-between">
-                            <td onClick={()=>examonClickhanlder(e)} className="cursor-pointer flex gap-[10px]">
+                            <td onClick={()=>examonClickhanlder(e)} className="flex-1 cursor-pointer flex gap-[10px]">
                                 <div className="w-[50px] h-[50px] rounded-full"><img src="./images/play.png"></img></div>
                                 <div className="flex flex-col">
                                     <h3>{e.title}</h3>
                                     <p>{e.description}</p>
                                 </div>
                             </td>
-                            <td className="flex flex-col text-blue-400">
-                            <h2 className="w-[11.42vw] text-center">Finished</h2>
-                                <div className="w-[11.42vw] h-[3px] bg-gray-200">
-                                    <div className="w-[33%] h-[100%] bg-blue-400"></div>
-                                </div>
-                            </td>
+                            {user.role === "member" &&
+                                <td className="flex-1  flex flex-col items-center text-blue-400">
+                                    <h2 className="w-[11.42vw] text-center">{e.totalquestion === e.attemptedQuestions?"Finished":"Not Finised"}</h2>
+                                    <div className="w-[11.42vw] min-w-[155.9972px] h-[3px] bg-gray-200">
+                                        <div style={{width}} className="h-[100%] bg-blue-400"></div>
+                                    </div>
+                                </td>
+                            }
                             {user.role === "admin" && 
-                                <td className="flex gap-[5px]">
-                                    <button onClick={()=>{setSingleExam(e);showEditExamnModelHandler(true);}} type="submit" className="bg-[#81c2ff] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Edit</button>
+                                <td className="flex-1 flex gap-[5px] justify-center">
+                                    <button onClick={()=>{setSingleExam(e);showEditExamnModelHandler(true);}} type="submit" className="bg-[#81c2ff] w-[8.25vw] h-[4.351vh] min-w-[60px] text-white font-bold rounded-full">Edit</button>
                                     {/* <button type="submit" className="bg-[#e96857] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Delete</button> */}
                                 </td>
                             }
@@ -139,11 +150,12 @@ export default function Exam(props){
                        
                     </tbody>
                 </table>
+                </div>
             </div>
 
             {user.role !== "admin" &&
-            <div className="w-[91%] h-[100%] m-auto pb-[100px]">
-                <table class="table-auto w-[90%] mt-[30px]">
+            <div className="w-[91%] h-[100%] m-auto xsm:pb-[0px] pb-[100px] overflow-x-auto">
+                <table class="table-auto w-[90%] mt-[30px] min-w-[500px]">
                     <thead>
                         <tr className="flex border-b-[2px] justify-between">
                             <th className="text-left">Exam Title</th>
@@ -151,17 +163,22 @@ export default function Exam(props){
                         </tr>
                     </thead>
                     <tbody>
-                        {result.map((r)=>{return(
-                            <tr className="flex my-[20px] justify-between">
+                        {examData && examData.map((e)=>{return(
+                            <tr className="flex  my-[20px] justify-between">
                                 <td className="flex gap-[10px]">
                                     <div className="flex flex-col">
-                                        <h3>{r.exam.title}</h3>
+                                        <h3>{e.title}</h3>
                                     </div>
                                 </td>
+                                {e.attemptedQuestions === e.totalquestion?
                                 <td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
-                                    <img className="w-[1.07vw]" src={r.result>79?"./images/tick-g.png":r.result<79?"./images/x-mark-b.png":r.attemptedQuestions!==r.totalquestion?"./images/x-mark-r.png":""}/>
-                                    <h2 className=" text-center">{r.result}%</h2>
+                                    <img className="w-[10.094100000000001px]" src={e.result>79?"./images/tick-g.png":"./images/x-mark-b.png"}/>
+                                    <h2 className=" text-center">{e.result}%</h2>
                                 </td>
+                                :<td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
+                                    <img className="w-[10.094100000000001px]" src={"./images/x-mark-r.png"}/>
+                                    <h2 className=" text-center">Not Finised</h2>
+                                </td>}
                             </tr>
                         )})}
                     </tbody>

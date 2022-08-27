@@ -55,34 +55,34 @@ export default function AdminShowQuestion(props){
             <div className="flex !mt-[30px] !pb-[30px] gap-[8px]">
                 <p>{index+1}.</p>
                 <div className="flex-1 flex flex-col gap-[18px] items-start justify-center ">
-                    <div className="text-[1vw]">
+                    <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
                         <label className="inline-block w-[120px] font-bold ">Exam:</label>
-                        <input required name="question" placeholder="Type Question" value={e.title} type={"text"} className="inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
+                        <input required name="question" placeholder="Type Question" value={e.title} type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
                     </div>
                     
-                    <div className="text-[1vw]">
-                        <label className="inline-block w-[120px] font-bold ">Question:</label><input value={q.question} required name="question" placeholder="Type Question" type={"text"} className="inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
+                    <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                        <label className="inline-block w-[120px] font-bold ">Question:</label><input value={q.question} required name="question" placeholder="Type Question" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
                     </div>
 
-                    <div className="text-[1vw]">
-                        <label className="inline-block w-[120px] font-bold ">Option 1:</label><input value={q.op1} required name="op1" placeholder="Type Option 1" type={"text"} className="inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>{q.correctOp === q.op1?<><label>Correct Option</label><input checked name={"co"+q.id} type="radio"></input></>:<><label>Correct Option</label><input name={"co"+q.id} type="radio"></input></>}
+                    <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                        <label className="inline-block w-[120px] font-bold ">Option 1:</label><input value={q.op1} required name="op1" placeholder="Type Option 1" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>{q.correctOp === q.op1?<div className="flex"><label>Correct Option</label><input checked name={"co"+q.id} type="radio"></input></div>:<div className="flex"><label>Correct Option</label><input name={"co"+q.id} type="radio"></input></div>}
                     </div>
 
-                    <div className="text-[1vw]">
-                        <label className="inline-block w-[120px] font-bold ">Option 2:</label><input value={q.op2} required name="op2" placeholder="Type Option 2" type={"text"} className="inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>{q.correctOp === q.op2?<><label>Correct Option</label><input checked name={"co"+q.id} type="radio"></input></>:<><label>Correct Option</label><input name={"co"+q.id} type="radio"></input></>}
+                    <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                        <label className="inline-block w-[120px] font-bold ">Option 2:</label><input value={q.op2} required name="op2" placeholder="Type Option 2" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>{q.correctOp === q.op2?<div className="flex"><label>Correct Option</label><input checked name={"co"+q.id} type="radio"></input></div>:<div className="flex"><label>Correct Option</label><input name={"co"+q.id} type="radio"></input></div>}
                     </div>
 
-                    <div className="text-[1vw]">
-                        <label className="inline-block w-[120px] font-bold ">Option 3:</label><input value={q.op3} required name="op3" placeholder="Type Option 3" type={"text"} className="inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>{q.correctOp === q.op3?<><label>Correct Option</label><input checked name={"co"+q.id} type="radio"></input></>:<><label>Correct Option</label><input name={"co"+q.id} type="radio"></input></>}
+                    <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                        <label className="inline-block w-[120px] font-bold ">Option 3:</label><input value={q.op3} required name="op3" placeholder="Type Option 3" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>{q.correctOp === q.op3?<div className="flex"><label>Correct Option</label><input checked name={"co"+q.id} type="radio"></input></div>:<div className="flex"><label>Correct Option</label><input name={"co"+q.id} type="radio"></input></div>}
                     </div>
 
-                    <div className="text-[1vw]">
-                        <label className="inline-block w-[120px] font-bold ">Option 4:</label><input value={q.op4} required name="op4" placeholder="Type Option 4" type={"text"} className="inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>{q.correctOp === q.op4?<><label>Correct Option</label><input checked name={"co"+q.id} type="radio"></input></>:<><label>Correct Option</label><input name={"co"+q.id} type="radio"></input></>}
+                    <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                        <label className="inline-block w-[120px] font-bold ">Option 4:</label><input value={q.op4} required name="op4" placeholder="Type Option 4" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>{q.correctOp === q.op4?<div className="flex"><label>Correct Option</label><input checked name={"co"+q.id} type="radio"></input></div>:<div className="flex"><label>Correct Option</label><input name={"co"+q.id} type="radio"></input></div>}
                     </div>
 
                     <div className="flex gap-[5px]">
-                        <button onClick={()=>{setSingleQuestion([q,e]);showEditQuestionModalHandler()}} type="submit" className="bg-[#81c2ff] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Edit</button>
-                        <button onClick={()=>{deleteQuestionHandler(q.id)}} type="submit" className="bg-[#e96857] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Delete</button>
+                        <button onClick={()=>{setSingleQuestion([q,e]);showEditQuestionModalHandler()}} type="submit" className="bg-[#81c2ff] min-w-[60px] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Edit</button>
+                        <button onClick={()=>{deleteQuestionHandler(q.id)}} type="submit" className="bg-[#e96857] w-[8.25vw] h-[4.351vh] min-w-[60px] text-white font-bold rounded-full">Delete</button>
                     </div>
                 </div>
             </div>
