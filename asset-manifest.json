@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.320f6751.css",
-    "main.js": "/static/js/main.a0a552d5.js",
+    "main.js": "/static/js/main.9f26ada8.js",
     "static/media/Visby Round CF Heavy.ttf": "/static/media/Visby Round CF Heavy.76e50e5a30981aeb7ba8.ttf",
     "static/media/Visby Round CF Bold.ttf": "/static/media/Visby Round CF Bold.fd8f29e6fe48ba27bd76.ttf",
     "static/media/VAG Round.ttf": "/static/media/VAG Round.33feebb1b7c0e00826d4.ttf",
     "index.html": "/index.html",
     "main.320f6751.css.map": "/static/css/main.320f6751.css.map",
-    "main.a0a552d5.js.map": "/static/js/main.a0a552d5.js.map"
+    "main.9f26ada8.js.map": "/static/js/main.9f26ada8.js.map"
   },
   "entrypoints": [
     "static/css/main.320f6751.css",
-    "static/js/main.a0a552d5.js"
+    "static/js/main.9f26ada8.js"
   ]
 }
