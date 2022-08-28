@@ -43,10 +43,10 @@ export default function ShowVideoModal(props){
             </div>
 
             <div className="w-[calc(100vw)]  h-[100vh] fixed top-[calc(0%)] left-[calc(0%)]">
-                <div className="shadow-md overflow-x-hidden w-[60%] flex flex-col opacity-100 relative z-50 bg-white top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-[30px]">
+                <div className="shadow-md overflow-x-hidden xsm:w-[90%] sm:w-[80%] w-[60%] flex flex-col opacity-100 relative z-50 bg-white top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-[30px]">
                     <div>
                         <img onClick={hideModal} src="./images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[5%] text-gray-300 cursor-pointer"/>
-                        <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[2.5%]"><h2>Training Videos</h2></div>
+                        <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[25px]"><h2>Training Videos</h2></div>
                     </div>
                     <ReactPlayer 
                     width={"100%"}

@@ -41,7 +41,7 @@ function App() {
         <Route path="/application" element={<Application></Application>}></Route>
           <Route path="/" element={<Login />}></Route>
           <Route path="/" element={<Protected />}>
-              <Route path="/dashboard" element={
+              {/* <Route path="/dashboard" element={
                 <Layout>
                 {
                   user?.role === "admin"?<Dashboard />:
@@ -50,16 +50,16 @@ function App() {
                   user?.role === "franchisee"?<FutureDashboard />:null}
                 </Layout>}>
 
-              </Route>
+              </Route> */}
               <Route path="/dashboard" element={<Layout><Dashboard /></Layout>}></Route>
               <Route path="/futuredashboard" element={<Layout><FutureDashboard /></Layout>}></Route>
               <Route path="/managerdashboard" element={<Layout><ManagerDashboard /></Layout>}></Route>
+              <Route path="/message-board" element={<Layout><MessageBoard /></Layout>}></Route>
               <Route path="/setting" element={<Layout><Setting /></Layout>}></Route>
               <Route path="/training" element={<Layout><Training /></Layout>}></Route>
               <Route path="/download-material" element={<Layout><Material /></Layout>}></Route>
               <Route path="/exam" element={<Layout><Exam /></Layout>}></Route>
               <Route path="/announcement" element={<Layout><Announcement /></Layout>}></Route>
-              <Route path="/message-board" element={<Layout><MessageBoard /></Layout>}></Route>
               <Route path="/admin-question" element={<Layout><AdminShowQuestion /></Layout>}></Route>
               <Route path="/attempt-exam" element={<Layout><AttemptExam /></Layout>}></Route>
           </Route>

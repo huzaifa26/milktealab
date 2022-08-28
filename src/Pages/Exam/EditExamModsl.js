@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { URL } from "../../App";
 import moment from "moment-timezone";
 import { toHaveFormValues } from "@testing-library/jest-dom/dist/matchers";
+import { toast } from "react-toastify";
 
 export default function EditExamModsl(props){
 
@@ -27,6 +28,7 @@ export default function EditExamModsl(props){
         console.log(data);
         axios.put(URL+"/exam",data).then((res)=>{
             console.log(res);
+            toast("Exam Edited");
             props.hideAddQuestionModelHandler();
         }).catch((err)=>{
             console.log(err);

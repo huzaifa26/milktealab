@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { URL } from "../../App";
 import MessageModal from "./MessageModal";
 import PropgressModal from "./PropgressModal";
 
 export default function Dashboard(props){
+    
     let user;
     user=localStorage.getItem("user");
     user=JSON.parse(user);
@@ -41,6 +44,7 @@ export default function Dashboard(props){
 
         axios.post(URL+"/user-role",data).then(res=>{
             console.log(res.data.res);
+            toast("User Status Changed");
         }).catch(err=>{
             console.log(err);
         })
@@ -56,6 +60,7 @@ export default function Dashboard(props){
 
         axios.post(URL+"/assign-manager",data).then(res=>{
             console.log(res.data.res);
+            toast("Manager Assigned");
         }).catch(err=>{
             console.log(err);
         })
@@ -76,6 +81,10 @@ export default function Dashboard(props){
             console.log(err);
         })
     },[assignManager])
+
+    if(user.role !== "admin"){
+        return <Navigate to={"/"}/>
+    }
 
     return(
         <>

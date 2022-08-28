@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState,useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 import { URL } from "../../App";
 import EditQuestionModal from "./EditQuestionModal";
 
@@ -10,24 +11,17 @@ export default function AdminShowQuestion(props){
     const e=location.state;
     const [singleQuestion,setSingleQuestion]=useState();
     const [showEditQuestionModal,setEditQuestionModel]=useState(false);
-    const [deleteQuestion,setDeleteQuestion]=useState(1);
+    const [deleteQuestion,setDeleteQuestion]=useState(false);
 
     const deleteQuestionHandler=(id)=>{
         axios.delete(URL+"/question/"+id).then((res)=>{
             console.log(res);
-            setDeleteQuestion(deleteQuestion+1);
+            toast("Question Deleted");
+            setDeleteQuestion(!deleteQuestion);
         }).catch((err)=>{
             console.log(err);
         })
     }
-
-    useEffect(()=>{
-        axios.get(URL+"/question/"+e.id).then((res)=>{
-            setQuestion(res.data.res);
-        }).catch((err)=>{
-            console.log(err);
-        })
-    },[showEditQuestionModal,deleteQuestion])
 
     const showEditQuestionModalHandler=()=>{
         setEditQuestionModel(true);
@@ -37,6 +31,14 @@ export default function AdminShowQuestion(props){
         setEditQuestionModel(false);
     }
 
+    useEffect(()=>{
+        axios.get(URL+"/question/"+e.id).then((res)=>{
+            console.log(res.data.res);
+            setQuestion(res.data.res);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },[showEditQuestionModal,deleteQuestion])
 
 
 
@@ -47,7 +49,7 @@ export default function AdminShowQuestion(props){
     }
 
     <div className="w-[100%] h-[100%] pt-[20px]">
-        <div className="w-[91%] m-auto">
+        <div className="flex flex-col gap-[30px] w-[91%] m-auto">
 
         {questions?.length > 0 ? questions.map((q,index)=>{
             console.log(q.correctOp)

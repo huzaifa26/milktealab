@@ -4,10 +4,11 @@ import axios from "axios";
 import { useCallback, useEffect } from "react";
 import { URL } from "../../App";
 import MessageModal from "./MessageModal";
+import { toast } from "react-toastify";
+import { Navigate } from "react-router-dom";
 
 
 export default function ManagerDashboard(props){
-
     let user;
     user=localStorage.getItem("user");
     user=JSON.parse(user);
@@ -43,6 +44,7 @@ export default function ManagerDashboard(props){
 
         axios.post(URL+"/user-role",data).then(res=>{
             console.log(res.data.res);
+            toast("User Status Changed");
         }).catch(err=>{
             console.log(err);
         })
@@ -55,6 +57,11 @@ export default function ManagerDashboard(props){
             console.log(err);
         })
     },[userRoleHandler])
+
+
+if(user.role !== "manager"){
+        return <Navigate to={"/"}/>
+    }
 
     return(
         <>

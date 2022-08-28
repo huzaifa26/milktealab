@@ -57,7 +57,7 @@ export default function AddMaterialModal(props){
                     
                     <div>
                         <img onClick={hideModal} src="./images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[5%] text-gray-300 cursor-pointer"/>
-                        <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[2.5%]"><h2>Add Material</h2></div>
+                        <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[25px]"><h2>Add Material</h2></div>
                     </div>
                     <form ref={formRef} onSubmit={announcementFormHandler} className="flex-1 flex flex-col gap-[18px] items-center justify-center">
                         <div className="xsm:flex xsm:flex-col text-[clamp(14px,1vw,18px]">

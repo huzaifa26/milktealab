@@ -172,7 +172,7 @@ export default function Layout(props){
                                         </NavLink>
                                     :null}
 
-                                    <NavLink onClick={isNavOpen && hamburgerHandler} className="xsm:flex sm:flex md:hidden lg:hidden xl:hidden 2xl:hidden items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/exam"}>
+                                    <NavLink onClick={isNavOpen && hamburgerHandler} className="xsm:flex sm:flex md:hidden lg:hidden xl:hidden 2xl:hidden items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/setting"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
                                             <img className="w-[20.6266px] " src="./images/exam.png"></img>
                                             <h2>Setting</h2>
@@ -220,7 +220,7 @@ export default function Layout(props){
                                         <input className="bg-[#e2e2e2] h-[5.19vh] w-[13.59vw] text-[clamp(14px,0.58vw,24px)] rounded-full indent-[10px]" type="text" placeholder="Search Member's name"></input>
                                         <div className="flex flex-col justify-center items-center">
                                             <div className="flex gap-[10px] items-center">
-                                                <div className=" w-[1.87vw] rounded-full"><img src="./images/user-mock.png" alt=""></img></div>
+                                                <div className="rounded-full"><img src={user?.image || "./images/user-mock.png"} className="rounded-full w-[30px] h-[30px] object-cover" alt=""></img></div>
                                                 <div className="flex flex-col">
                                                     <h2>{user.userName}</h2>
                                                     <p className="text-[14px] text-[#A4A5AD]">{user.role}</p>

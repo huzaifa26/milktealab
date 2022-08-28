@@ -20,9 +20,24 @@ export default function Login(){
             let user=res.data.res[0];
             delete user.pass
             localStorage.setItem('user',JSON.stringify(user));
-            navigate("/dashboard");
             toast("Login Successful")
+            if(user.role === "admin"){
+                navigate("/dashboard");
+            }
+
+            if(user.role === "member"){
+                navigate("/message-board");
+            }
+
+            if(user.role === "manager"){
+                navigate("/managerdashboard");
+            }
+
+            if(user.role === "franchisee"){
+                navigate("/futuredashboard");
+            }
         }).catch((err)=>{
+            toast("Error or incorrect credentials.")
             console.log(err);
         })
     }

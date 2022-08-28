@@ -40,36 +40,36 @@ export default function ExamSingleQuestion(props){
 
     
     return(
-        <form ref={formRef} onSubmit={nextExamhandler} className="flex-1 flex flex-col gap-[18px] items-start w-[60%] m-auto justify-center ">
-                        <h2>Question {props?.counter+1}</h2>
-                        <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[120px] font-bold ">Question:</label><input value={singleQuestion?.question} name="question" placeholder="Type Question" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
-                        </div>
+        <form ref={formRef} onSubmit={nextExamhandler} className="flex-1 flex flex-col gap-[18px] items-start xsm:w-[100%] w-[60%] m-auto justify-center ">
+            <h2>Question {props?.counter+1}</h2>
+            <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                <label className="inline-block w-[120px] font-bold ">Question:</label><input value={singleQuestion?.question} name="question" placeholder="Type Question" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
+            </div>
 
-                        <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[120px] font-bold ">Option 1:</label><input value={singleQuestion?.op1} name="op1" placeholder="Type Option 1" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
-                            <div className="flex"><label className="w-[120px]">Correct Option</label><input  value={"1"}  name={"co"} type="radio"></input></div>
-                        </div>
+            <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                <label className="inline-block w-[120px] font-bold ">Option 1:</label><input value={singleQuestion?.op1} name="op1" placeholder="Type Option 1" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
+                <div className="flex"><label className="w-[120px]">Correct Option</label><input  value={"1"}  name={"co"} type="radio"></input></div>
+            </div>
 
-                        <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[120px] font-bold ">Option 2:</label><input value={singleQuestion?.op2} name="op2" placeholder="Type Option 2" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
-                            <div className="flex"><label className="w-[120px]">Correct Option</label><input  value={"2"}  name={"co"} type="radio"></input></div>
-                        </div>
+            <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                <label className="inline-block w-[120px] font-bold ">Option 2:</label><input value={singleQuestion?.op2} name="op2" placeholder="Type Option 2" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
+                <div className="flex"><label className="w-[120px]">Correct Option</label><input  value={"2"}  name={"co"} type="radio"></input></div>
+            </div>
 
-                        <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[120px] font-bold ">Option 3:</label><input value={singleQuestion?.op3} name="op3" placeholder="Type Option 3" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
-                            <div className="flex"><label className="w-[120px]">Correct Option</label><input  value={"3"}  name={"co"} type="radio"></input></div>
-                        </div>
+            <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                <label className="inline-block w-[120px] font-bold ">Option 3:</label><input value={singleQuestion?.op3} name="op3" placeholder="Type Option 3" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
+                <div className="flex"><label className="w-[120px]">Correct Option</label><input  value={"3"}  name={"co"} type="radio"></input></div>
+            </div>
 
-                        <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[120px] font-bold ">Option 4:</label><input value={singleQuestion?.op4} required name="op4" placeholder="Type Option 4" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
-                            <div className="flex"><label className="w-[120px]">Correct Option</label><input  value={"4"}  name={"co"} type="radio"></input></div>
-                        </div>
+            <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                <label className="inline-block w-[120px] font-bold ">Option 4:</label><input value={singleQuestion?.op4} required name="op4" placeholder="Type Option 4" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
+                <div className="flex"><label className="w-[120px]">Correct Option</label><input  value={"4"}  name={"co"} type="radio"></input></div>
+            </div>
 
-                        <div className="flex justify-center mt-[20px] self-center">
-                            <button type="submit" className="bg-[#81c2ff] w-[14.25vw] h-[4.351vh] text-white font-bold rounded-full">Next</button>
-                        </div>
+            <div className="flex justify-center mt-[20px] self-center">
+                <button type="submit" className="bg-[#81c2ff] min-h-[20px] min-w-[60px] w-[14.25vw] h-[4.351vh] text-white font-bold rounded-full">Next</button>
+            </div>
                         
-                    </form>
+        </form>
     )
 }

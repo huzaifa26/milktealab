@@ -4,6 +4,8 @@ import { URL } from "../../App";
 import AccouncementModel from "./AnnouncementModal";
 import AccouncementEditModal from "./AnnouncementEditModal";
 import moment from "moment-timezone";
+import ShowAnnouncementModal from "./ShowAnnouncementModal";
+import { toast } from "react-toastify";
 
 export default function Announcement(props){
 
@@ -31,22 +33,22 @@ export default function Announcement(props){
         setShowEditModal(false);
     },[])
 
-    useEffect(()=>{
-        axios.get(URL+"/announcement").then((res)=>{
-            console.log(res.data.res);
-            setAnnouncements(res.data.res)
-        }).catch((err)=>{
-            console.log(err);
-        })
-    },[hideModalHandler,hideEditModalHandler])
 
-    const deleteAccouncement=(id)=>{
+    const [AnnouncementModal,setAnnouncementModal]=useState(false);
+    const hideAnnouncementModalHandler=useCallback(()=>{
+        setAnnouncementModal(false);
+    },[])
+
+    const [isDeleted,setIsDeleted]=useState(false);
+    const deleteAccouncement=useCallback((id)=>{
         axios.delete(URL+"/announcement/"+id).then((res)=>{
             console.log(res.data.res);
+            setIsDeleted(!isDeleted);
+            toast("Announcement deleted.")
         }).catch((err)=>{
             console.log(err);
         })
-    }
+    },[isDeleted])
 
     var currentHour = moment().format("HH");
     let msg=''
@@ -56,6 +58,28 @@ export default function Announcement(props){
         msg ="Good Afternoon";
     } 
 
+    const announcementClickHandler=useCallback((id)=>{
+        setAnnouncementModal(true)
+        let data={
+            uid:user.id,
+            aid:id
+        }
+        axios.post(URL+"/markAnnouncement",data).then(res=>{
+            console.log(res.data.res);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },[AnnouncementModal])
+
+    useEffect(()=>{
+        axios.get(URL+"/announcement/"+user.id).then((res)=>{
+            console.log(res.data.res);
+            setAnnouncements(res.data.res)
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },[showModal,showEditModal,announcementClickHandler,deleteAccouncement])
+
     return(
     <>
     {showModal &&
@@ -64,6 +88,10 @@ export default function Announcement(props){
 
     {showEditModal &&
         <AccouncementEditModal singleAnnouncements={singleAnnouncements} hideEditModalHandler={hideEditModalHandler}></AccouncementEditModal>
+    }
+
+    {AnnouncementModal &&
+        <ShowAnnouncementModal singleAnnouncements={singleAnnouncements} hideAnnouncementModalHandler={hideAnnouncementModalHandler}></ShowAnnouncementModal>
     }
     <div className="w-[100%] h-[100%] pt-[20px]">
         <div className="w-[91%] m-auto">
@@ -93,13 +121,14 @@ export default function Announcement(props){
 
                         return(
                             <tr key={a.id} className="min-w-[500px] flex my-[20px] justify-between">
-                                <td className="flex gap-[10px] items-center">
+                                <td title="Open to marks as read" onClick={()=>{setSingleAnnouncements(a);announcementClickHandler(a.id);}} className="flex gap-[10px] items-center cursor-pointer">
                                     <div className="flex flex-col">
                                         <h3>{a.title}</h3>
-                                        <p className="text-[#a4a5a5]">{a.description}</p>
+                                        <p className="text-[#a4a5a5] text-[14px]">{a.description}</p>
                                     </div>
-                                    <div className="w-[2.36vw] min-w-[50px] h-[1.9vh] min-h-[25px] text-center text-white bg-[#f7275f] rounded-full">New</div>
-
+                                    {a.isOpened === false &&
+                                        <div className="w-[2.36vw] min-w-[50px] h-[1.9vh] min-h-[25px] text-center text-white bg-[#f7275f] rounded-full">New</div>
+                                    }
                                 </td>
                                 <td className=" flex flex-col">
                                     <h2 className="text-[#a4a5a5] text-center">Published on {datetime}</h2>

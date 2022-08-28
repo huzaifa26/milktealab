@@ -1,47 +1,159 @@
+import { async } from "@firebase/util";
+import axios from "axios";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { URL } from "../../App";
+import { storage } from "../../Components/Firebase";
+
 export default function Setting(){
 
-    let user=localStorage.getItem("user");
-    user=JSON.parse(user)
+    const navigate=useNavigate()
+    let user = localStorage.getItem('user'); 
+    user=JSON.parse(user);
+
+    const [file,setFile]=useState(null);
+
+    const formRef=useRef()
+
+    const formSubmitHandler=useCallback( async(e)=>{
+        e.preventDefault();
+        let data={...user};
+        data.userName=formRef.current.userName.value
+        data.desiredLocation=formRef.current.desiredLocation.value;
+        data.mailingAddress=formRef.current.mailingAddress.value;
+        data.email=formRef.current.email.value;
+        data.phone=formRef.current.phone.value;
+        data.oldpass=null;
+        data.newpass=null;
+        data.image=user.image;
+
+        if(formRef.current.oldpass.value !== "" && formRef.current.newpass.value !== ""){
+            data.oldpass=formRef.current.oldpass.value;
+            data.newpass=formRef.current.newpass.value;
+        }
+
+        console.log(file);
+
+        if(file !== null){
+            console.log(1)
+            try{
+                const storageRef = ref(storage, `/profilepicture/${file[0].name}`);
+                const uploadTask = await uploadBytes(storageRef, file[0]);
+            
+                getDownloadURL(ref(storage, `/profilepicture/${file[0].name}`)).then((url) => {
+                    setFile(null)
+                    data.image=url;
+                    axios.put(URL+"/user/"+user.id,data).then((res)=>{
+                        if(res.data.res==="password doesnot match"){
+                            toast("Old password is incorrect");
+                            return
+                        }
+                        toast("User Updated");
+                        axios.get(URL+"/user/"+user.id).then((res)=>{
+                            localStorage.setItem('user',JSON.stringify(res.data.res[0]));
+                            navigate("#")
+                        })
+                    }).catch((err)=>{
+                        toast("User Updated Failed");
+                        console.log(err)
+                    })
+                })
+            }catch(err){
+                console.log(err);
+            }
+        }else if(file === null) {
+            console.log(2)
+            console.log(user)
+            console.log(data)
+            axios.put(URL+"/user/"+data.id,data).then((res)=>{
+                if(res.data.res==="password doesnot match"){
+                    toast("Old password is incorrect");
+                    return
+                }
+                toast("User Updated");
+                console.log(res.data.res);
+                axios.get(URL+"/user/"+user.id).then((res)=>{
+                    localStorage.setItem('user',JSON.stringify(res.data.res[0]));
+                    navigate("#")
+                })
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }
+    },[])
+
+
+    useEffect(() => {
+        async function init() {
+          
+        }
+        init();
+    }, [formSubmitHandler])
 
     return(
         <div className="w-[80%] mt-[50px] m-auto">
-            <div className="flex gap-[50px]">
-                <div className="w-[8.78vw]">
-                    <img src="./images/propfilepic.png"alt=""></img>
-                    <img className="w-[1.31vw] relative left-[calc(8.78vw-1.31vw)] top-[-1.31vw]" src="./images/edit profile picture.png"alt=""></img>
+            <div className="flex xsm:flex-col sm:flex-col xsm:gap-[15px] sm:gap-[15px] gap-[50px]">
+                <div className="min-w-[120px]">
+                    <img src={user?.image || "./images/propfilepic.png"} className="rounded-full w-[120px] h-[120px] object-cover" alt=""></img>
+                    <label for="profilePic" className="cursor-pointer">
+                        <img className="w-[18px] relative left-[calc(119.9348px-18px)] top-[-18px]" src={"./images/edit profile picture.png"}alt=""></img>
+                        <input  accept="image/*" onChange={(e)=>{setFile(e.target.files)}} name="profile" type={"file"} className="hidden" id="profilePic"/>
+                    </label>
                 </div>
-                <div className="flex flex-col gap-[18px] mt-[18px]">
-                    <div className="text-[1vw] flex items-center gap-[5px]">
-                        <label className="inline-block w-[180px] font-bold ">Name:</label> <img className="w-[1.31vw]" src="./images/edit profile picture.png"alt=""></img> <h3 className="inline-block text-[#a4a5a5]">{user.userName}</h3>
+                <form ref={formRef} className="flex flex-col gap-[18px] mt-[18px]">
+                    <div className="text-[clamp(14px,1vw,18px] xsm:flex-col xsm:items-start flex items-center gap-[5px]">
+                        <label className="inline-block w-[180px] font-bold ">Name:</label> 
+                        <div className="flex items-center gap-[5px]">
+                            <img className="w-[18px]" src="./images/edit profile picture.png"alt=""></img>
+                            <input className="inline-block text-[#a4a5a5] bg-transparent" name={"userName"} defaultValue={user?.userName}></input>
+                        </div>
                     </div>
 
-                    <div className="text-[1vw] flex items-center gap-[5px]">
-                        <label className="inline-block w-[180px] font-bold ">Business Address:</label><img className="w-[1.31vw]" src="./images/edit profile picture.png"alt=""></img><h3 className="inline-block text-[#a4a5a5]">{user.desiredLocation}</h3>
+                    <div className="text-[clamp(14px,1vw,18px] xsm:flex-col xsm:items-start flex items-center gap-[5px]">
+                        <label className="inline-block w-[180px] font-bold ">Business Address:</label>
+                        <div className="flex items-center gap-[5px]">
+                            <img className="w-[18px]" src="./images/edit profile picture.png"alt=""></img>
+                            <input className="inline-block text-[#a4a5a5] bg-transparent" name="desiredLocation" defaultValue={user?.desiredLocation}></input>
+                        </div>
                     </div>
 
-                    <div className="text-[1vw] flex items-center gap-[5px]">
-                        <label className="inline-block w-[180px] font-bold ">Mailing Address:</label><img className="w-[1.31vw]" src="./images/edit profile picture.png"alt=""></img><h3 className="inline-block text-[#a4a5a5]">{user.mailingAddress}</h3>
+                    <div className="text-[clamp(14px,1vw,18px] xsm:flex-col xsm:items-start flex items-center gap-[5px]">
+                        <label className="inline-block w-[180px] font-bold ">Mailing Address:</label>
+                        <div className="flex items-center gap-[5px]">
+                            <img className="w-[18px]" src="./images/edit profile picture.png"alt=""></img>
+                            <textarea className="inline-block text-[#a4a5a5] bg-transparent w-[300px]" name="mailingAddress"  defaultValue={user?.mailingAddress}></textarea>
+                        </div>
                     </div>
 
-                    <div className="text-[1vw] flex items-center gap-[5px]">
-                        <label className="inline-block w-[180px] font-bold ">Email:</label><img className="w-[1.31vw]" src="./images/edit profile picture.png"alt=""></img><h3 className="inline-block text-[#a4a5a5]">{user.email}</h3>
+                    <div className="text-[clamp(14px,1vw,18px] xsm:flex-col xsm:items-start flex items-center gap-[5px]">
+                        <label className="inline-block w-[180px] font-bold ">Email:</label>
+                        <div className="flex items-center gap-[5px]">
+                            <img className="w-[18px]" src="./images/edit profile picture.png"alt=""></img>
+                            <input className="inline-block text-[#a4a5a5] bg-transparent" name="email" defaultValue={user?.email}></input>
+                        </div>
                     </div>
 
-                    <div className="text-[1vw] flex items-center gap-[5px]">
-                        <label className="inline-block w-[180px] font-bold ">Phone Number:</label><img className="w-[1.31vw]" src="./images/edit profile picture.png"alt=""></img><h3 className="inline-block text-[#a4a5a5]">{user.phone}</h3>
+                    <div className="text-[clamp(14px,1vw,18px] xsm:flex-col xsm:items-start flex items-center gap-[5px]">
+                        <label className="inline-block w-[180px] font-bold ">Phone Number:</label>
+                        <div className="flex items-center gap-[5px]">
+                            <img className="w-[18px]" src="./images/edit profile picture.png"alt=""></img>
+                            <input className="inline-block text-[#a4a5a5] bg-transparent" name="phone"  defaultValue={user?.phone}></input>
+                        </div>
                     </div>
 
-                    <div className="text-[1vw] flex gap-[20px]">
-                    <label className="inline-block w-[180px] font-bold ">Old password:</label><input autoComplete="off" type={"password"} className="inline-block text-[#a4a5a5] bg-[#f4f5f5] rounded-full indent-2"></input>
+                    <div className="text-[clamp(14px,1vw,18px] xsm:flex-col flex gap-[20px]">
+                    <label className="inline-block w-[180px] font-bold ">Old password:</label><input name="oldpass" autoComplete="off" type={"password"} className="inline-block text-[#a4a5a5] bg-[#f4f5f5] rounded-full indent-2"></input>
                     </div>
 
-                    <div className="text-[1vw] flex gap-[20px]">
-                        <label className="inline-block w-[180px] font-bold ">New password:</label><input autoComplete="off" type={"password"} className="inline-block text-[#a4a5a5] bg-[#f4f5f5] rounded-full indent-2"></input>
+                    <div className="text-[clamp(14px,1vw,18px] xsm:flex-col flex gap-[20px]">
+                        <label className="inline-block w-[180px] font-bold ">New password:</label><input name="newpass" autoComplete="off" type={"password"} className="inline-block text-[#a4a5a5] bg-[#f4f5f5] rounded-full indent-2"></input>
                     </div>
                     <div className="flex justify-center">
-                        <button className="bg-[#e6ecff] w-[8.1vw] rounded-full">Save</button>
+                        <button onClick={formSubmitHandler} className="bg-[#e6ecff] min-w-[60px] min-h-[30px] w-[8.1vw] rounded-full">Save</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     )

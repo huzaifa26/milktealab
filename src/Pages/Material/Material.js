@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { URL } from "../../App";
 import AddMaterialModal from "./AddMaterialModal";
 import EditMaterialModal from "./EditMaterialModal";
@@ -29,25 +30,29 @@ export default function Material(props){
         setShowEditModal(false);
     },[])
 
+
+
+    const [isDeleted,setIsDeleted]=useState(false);
+
+    const deleteMaterial=useCallback((id)=>{
+        console.log(id)
+        axios.delete(URL+"/material/"+id).then((res)=>{
+            setIsDeleted(!isDeleted)
+            toast("File deleted")
+            console.log(res.data.res);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },[isDeleted])
+
     useEffect(()=>{
         axios.get(URL+"/material").then((res)=>{
             setMaterialArr(res.data.res);
         }).catch((err)=>{
             console.log(err)
         })
-    },[hideModalHandler,hideEditModalHandler]);
+    },[showModal,showEditModal,deleteMaterial]);
 
-    const deleteMaterial=(id)=>{
-        console.log(id)
-        axios.delete(URL+"/material/"+id).then((res)=>{
-            console.log(res.data.res);
-        }).catch((err)=>{
-            console.log(err);
-        })
-    }
-
-    console.log("-----------------------")
-    
     return(
         <>
         {showModal && 
@@ -71,12 +76,14 @@ export default function Material(props){
                         <tr className="min-w-[500px] flex border-b-[2px] justify-between">
                             <th className="text-left">File Title</th>
                             <th className="w-[16.42vw] text-center">Date</th>
-                            <th className="w-[16.5vw] text-center">Actions</th>
+                            {user.role === "admin" && 
+                                <th className="w-[16.5vw] text-center">Actions</th>
+                            }
                         </tr>
                     </thead>
                     <tbody >
                     
-                    {materialArr && materialArr.map((m)=>{
+                    {materialArr.length > 0 ? materialArr.map((m)=>{
                         const datetime = m?.createdTime.slice(0, 19).replace('T', ' ');
                         return(
                         <tr className="min-w-[500px] flex my-[20px] justify-between">
@@ -86,19 +93,21 @@ export default function Material(props){
                                     <a className="font-bold" href={m.file}>
                                         <h3 className="font-bold">{m.title}</h3>
                                     </a>
-                                    <p className="text-[#a4a5a5]">{m.description}</p>
+                                    <p className="text-[#a4a5a5] text-[14px]">{m.description}</p>
                                 </div>
                             </td>
                             <td className=" flex flex-col">
                                 <h2 className="text-[#a4a5a5] text-center xsm:w-[190px]">Last updated on {datetime}</h2>
                             </td>
-                            <td className="flex xsm:flex-col gap-[5px]">
-                                <button onClick={()=>{setSingleMaterials(m);showEditMaterialModal();}} type="submit" className="xsm:min-w-[60px] bg-[#81c2ff] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Edit</button>
-                                <button onClick={()=>deleteMaterial(m.id)} type="submit" className="bg-[#e96857] xsm:min-w-[60px] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Delete</button>
-                            </td>
+                            {user.role === "admin" && 
+                                <td className="flex xsm:flex-col gap-[5px]">
+                                    <button onClick={()=>{setSingleMaterials(m);showEditMaterialModal();}} type="submit" className="xsm:min-w-[60px] bg-[#81c2ff] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Edit</button>
+                                    <button onClick={()=>deleteMaterial(m.id)} type="submit" className="bg-[#e96857] xsm:min-w-[60px] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Delete</button>
+                                </td>
+                            }
                         </tr>
                         )
-                    })}
+                    }):<h2>No Files found.</h2>}
                     
                     </tbody>
                 </table>

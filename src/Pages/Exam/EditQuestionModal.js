@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { URL } from "../../App";
 import moment from "moment-timezone";
+import { toast } from "react-toastify";
 
 export default function EditQuestionModal(props){
     const formRef=useRef();
@@ -17,7 +18,7 @@ export default function EditQuestionModal(props){
         const datetime = currentTime.slice(0, 19).replace('T', ' ');
     
         let data={
-            id:props.singleQuestion[1].id,
+            id:props.singleQuestion[0].id,
             examId:formRef.current.examId.value,
             question:formRef.current.question.value,
             op1:formRef.current.op1.value,
@@ -31,6 +32,7 @@ export default function EditQuestionModal(props){
         console.log(data);
         axios.put(URL+"/question",data).then((res)=>{
             console.log(res);
+            toast("Question Edited");
             props.hideEditQuestionModalHandler()
         }).catch((err)=>{
             console.log(err);
@@ -41,8 +43,8 @@ export default function EditQuestionModal(props){
 
     useEffect(()=>{
         axios.get(URL+"/exam").then((res)=>{
+            console.log(res.data.res);
             setExamData(res.data.res);
-            console.log(res);
         }).catch((err)=>{
             console.log(err);
         })
@@ -76,7 +78,7 @@ export default function EditQuestionModal(props){
                         </div>
                         
                         <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[120px] font-bold ">Question:</label><input defaultValue={props.singleQuestion[0].question} required name="question" placeholder="Type Question" type={"text"} className="c inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
+                            <label className="inline-block w-[120px] font-bold ">Question:</label><input defaultValue={props.singleQuestion[0].question} required name="question" placeholder="Type Question" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
                         </div>
 
                         <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">

@@ -53,7 +53,7 @@ export default function PropgressModal(props){
             
             <div className="w-[61vw] shadow-md h-[51.45vh] min-h-[82.95625942684767vh] min-w-[91.50805270863836vw] overflow-x-hidden  flex flex-col opacity-100 relative z-50 bg-white top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-[30px]">
                 <img onClick={hideModal} src="./images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[5%] text-gray-300 cursor-pointer"/>
-                <div className="text-center bg-[#f4f5f5] min-h-[15%] pt-[2.5%]">Progress</div>
+                <div className="text-center bg-[#f4f5f5] min-h-[15%] pt-[25px]"><h2>Progress</h2></div>
                 <div className="flex xsm:flex-col sm:flex-col w-[100%]">
                         <div className="flex-1">
                             <table class="table-auto w-[90%] xsm:m-auto ml-[30px] mt-[30px]">
@@ -72,12 +72,12 @@ export default function PropgressModal(props){
                                             <div className="w-[50px] h-[50px] rounded-full"><img src="./images/play.png"></img></div>
                                             <div  className="flex flex-col">
                                                 <h3>{t.title}</h3>
-                                                <p>{t.description}</p>
+                                                <p className="text-[#a4a5a5] text-[14px]">{t.description}</p>
                                             </div>
                                         </td>
                                         <td className=" flex flex-col">
                                             <h2 className="text-blue-400 w-[11.42vw] text-center">{t.progress}%</h2>
-                                            <div className="w-[11.42vw] h-[3px] bg-gray-200">
+                                            <div className="w-[11.42vw] min-w-[100px] h-[3px] bg-gray-200">
                                                 <div style={{width}} className={`h-[100%] bg-blue-400`}></div>
                                             </div>
                                         </td>
@@ -109,12 +109,12 @@ export default function PropgressModal(props){
                                         <div className="w-[50px] h-[50px] rounded-full"><img src="./images/play.png"></img></div>
                                         <div className="flex flex-col">
                                             <h3>{e.title}</h3>
-                                            <p>{e.description}</p>
+                                            <p className="text-[#a4a5a5] text-[14px]">{e.description}</p>
                                         </div>
                                     </td>
                                     <td className="flex flex-col text-blue-400">
-                                    <h2 className="w-[11.42vw] text-center">{e.totalquestion === e.attemptedQuestions?"Finished":"Not Finised"}</h2>
-                                        <div className="w-[11.42vw] h-[3px] bg-gray-200">
+                                    <h2 className="w-[11.42vw] text-center min-w-[100px]">{e.totalquestion === e.attemptedQuestions?"Finished":"Not Finised"}</h2>
+                                        <div className="w-[11.42vw] min-w-[100px] h-[3px] bg-gray-200">
                                             <div style={{width}} className="h-[100%] bg-blue-400"></div>
                                         </div>
                                     </td>
@@ -129,7 +129,7 @@ export default function PropgressModal(props){
                         <thead>
                             <tr className="flex border-b-[2px] justify-between">
                                 <th className="text-left">Exam Title</th>
-                                <th className=" text-center w-[11.49vw]">Your score</th>
+                                <th className=" text-center w-[11.49vw] min-w-[100px]">Your score</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -141,13 +141,13 @@ export default function PropgressModal(props){
                                     </div>
                                 </td>
                                 {e.attemptedQuestions === e.totalquestion?
-                                <td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
-                                    <img className="w-[1.07vw]" src={e.result>79?"./images/tick-g.png":"./images/x-mark-b.png"}/>
+                                <td className="flex gap-[0.4vw] w-[11.49vw] min-w-[100px] items-center text-[#a4a5a5]">
+                                    <img className="w-[15px]" src={e.result>79?"./images/tick-g.png":"./images/x-mark-b.png"}/>
                                     <h2 className=" text-center">{e.result}%</h2>
                                 </td>
-                                :<td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
-                                    <img className="w-[1.07vw]" src={"./images/x-mark-r.png"}/>
-                                    <h2 className=" text-center">Not Finised</h2>
+                                :<td className="flex gap-[0.4vw] w-[11.49vw] min-w-[100px] items-center text-[#a4a5a5]">
+                                    <img className="w-[15px]" src={"./images/x-mark-r.png"}/>
+                                    <h2 className="text-center">Not Finised</h2>
                                 </td>}
                             </tr>
                         )})}

@@ -6,6 +6,7 @@ import AddTrainingModal from "./AddTrainingModal";
 import { ref, deleteObject } from "firebase/storage";
 import { storage } from "../../Components/Firebase";
 import { type } from "@testing-library/user-event/dist/type";
+import { toast } from "react-toastify";
 
 export default function Training(props){
 
@@ -28,6 +29,8 @@ export default function Training(props){
         setShowModal(false);
     },[])
 
+
+    const [isDeleted,setIsDeleted]=useState(false);
     const deleteTraining=useCallback((id,video)=>{
         // const desertRef = ref(storage, `/TrainingVideos/${video}`);
 
@@ -41,10 +44,12 @@ export default function Training(props){
 
         axios.delete(URL+"/training/"+id).then((res)=>{
             console.log(res.data.res);
+            toast("Video deleted");
+            setIsDeleted(!isDeleted)
         }).catch((err)=>{
             console.log(err);
         })
-    },[])
+    },[isDeleted])
 
     useEffect(()=>{
         axios.get(URL+"/training/"+user.id).then((res)=>{
@@ -80,7 +85,9 @@ export default function Training(props){
                             {user.role === "member" &&
                                 <th className="w-[11.42vw] text-center">Progress</th>
                             }
-                            <th className="w-[16.5vw] text-center">Actions</th>
+                            {user.role === "admin" && 
+                                <th className="w-[16.5vw] text-center">Actions</th>
+                            }
                         </tr>
                     </thead>
                     <tbody >
@@ -93,7 +100,7 @@ export default function Training(props){
                                 <div className="w-[50px] h-[50px] rounded-full"><img src="./images/play.png"></img></div>
                                 <div  className="flex flex-col">
                                     <h3>{t.title}</h3>
-                                    <p className="text-[#a4a5a5]">{t.description}</p>
+                                    <p className="text-[#a4a5a5] text-[14px]">{t.description}</p>
                                 </div>
                             </td>
                             {user.role === "member" &&
@@ -104,9 +111,11 @@ export default function Training(props){
                                     </div>
                                 </td>
                             }
-                            <td className="flex gap-[5px]">
-                                <button onClick={()=>deleteTraining(t.id,t.video)} type="submit" className="bg-[#e96857] min-w-[60px] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Delete</button>
-                            </td>
+                            {user.role === "admin" && 
+                                <td className="flex gap-[5px]">
+                                    <button onClick={()=>deleteTraining(t.id,t.video)} type="submit" className="bg-[#e96857] min-w-[60px] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Delete</button>
+                                </td>
+                            }
                         </tr>
                         )
                     })}

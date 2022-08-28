@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useRef } from "react";
 import { URL } from "../../App";
 import moment from "moment-timezone";
+import { toast } from "react-toastify";
 
 export default function AddQuestionModal(props){
     const formRef=useRef();
@@ -30,6 +31,7 @@ export default function AddQuestionModal(props){
         console.log(data);
         axios.post(URL+"/question",data).then((res)=>{
             console.log(res);
+            toast("Question Added");
             props.hideAddQuestionModelHandler()
         }).catch((err)=>{
             console.log(err);
@@ -53,16 +55,16 @@ export default function AddQuestionModal(props){
                         
                         <div className="xsm:flex xsm:flex-col text-[clamp(14px,1vw,18px]">
                             <label className="inline-block w-[120px] font-bold ">Select Exam:</label>
-                            <select name="examId" className="inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2 min-w-[280px]">
-                            <option disabled selected>Choose Exam</option>
-                            
-                            {props.examData.map((e)=>{
-                                return(
-                                    <option value={e.id}>{e.title}</option>
-                                )
-                            })
-                            }
-                        </select>
+                            <select required name="examId" className="inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2 min-w-[280px]">
+                                <option value={""}>Choose Exam</option>
+                                
+                                {props.examData.map((e)=>{
+                                    return(
+                                        <option value={e.id}>{e.title}</option>
+                                    )
+                                })
+                                }
+                            </select>
                         </div>
                         
                         <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
@@ -70,19 +72,19 @@ export default function AddQuestionModal(props){
                         </div>
 
                         <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[120px] font-bold ">Option 1:</label><input required name="op1" placeholder="Type Option 1" type={"text"} className="inline-block w-[17vw] min-w-[280px] text-[#a4a5a5] border-b-[2px] indent-2"></input><div className="flex"><label className="w-[120px]">Correct Option</label><input value={1} name="co" type="radio"></input></div>
+                            <label className="inline-block w-[120px] font-bold ">Option 1:</label><input required name="op1" placeholder="Type Option 1" type={"text"} className="inline-block w-[17vw] min-w-[280px] text-[#a4a5a5] border-b-[2px] indent-2"></input><div className="flex"><label className="w-[120px]">Correct Option</label><input value={1} required name="co" type="radio"></input></div>
                         </div>
 
                         <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[120px] font-bold ">Option 2:</label><input required name="op2" placeholder="Type Option 2" type={"text"} className="inline-block w-[17vw] min-w-[280px] text-[#a4a5a5] border-b-[2px] indent-2"></input><div className="flex"><label className="w-[120px]">Correct Option</label><input value={2} name="co" type="radio"></input></div>
+                            <label className="inline-block w-[120px] font-bold ">Option 2:</label><input required name="op2" placeholder="Type Option 2" type={"text"} className="inline-block w-[17vw] min-w-[280px] text-[#a4a5a5] border-b-[2px] indent-2"></input><div className="flex"><label className="w-[120px]">Correct Option</label><input value={2} required name="co" type="radio"></input></div>
                         </div>
 
                         <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[120px] font-bold ">Option 3:</label><input required name="op3" placeholder="Type Option 3" type={"text"} className="inline-block w-[17vw] min-w-[280px] text-[#a4a5a5] border-b-[2px] indent-2"></input><div className="flex"><label className="w-[120px]">Correct Option</label><input value={3} name="co" type="radio"></input></div>
+                            <label className="inline-block w-[120px] font-bold ">Option 3:</label><input required name="op3" placeholder="Type Option 3" type={"text"} className="inline-block w-[17vw] min-w-[280px] text-[#a4a5a5] border-b-[2px] indent-2"></input><div className="flex"><label className="w-[120px]">Correct Option</label><input value={3} required name="co" type="radio"></input></div>
                         </div>
 
                         <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[120px] font-bold ">Option 4:</label><input required name="op4" placeholder="Type Option 4" type={"text"} className="inline-block w-[17vw] min-w-[280px] text-[#a4a5a5] border-b-[2px] indent-2"></input><div className="flex"><label className="w-[120px]">Correct Option</label><input value={4} name="co" type="radio"></input></div>
+                            <label className="inline-block w-[120px] font-bold ">Option 4:</label><input required name="op4" placeholder="Type Option 4" type={"text"} className="inline-block w-[17vw] min-w-[280px] text-[#a4a5a5] border-b-[2px] indent-2"></input><div className="flex"><label className="w-[120px]">Correct Option</label><input value={4} required name="co" type="radio"></input></div>
                         </div>
 
                         <div className="flex justify-center mt-[20px] self-center xsm:mb-[30px]">

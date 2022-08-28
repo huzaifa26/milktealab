@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRef } from "react";
 import { URL } from "../../App";
 import moment from "moment-timezone";
+import { toast } from "react-toastify";
 
 export default function AddExamModal(props){
     const formRef=useRef();
@@ -25,7 +26,8 @@ export default function AddExamModal(props){
         }
         axios.post(URL+"/exam",data).then((res)=>{
             console.log(res);
-            props.hideAddExamModelHandler()
+            toast("Exam Added");
+            props.hideAddExamModelHandler();
         }).catch((err)=>{
             console.log(err);
         })
@@ -41,7 +43,7 @@ export default function AddExamModal(props){
                     
                     <div>
                         <img onClick={hideModal} src="./images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[5%] text-gray-300 cursor-pointer"/>
-                        <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[2.5%]"><h2>Add Exam</h2></div>
+                        <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[25px]"><h2>Add Exam</h2></div>
                     </div>
                     <form ref={formRef} onSubmit={examFormHandler} className="flex-1 flex flex-col gap-[18px] items-center justify-center">
                         <div className="xsm:flex xsm:flex-col text-[clamp(14px,1vw,18px]">

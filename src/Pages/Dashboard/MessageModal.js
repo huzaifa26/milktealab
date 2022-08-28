@@ -18,7 +18,7 @@ export default function MessageModal(props){
     const socket=useRef();
 
     useEffect(() => {
-        socket.current=io("ws://localhost:5000");
+        socket.current=io("https://milktealab.herokuapp.com/");
         socket.current.on("getMessage", (data) => {
             setArriavalMessage({
             sender: data.senderId,

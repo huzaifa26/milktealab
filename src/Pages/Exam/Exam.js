@@ -48,16 +48,6 @@ export default function Exam(props){
     let user=localStorage.getItem(("user"));
     user=JSON.parse(user);
 
-    useEffect(()=>{
-        axios.get(URL+"/exam/"+user.id).then((res)=>{
-            setExamData(res.data.res);
-            console.log(res);
-        }).catch((err)=>{
-            console.log(err);
-        })
-    },[addExamModel,editExamModel])
-
-
     const examonClickhanlder=(e)=>{
         if(user.role === "admin"){
             navigate("/admin-question",{state:e})
@@ -76,6 +66,15 @@ export default function Exam(props){
             console.log(err);
         })
     },[])
+
+    useEffect(()=>{
+        axios.get(URL+"/exam/"+user.id).then((res)=>{
+            setExamData(res.data.res);
+            console.log(res);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },[addExamModel,editExamModel])
 
     return(
         <>
@@ -128,7 +127,7 @@ export default function Exam(props){
                                 <div className="w-[50px] h-[50px] rounded-full"><img src="./images/play.png"></img></div>
                                 <div className="flex flex-col">
                                     <h3>{e.title}</h3>
-                                    <p>{e.description}</p>
+                                    <p className="text-[#a4a5a5] text-[14px]">{e.description}</p>
                                 </div>
                             </td>
                             {user.role === "member" &&

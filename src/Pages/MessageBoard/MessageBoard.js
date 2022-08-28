@@ -5,6 +5,7 @@ import "./MessageBoard.css";
 import moment from "moment-timezone";
 import { io } from "socket.io-client";
 import { async } from "@firebase/util";
+import { Navigate } from "react-router-dom";
 
 export default function MessageBoard(props){
     const scrollRef=useRef();
@@ -22,7 +23,7 @@ export default function MessageBoard(props){
     logUser=JSON.parse(logUser);
 
     useEffect(() => {
-        socket.current=io("ws://localhost:5000");
+        socket.current=io("https://milktealab.herokuapp.com/");
         socket.current.on("getMessage", (data) => {
             setArriavalMessage({
             sender: data.senderId,
@@ -124,7 +125,7 @@ export default function MessageBoard(props){
         }).catch((err)=>{
             console.log(err);
         })
-    },[])
+    },[fetchConvo])
 
         useEffect(()=>{
         console.log(logUser.id);
@@ -135,6 +136,10 @@ export default function MessageBoard(props){
             console.log(err);
         })
     },[logUser?.id,createNewConversation])
+
+    if(logUser.role !== "member"){
+        return <Navigate to={"/"}/>
+    }
 
     return(
     <div className="w-[100%] h-[100%] pt-[20px]">
@@ -156,7 +161,7 @@ export default function MessageBoard(props){
                 <ul className=" w-[100%]">
                     {conversation && conversation.map((c)=>{
                         return(
-                            <li onClick={()=>{setNewMessage("");setCurrentChat(c);console.log(c)}} className="cursor-pointer hover:bg-gray-200 flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]">
+                            <li onClick={()=>{setNewMessage("");setCurrentChat(c);console.log(c)}} className="cursor-pointer hover:bg-gray-200 flex items-center gap-[8px] -[100%] h-[60px] xsm:pl-[5px] sm:pl-[10px] pl-[30px]">
                                 <h2>{c[1].userName}</h2>
                             </li>
                         )
