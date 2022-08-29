@@ -1,9 +1,14 @@
+import moment from "moment-timezone"
 
 export default function ShowAnnouncementModal(props){
 
     const hideModal=()=>{
         props.hideAnnouncementModalHandler()
     }
+
+    let time=props?.singleAnnouncements?.publishedTime.replace("T"," ")
+    time=time.split(".")
+    time=time[0]
     return(
         <>
             <div className="w-[calc(100vw)] h-[100vh] fixed top-[calc(0%)] !z-[110] left-[calc(0%)] bg-black opacity-30">
@@ -17,11 +22,15 @@ export default function ShowAnnouncementModal(props){
                     </div>
                     <div className="flex-1 flex flex-col gap-[18px] items-center justify-center">
                         <div className="xsm:flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[120px] font-bold ">Title:</label><h3 className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2">{props?.singleAnnouncements?.title}</h3>
+                            <label className="inline-block w-[130px] font-bold ">Title:</label><h3 className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] indent-2">{props?.singleAnnouncements?.title}</h3>
                         </div>
 
                         <div className="xsm:flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[120px] font-bold ">Description:</label><h3 className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2">{props?.singleAnnouncements?.description}</h3>
+                            <label className="inline-block w-[130px] font-bold ">Description:</label><h3 className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] indent-2">{props?.singleAnnouncements?.description}</h3>
+                        </div>
+
+                        <div className="xsm:flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                            <label className="inline-block w-[130px] font-bold ">Published Time:</label><h3 className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] indent-2">{time}</h3>
                         </div>
                     </div>
                 </div>   

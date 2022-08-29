@@ -13,29 +13,21 @@ export default function ShowVideoModal(props){
     user=localStorage.getItem("user");
     user=JSON.parse(user);
 
+    let data={
+        uId:user.id,
+        progress:0
+    }
+
     const hideModal=()=>{
+        data.vId=props.videoData.id;
+        console.log(data);
+        axios.post(URL+"/videoProgress",data).then((res)=>{
+            console.log(res.data.res);
+        }).catch(err=>{
+            console.log(err);
+        })
         props.hideVideoModalHandler()
     }
-    const [played, setPlayed] = useState(0);
-    const [progress,setProgress]=useState();
-    let prog={}
-
-    useEffect(()=>{
-
-        return ()=>{
-            console.log(prog.progress);
-            let data={
-                uId:user.id,
-                vId:props.videoData.id,
-                progress:prog?.progress*100
-            }
-            axios.post(URL+"/videoProgress",data).then((res)=>{
-                console.log(res.data.res);
-            }).catch(err=>{
-                console.log(err);
-            })
-        }
-    },[])
 
     return(
         <>
@@ -49,15 +41,14 @@ export default function ShowVideoModal(props){
                         <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[25px]"><h2>Training Videos</h2></div>
                     </div>
                     <ReactPlayer 
+                    progressInterval={100}
                     width={"100%"}
                     height={"100%"}
                         url={props?.videoData?.video} 
                         playing={true} 
                         controls={true}
                         onProgress={(progress) => {
-                            // localStorage.setItem(props.videoData.title,progress.played)
-                            console.log(progress.played);
-                            prog.progress=progress.played;
+                            data.progress=progress.played*100
                           }}
                         />
                 </div>   

@@ -27,7 +27,6 @@ export default function Application(props){
         }
 
         axios.post(URL+'/signup', data).then(function (response) {
-            console.log(response)
             if(response.status === 200){
                 toast("Application Submitted Succesfully");
                 navigate("/");

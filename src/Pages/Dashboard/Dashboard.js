@@ -130,8 +130,10 @@ export default function Dashboard(props){
                                 <select onChange={(e)=>assignManager(e,u.id)} className="">
                                     <option selected disabled>Select Manager</option>
                                     {managers.map((m)=>{
+                                        console.log(m);
+                                        console.log(u);
                                         return(
-                                            <option value={m.id} selected={u.id===m.id}>{m.userName}</option>
+                                            <option value={m.id} selected={+u.assignedManager===+m.id}>{m.userName}</option>
                                         )
                                     })}
                                 </select>

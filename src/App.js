@@ -2,12 +2,7 @@ import Layout from "./Layout/Layout";
 import Login from "./Pages/Login/Login";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
+import {BrowserRouter,Routes,Route} from "react-router-dom";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import FutureDashboard from "./Pages/Dashboard/FutureDashboard";
 import ManagerDashboard from "./Pages/Dashboard/ManagerDashboard";
@@ -22,6 +17,8 @@ import MessageBoard from "./Pages/MessageBoard/MessageBoard";
 import AdminShowQuestion from "./Pages/Exam/AdminShowQuestion";
 import AttemptExam from "./Pages/Exam/AttemptExam";
 import { useEffect } from "react";
+import ChangePassword from "./Pages/Login/ChangePassword";
+import GetEmailFromUser from "./Pages/Login/GetEmailFromUser";
 
 // export const URL="http://localhost:5000/api";
 export const URL="https://milktealab.herokuapp.com/api";
@@ -35,9 +32,11 @@ function App() {
   user=JSON.parse(user);
 
   return (
-    <>
+    <div >
         <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
+        <Route path="/findUser" element={<GetEmailFromUser></GetEmailFromUser>}></Route>
+        <Route path="/change-password/:id" element={<ChangePassword></ChangePassword>}></Route>
         <Route path="/application" element={<Application></Application>}></Route>
           <Route path="/" element={<Login />}></Route>
           <Route path="/" element={<Protected />}>
@@ -66,7 +65,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <ToastContainer />
-    </>
+    </div>
   );
 }
 

@@ -3,7 +3,9 @@ import moment from "moment-timezone";
 import { useEffect, useRef, useState } from "react";
 import { URL } from "../../App";
 import { io } from "socket.io-client";
-
+import { toast } from "react-toastify";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../../Components/Firebase";
 
 export default function MessageModal(props){
     let logUser=localStorage.getItem("user");
@@ -84,28 +86,26 @@ export default function MessageModal(props){
         scrollRef.current?.scrollIntoView({behavior:"smooth"});
     },[message])
 
-
-
     const handlesubmit=async()=>{
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const currentTime = moment().tz(timezone).format();
         const datetime = currentTime.slice(0, 19).replace('T', ' ');
-
+        
         let newMessageData={
             sId:logUser.id,
             message:newMessage,
+            url:null,
             cId:currentChat && currentChat[0][0]?.id,
             createdTime:datetime
         }
-
-        console.log(newMessage)
-
+        
         let id2=currentChat && currentChat[0][1]?.id;
 
         await socket.current.emit("sendMessage",{
             senderId:logUser.id,
             recieverId:id2,
-            text:newMessage
+            text:newMessage,
+            url:null
         })
 
         axios.post(URL+"/message",newMessageData).then((res)=>{
@@ -116,6 +116,76 @@ export default function MessageModal(props){
             console.log(err);
         })
     }
+    
+    const messageFileUploader=async(e)=>{
+        console.log("hahahahhah")
+        console.log(e.target.files[0]);
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const currentTime = moment().tz(timezone).format();
+            const datetime = currentTime.slice(0, 19).replace('T', ' ');
+            toast(0,{autoClose:false, toastId: 1})
+    
+            try{
+                const storageRef = ref(storage, `/message/${e.target.files[0].name}`);
+                const uploadTask = uploadBytesResumable(storageRef, e.target.files[0]);
+    
+                uploadTask.on('state_changed', 
+                (snapshot) => {
+                  const p = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                  toast.update(1, {
+                    render: 'Upload is ' + p.toFixed(2) + '% done. Please Donot close the window.',
+                  });
+                  switch (snapshot.state) {
+                    case 'paused':
+                      console.log('Upload is paused');
+                      break;
+                    case 'running':
+                      console.log('Upload is running');
+                      break;
+                  }
+                }, 
+                (error) => {
+                    console.log(error);
+                }, 
+                () => {
+                  getDownloadURL(uploadTask.snapshot.ref).then(async(url) => {
+                    let id2=currentChat && currentChat[1]?.id;
+
+                    await socket.current.emit("sendMessage",{
+                        senderId:logUser.id,
+                        recieverId:id2,
+                        text:newMessage,
+                        url,
+                    })    
+
+                    let newMessageData2={
+                        sId:logUser.id,
+                        message:e.target.files[0].name,
+                        cId:currentChat && currentChat[0][0]?.id,
+                        url,
+                        createdTime:datetime
+                    }
+
+                    axios.post(URL+"/message",newMessageData2).then((res)=>{
+                        newMessageData2.id=res.data.res.insertedId;
+                        setMessage([...message,newMessageData2]);
+                        setNewMessage("");
+                        toast.update(1, {
+                            render: 'File upload',
+                            autoClose:2000
+                          });
+                        e.target.value="";
+                    }).catch(err=>{
+                        console.log(err);
+                    })
+                  });
+                }
+              );
+            }catch(err){
+                console.log(err);
+            }
+    }
+
 
     return(
         <>
@@ -130,8 +200,8 @@ export default function MessageModal(props){
                     </div>
 
 
-                    <div className="w-[100%]  flex max-h-[35vw] overflow-y-scroll p-[25px] bg-[#f4fdff]">
-                        <div className="flex flex-col justify-between flex-1">
+                    <div className="w-[100%]  flex max-h-[35vw] h-[35vw] overflow-y-scroll p-[25px] bg-[#f4fdff]">
+                        <div className="flex flex-col justify-between flex-1 h-full">
                             <div className="flex flex-col">
                                 {message && message.map((m)=>{
                                     let own=false;
@@ -139,18 +209,26 @@ export default function MessageModal(props){
                                         own=true
                                     }
                                     return(
-                                    <div ref={scrollRef} key={m.id} className={own ? "message own" : "message"}>
-                                        <div className="messageTop">
+                                    <div  key={m.id} className={own ? "message own" : "message"}>
+                                        <div className="flex flex-col messageText">
+                                            {(m.url !== null && m.url !== undefined) &&
+                                                <a href={m.url} className={own ? "messageText break-words self-end" : "messageText break-words"}>
+                                                        <img className="" src="./images/UploadFile.png" alt=""></img>
+                                                </a>
+                                            }
                                             <p className="messageText break-words">{m.message}</p>
                                         </div>
-                                        <p className="messageBottom">{moment(m.createdTime).fromNow()}</p>
+                                        <p  className="messageBottom">{moment(m.createdTime).fromNow()}</p>
                                     </div>
                                 )})}
                             </div>
                             <div className="flex my-[20px] self-end w-[100%] py-[10px] px-[10px] bg-[#f4f5f5] rounded-[10px]">
-                                <textarea onChange={(e)=>setNewMessage(e.target.value)} value={newMessage} rows={"3"} placeholder="Type your message here" className="flex-1 bg-transparent flex py-[10px] "></textarea>
+                                <textarea ref={scrollRef} onChange={(e)=>setNewMessage(e.target.value)} value={newMessage} rows={"3"} placeholder="Type your message here" className="flex-1 bg-transparent flex py-[10px] "></textarea>
                                 <div className="flex flex-col justify-around items-center py-[2vh]">
-                                    <img className="cursor-pointer self-center w-[1.17vw] min-w-[25px]" src="./images/UploadFile.png"></img>
+                                    <label for="file3">
+                                        <img className="cursor-pointer self-center w-[1.17vw] min-w-[25px]" src="./images/UploadFile.png"></img>
+                                    </label>
+                                    <input id="file3" type={"file"} onChange={messageFileUploader} className="hidden"></input>
                                     <img onClick={handlesubmit} className="cursor-pointer w-[1.17vw] min-w-[25px]" src="./images/send.png"></img>
                                 </div>
                             </div>

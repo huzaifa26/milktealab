@@ -7,6 +7,8 @@ export default function Layout(props){
     let user;
     user=localStorage.getItem("user");
     user=JSON.parse(user);
+    let style1=user?.role === "franchisee" ? {pointerEvents: "none",opacity:"0.4"}:{}
+
 
     const navigate=useNavigate();
     const location=useLocation()
@@ -104,35 +106,35 @@ export default function Layout(props){
                             </div>
                             <div class="w-full h-full flex text-gray-900">
                                 <ul className="w-[100%]">
-                                    <NavLink onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/announcement"}>
+                                    <NavLink style={style1} onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/announcement"}>
                                         <li className="flex items-center gap-[8px] w-[100%] h-[60px]">
                                             <img className="w-[20.6266px] " src="./images/megaphone.png"></img>
                                             <h2>Announcement</h2>
                                         </li>
                                     </NavLink>
 
-                                    <NavLink onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/"}>
+                                    <NavLink style={style1} onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
                                             <img className="w-[20.6266px] " src="./images/inventory.png"></img>
                                             <h2>Inventory Order</h2>
                                         </li>
                                     </NavLink>
 
-                                    <NavLink onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/download-material"}>
+                                    <NavLink style={style1} onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/download-material"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
                                             <img className="w-[20.6266px] " src="./images/material.png"></img>
                                             <h2>Download Materials</h2>
                                         </li>
                                     </NavLink>
 
-                                    <NavLink onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/training"}>
+                                    <NavLink style={style1} onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/training"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
                                             <img className="w-[20.6266px] " src="./images/training.png"></img>
                                             <h2>Training Videos</h2>
                                         </li>
                                     </NavLink>
 
-                                    <NavLink onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/exam"}>
+                                    <NavLink style={style1} onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/exam"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
                                             <img className="w-[20.6266px] " src="./images/exam.png"></img>
                                             <h2>Franchise Training Exam</h2>
@@ -140,7 +142,7 @@ export default function Layout(props){
                                     </NavLink>
 
                                     {user?.role === "admin"?
-                                        <NavLink onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/dashboard"}>
+                                        <NavLink style={style1} onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/dashboard"}>
                                             <li className="flex items-center gap-[8px] -[100%] h-[60px]">
                                                 <img className="w-[20.6266px] " src="./images/dashboard.png"></img>
                                                 <h2>Dashboard</h2>
@@ -148,14 +150,14 @@ export default function Layout(props){
                                         </NavLink>
                                     :
                                     user?.role === "member"?
-                                        <NavLink onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/message-board"}>
+                                        <NavLink style={style1} onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/message-board"}>
                                             <li className="flex items-center gap-[8px] -[100%] h-[60px]">
                                                 <img className="w-[20.6266px] " src="./images/dashboard.png"></img>
                                                 <h2>Message Board</h2>
                                             </li>
                                         </NavLink>
                                     :
-                                    user?.role === "manager"?
+                                    user?.role === "franchisee"?
                                         <NavLink onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/futuredashboard"}>
                                             <li className="flex items-center gap-[8px] -[100%] h-[60px]">
                                                 <img className="w-[20.6266px] " src="./images/dashboard.png"></img>
@@ -163,8 +165,8 @@ export default function Layout(props){
                                             </li>
                                         </NavLink>
                                     :
-                                    user?.role === "franchisee"?
-                                        <NavLink onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/managerdashboard"}>
+                                    user?.role === "manager"?
+                                        <NavLink style={style1} onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/managerdashboard"}>
                                             <li className="flex items-center gap-[8px] -[100%] h-[60px]">
                                                 <img className="w-[20.6266px] " src="./images/dashboard.png"></img>
                                                 <h2>Manager Dashboard</h2>
@@ -179,7 +181,7 @@ export default function Layout(props){
                                         </li>
                                     </NavLink>
 
-                                    <NavLink onClick={isNavOpen && hamburgerHandler} onClick={logoutHandler} className="xsm:flex sm:flex md:hidden lg:hidden xl:hidden 2xl:hidden items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/"}>
+                                    <NavLink onClick={()=>{if(isNavOpen){ hamburgerHandler()} logoutHandler()}} className="xsm:flex sm:flex md:hidden lg:hidden xl:hidden 2xl:hidden items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/"}>
                                         <li className="flex items-center gap-[8px] -[100%] h-[60px]">
                                             <img className="w-[20.6266px] " src="./images/exam.png"></img>
                                             <h2>Logout</h2>
@@ -188,14 +190,14 @@ export default function Layout(props){
                                 </ul>
                             </div>
                             <div className="my-[50px] px-[30px]">
-                                <h2 className="text-center border-b-[2px] pb-[4px] mb-[15px] border-black">Third Party Login</h2>
+                                <h2 style={style1} className="text-center border-b-[2px] pb-[4px] mb-[15px] border-black">Third Party Login</h2>
                                 <div className="flex flex-col items-center gap-[3vh]">
-                                    <img className="w-[4.83vw] min-w-[65.9778px]" src="./images/Doordash.png" alt=""/>
-                                    <img className="w-[5.17vw] min-w-[70.6222px]" src="./images/Grubhub.png" alt=""/>
-                                    <img className="w-[4.56vw] min-w-[70.68448959999999px]" src="./images/Ubereats.png" alt=""/>
-                                    <img className="w-[5.95vw] min-w-[81.277px]" src="./images/Square.png" alt=""/>
-                                    <img className="w-[6.34vw] min-w-[81.277px]" src="./images/Homebase.png" alt=""/>
-                                    <img className="w-[7.47vw] min-w-[102.0402px]" src="./images/Quickbook.png" alt=""/>
+                                    <img style={style1} className="w-[4.83vw] min-w-[65.9778px]" src="./images/Doordash.png" alt=""/>
+                                    <img style={style1} className="w-[5.17vw] min-w-[70.6222px]" src="./images/Grubhub.png" alt=""/>
+                                    <img style={style1} className="w-[4.56vw] min-w-[70.68448959999999px]" src="./images/Ubereats.png" alt=""/>
+                                    <img style={style1} className="w-[5.95vw] min-w-[81.277px]" src="./images/Square.png" alt=""/>
+                                    <img style={style1} className="w-[6.34vw] min-w-[81.277px]" src="./images/Homebase.png" alt=""/>
+                                    <img style={style1} className="w-[7.47vw] min-w-[102.0402px]" src="./images/Quickbook.png" alt=""/>
                                 </div>
                             </div>
                         </div>

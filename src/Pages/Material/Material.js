@@ -1,11 +1,19 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { URL } from "../../App";
 import AddMaterialModal from "./AddMaterialModal";
 import EditMaterialModal from "./EditMaterialModal";
+import { saveAs } from 'file-saver';
+
 
 export default function Material(props){
+
+    const downloadFile=(url,name)=>{
+        console.log(url,name)
+        saveAs(url);
+    }
 
     let user;
     user=localStorage.getItem("user");
@@ -87,13 +95,13 @@ export default function Material(props){
                         const datetime = m?.createdTime.slice(0, 19).replace('T', ' ');
                         return(
                         <tr className="min-w-[500px] flex my-[20px] justify-between">
-                            <td className=" flex gap-[10px]">
-                                <div className="w-[50px] h-[50px] rounded-full"><img src="./images/download.png"></img></div>
-                                <div className="flex flex-col">
-                                    <a className="font-bold" href={m.file}>
-                                        <h3 className="font-bold">{m.title}</h3>
-                                    </a>
-                                    <p className="text-[#a4a5a5] text-[14px]">{m.description}</p>
+                            <td className="">
+                                <div onClick={()=>downloadFile(m.file,m.title)} className="flex gap-[10px] font-bold cursor-pointer">
+                                    <div className="w-[50px] h-[50px] rounded-full"><img src="./images/download.png"></img></div>
+                                    <div className="flex flex-col">
+                                            <h3 className="font-bold">{m.title}</h3>
+                                        <p className="text-[#a4a5a5] text-[14px]">{m.description}</p>
+                                    </div>
                                 </div>
                             </td>
                             <td className=" flex flex-col">

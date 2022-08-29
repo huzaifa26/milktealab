@@ -59,10 +59,12 @@ export default function Login(){
                     <input name="password" class="text-[clamp(14px,0.586vw,24px)] border-b-[0.23148148148148vh] rounded px-3 py-1 mt-2 passwordIcon" type="password" placeholder="Type your password"/>
                 </div>
                 <div class="flex flex-col items-center justify-center my-3">
-                    <div class="flex w-full items-center justify-between text-xs text-gray-500">
-                        <label className="flex items-center justify-center text-[clamp(12px,0.659vw,27px)] text-[#000] font-semibold"><input type={"checkbox"}/> Remember me.</label>
-                        <p className="text-[clamp(12px,0.659vw,27px)] text-[#000] font-semibold">Forgot password?</p>
-                    </div>
+                        <div class="flex w-full items-center justify-between text-xs text-gray-500">
+                            <label className="flex items-center justify-center text-[clamp(12px,0.659vw,27px)] text-[#000] font-semibold"><input type={"checkbox"}/> Remember me.</label>
+                            <Link to="findUser">
+                                <p className="text-[clamp(12px,0.659vw,27px)] text-[#000] font-semibold">Forgot password?</p>
+                            </Link>
+                        </div>
                         <button class="h-[4.3518518518519vh] min-w-[150px] min-h-[30px] mt-[2.051vh] mb-[1.221vh] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
                             Submit
                         </button>

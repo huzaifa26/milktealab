@@ -17,9 +17,10 @@ export default function Training(props){
     const [trainingData,setTrainingData]=useState([]);
     const [singletrainingData,setsingleTrainingData]=useState([]);
     const [showVideoModal,setVideoModal]=useState(false);
-    const hideVideoModalHandler=()=>{
+    
+    const hideVideoModalHandler=useCallback(()=>{
         setVideoModal(false);
-    }
+    },[showVideoModal])
 
     const [showModal,setShowModal]=useState(false);
     const showTrainingModal=()=>{
@@ -58,7 +59,7 @@ export default function Training(props){
         }).catch((err)=>{
             console.log(err);
         })
-    },[showModal,deleteTraining])
+    },[showModal,deleteTraining,hideVideoModalHandler])
 
     return(
     <>

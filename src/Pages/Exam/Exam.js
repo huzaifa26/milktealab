@@ -119,8 +119,14 @@ export default function Exam(props){
                     </thead>
                     <tbody>
                     {examData && examData.map((e)=>{
-                        let width= (e.attemptedQuestions / e.totalquestion)*100
-                        width=width+"%"
+                        let width=0+"%"
+                        let examStatus="Not Finished";
+
+                        if(e.totalquestion === e.attemptedQuestions && e.totalquestion !== 0){
+                            examStatus="Finished";
+                            width= (e.attemptedQuestions / e.totalquestion)*100;
+                            width=width+"%";
+                        }
                         return(
                         <tr className="flex my-[20px] justify-between">
                             <td onClick={()=>examonClickhanlder(e)} className="flex-1 cursor-pointer flex gap-[10px]">
@@ -132,7 +138,7 @@ export default function Exam(props){
                             </td>
                             {user.role === "member" &&
                                 <td className="flex-1  flex flex-col items-center text-blue-400">
-                                    <h2 className="w-[11.42vw] text-center">{e.totalquestion === e.attemptedQuestions?"Finished":"Not Finised"}</h2>
+                                    <h2 className="w-[11.42vw] text-center">{examStatus}</h2>
                                     <div className="w-[11.42vw] min-w-[155.9972px] h-[3px] bg-gray-200">
                                         <div style={{width}} className="h-[100%] bg-blue-400"></div>
                                     </div>
@@ -162,21 +168,23 @@ export default function Exam(props){
                         </tr>
                     </thead>
                     <tbody>
-                        {examData && examData.map((e)=>{return(
+                        {examData && examData.map((e)=>{
+
+                            return(
                             <tr className="flex  my-[20px] justify-between">
                                 <td className="flex gap-[10px]">
                                     <div className="flex flex-col">
                                         <h3>{e.title}</h3>
                                     </div>
                                 </td>
-                                {e.attemptedQuestions === e.totalquestion?
+                                {(e.attemptedQuestions === e.totalquestion) && (e.totalquestion!==0)?
                                 <td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
                                     <img className="w-[10.094100000000001px]" src={e.result>79?"./images/tick-g.png":"./images/x-mark-b.png"}/>
                                     <h2 className=" text-center">{e.result}%</h2>
                                 </td>
                                 :<td className="flex gap-[0.4vw] w-[11.49vw] items-center text-[#a4a5a5]">
                                     <img className="w-[10.094100000000001px]" src={"./images/x-mark-r.png"}/>
-                                    <h2 className=" text-center">Not Finised</h2>
+                                    <h2 className=" text-center">{"Not Finished"}</h2>
                                 </td>}
                             </tr>
                         )})}
