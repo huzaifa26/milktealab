@@ -7,7 +7,7 @@ import { URL } from "../../App";
 
 const MailService = async (data) => {
     return new Promise((resolve)=>{
-        data.link = 'http://localhost:3000/change-password/' + data.id;
+        data.link = 'https://huzaifa26.github.io/milktealab/change-password/' + data.id;
         emailjs
           .send('service_cgjx1fg', 'template_ojllmfn', data, 'PCrkZDdTgRVPTxMHf')
           .then(
