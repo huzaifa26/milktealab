@@ -26,7 +26,7 @@ export default function MessageBoard(props){
     logUser=JSON.parse(logUser);
 
     useEffect(() => {
-        socket.current=io("https://milktealab.herokuapp.com/");
+        socket.current=io("ws://localhost:5000/");
         socket.current.on("getMessage", (data) => {
             setArriavalMessage({
             sender: data.senderId,
@@ -253,7 +253,6 @@ export default function MessageBoard(props){
                             if (m.sId === logUser.id){
                                 own=true
                             }
-                            console.log(m.url);
                             return(
                             <div ref={scrollRef} key={m.id} className={own ? "message own" : "message"}>
                                 

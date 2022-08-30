@@ -20,7 +20,7 @@ export default function MessageModal(props){
     const socket=useRef();
 
     useEffect(() => {
-        socket.current=io("https://milktealab.herokuapp.com/");
+        socket.current=io("ws://localhost:5000/");
         socket.current.on("getMessage", (data) => {
             setArriavalMessage({
             sender: data.senderId,
@@ -44,9 +44,6 @@ export default function MessageModal(props){
     const hideModal=()=>{
         props.hideshowMessageModalHandler()
     }
-
-
-
 
     useEffect(()=>{
         axios.get(URL+"/singleConversation/"+logUser.id+"/"+props?.userId).then((res)=>{
@@ -198,7 +195,6 @@ export default function MessageModal(props){
                         <img onClick={hideModal} src="./images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[2%] text-gray-300 cursor-pointer"/>
                         <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[2.5%]"><h2>Messages</h2></div>
                     </div>
-
 
                     <div className="w-[100%]  flex max-h-[35vw] h-[35vw] overflow-y-scroll p-[25px] bg-[#f4fdff]">
                         <div className="flex flex-col justify-between flex-1 h-full">
