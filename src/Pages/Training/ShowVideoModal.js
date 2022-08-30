@@ -20,13 +20,12 @@ export default function ShowVideoModal(props){
 
     const hideModal=()=>{
         data.vId=props.videoData.id;
-        console.log(data);
         axios.post(URL+"/videoProgress",data).then((res)=>{
             console.log(res.data.res);
         }).catch(err=>{
             console.log(err);
         })
-        props.hideVideoModalHandler()
+        props.hideVideoModalHandler(data);
     }
 
     return(

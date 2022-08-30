@@ -2,7 +2,7 @@ import Layout from "./Layout/Layout";
 import Login from "./Pages/Login/Login";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {BrowserRouter,HashRouter,Routes,Route} from "react-router-dom";
+import {BrowserRouter,Routes,Route} from "react-router-dom";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import FutureDashboard from "./Pages/Dashboard/FutureDashboard";
 import ManagerDashboard from "./Pages/Dashboard/ManagerDashboard";
@@ -33,7 +33,7 @@ function App() {
 
   return (
     <div >
-        <HashRouter basename={process.env.PUBLIC_URL}>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
         <Route path="/findUser" element={<GetEmailFromUser></GetEmailFromUser>}></Route>
         <Route path="/change-password/:id" element={<ChangePassword></ChangePassword>}></Route>
@@ -63,7 +63,7 @@ function App() {
               <Route path="/attempt-exam" element={<Layout><AttemptExam /></Layout>}></Route>
           </Route>
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
       <ToastContainer />
     </div>
   );

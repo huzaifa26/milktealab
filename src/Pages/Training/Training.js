@@ -18,7 +18,18 @@ export default function Training(props){
     const [singletrainingData,setsingleTrainingData]=useState([]);
     const [showVideoModal,setVideoModal]=useState(false);
     
-    const hideVideoModalHandler=useCallback(()=>{
+    const hideVideoModalHandler=useCallback((progress)=>{
+        console.log(progress)
+        console.log(trainingData);
+        let newArr=[...trainingData];
+        newArr.forEach((n)=>{
+            if(n.id === progress.vId){
+                if(progress.progress>n.progress){
+                    n.progress=Math.round(progress.progress);
+                }
+            }
+        });
+        setTrainingData(newArr)
         setVideoModal(false);
     },[showVideoModal])
 
@@ -59,7 +70,7 @@ export default function Training(props){
         }).catch((err)=>{
             console.log(err);
         })
-    },[showModal,deleteTraining,hideVideoModalHandler])
+    },[showModal,deleteTraining])
 
     return(
     <>
