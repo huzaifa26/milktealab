@@ -120,7 +120,7 @@ export default function Dashboard(props){
                                     <option value={"admin"} selected={u.role === "admin"?true:false}>Admin</option>
                                     <option value={"manager"} selected={u.role === "manager"?true:false}>Training Manager</option>
                                     <option value={"franchisee"} selected={u.role === "franchisee"?true:false}>Franchisee</option>
-                                    <option value={"member"} selected={u.role === "member"?true:false}>Member</option>
+                                    <option value={"member"} selected={u.role === "member"?true:false}>Future Franchisee</option>
                                 </select>
                             </td>
                             <td className="flex-1"><button onClick={()=>{showModalHandler();setUserId(u.id)}} className="bg-[#36c0f8] text-white h-[2.26vh] min-h-[30px] min-w-[95px] rounded-full w-[8vw] text-[14px]">Check Status</button></td>

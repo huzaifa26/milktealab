@@ -7,7 +7,7 @@ export default function Layout(props){
     let user;
     user=localStorage.getItem("user");
     user=JSON.parse(user);
-    let style1=user?.role === "franchisee" ? {pointerEvents: "none",opacity:"0.4"}:{}
+    let style1=user?.role === "member" ? {pointerEvents: "none",opacity:"0.4"}:{}
 
 
     const navigate=useNavigate();
@@ -149,7 +149,7 @@ export default function Layout(props){
                                             </li>
                                         </NavLink>
                                     :
-                                    user?.role === "member"?
+                                    user?.role === "franchisee"?
                                         <NavLink style={style1} onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/message-board"}>
                                             <li className="flex items-center gap-[8px] -[100%] h-[60px]">
                                                 <img className="w-[20.6266px] " src="./images/dashboard.png"></img>
@@ -157,7 +157,7 @@ export default function Layout(props){
                                             </li>
                                         </NavLink>
                                     :
-                                    user?.role === "franchisee"?
+                                    user?.role === "member"?
                                         <NavLink onClick={isNavOpen && hamburgerHandler} className="flex items-center gap-[8px] -[100%] h-[60px] pl-[30px]" to={"/futuredashboard"}>
                                             <li className="flex items-center gap-[8px] -[100%] h-[60px]">
                                                 <img className="w-[20.6266px] " src="./images/dashboard.png"></img>

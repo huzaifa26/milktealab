@@ -22,19 +22,19 @@ export default function ShowAnnouncementModal(props){
                     </div>
                     <div className="flex-1 flex flex-col gap-[18px] items-center justify-center py-[50px]">
                         <div className="xsm:flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[130px] font-bold ">Title:</label><h3 className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] indent-2">{props?.singleAnnouncements?.title}</h3>
+                            <label className="inline-block w-[130px] font-bold ">Title:</label><h3 className="min-w-[280px] inline-block w-[35vw] text-[#a4a5a5] indent-2">{props?.singleAnnouncements?.title}</h3>
                         </div>
 
                         <div className="xsm:flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[130px] font-bold ">Description:</label><h3 className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] indent-2">{props?.singleAnnouncements?.description}</h3>
+                            <label className="inline-block w-[130px] font-bold ">Description:</label><h3 className="min-w-[280px] inline-block w-[35vw] text-[#a4a5a5] indent-2">{props?.singleAnnouncements?.description}</h3>
                         </div>
 
                         <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="items-start inline-block w-[130px] font-bold ">Body:</label><p className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] px-2">{props?.singleAnnouncements?.body}</p>
+                            <label className="items-start inline-block w-[130px] font-bold ">Body:</label><p className="min-w-[280px] inline-block w-[35vw] text-[#a4a5a5] px-2">{props?.singleAnnouncements?.body}</p>
                         </div>
 
                         <div className="xsm:flex xsm:flex-col text-[clamp(14px,1vw,18px]">
-                            <label className="inline-block w-[130px] font-bold ">Published Time:</label><h3 className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] indent-2">{time}</h3>
+                            <label className="inline-block w-[130px] font-bold ">Published Time:</label><h3 className="min-w-[280px] inline-block w-[35vw] text-[#a4a5a5] indent-2">{time}</h3>
                         </div>
                     </div>
                 </div>   

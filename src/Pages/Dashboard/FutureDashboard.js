@@ -4,7 +4,7 @@ export default function FutureDashboard(){
     let user;
     user=localStorage.getItem("user");
     user=JSON.parse(user);
-    if(user.role !== "franchisee"){
+    if(user.role !== "member"){
         return <Navigate to={"/"}/>
     }
 

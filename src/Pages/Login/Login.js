@@ -26,7 +26,7 @@ export default function Login(){
             }
 
             if(user.role === "member"){
-                navigate("/message-board");
+                navigate("/futuredashboard");
             }
 
             if(user.role === "manager"){
@@ -34,7 +34,7 @@ export default function Login(){
             }
 
             if(user.role === "franchisee"){
-                navigate("/futuredashboard");
+                navigate("/message-board");
             }
         }).catch((err)=>{
             toast("Error or incorrect credentials.")

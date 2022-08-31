@@ -29,7 +29,37 @@ export default function Application(props){
         axios.post(URL+'/signup', data).then(function (response) {
             if(response.status === 200){
                 toast("Application Submitted Succesfully");
-                navigate("/");
+
+                let data2={
+                    email:formRef.current.email.value,
+                    password:formRef.current.password.value,
+                }
+
+
+                axios.post(URL+"/signin",data2).then((res)=>{
+                    let user=res.data.res[0];
+                    delete user.pass
+                    localStorage.setItem('user',JSON.stringify(user));
+                    toast("Login Successful")
+                    if(user.role === "admin"){
+                        navigate("/dashboard");
+                    }
+        
+                    if(user.role === "member"){
+                        navigate("/futuredashboard");
+                    }
+        
+                    if(user.role === "manager"){
+                        navigate("/managerdashboard");
+                    }
+        
+                    if(user.role === "franchisee"){
+                        navigate("/message-board");
+                    }
+                }).catch((err)=>{
+                    toast("Error or incorrect credentials.")
+                    console.log(err);
+                })
             }
           })
           .catch(function (error) {

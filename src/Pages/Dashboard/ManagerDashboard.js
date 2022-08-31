@@ -88,6 +88,7 @@ if(user.role !== "manager"){
                 <tbody>
                 {users.map((u)=>{
                         if(u.id === user.id) return;
+                        if(u.role === "admin") return;
                         return(
                         <tr className="flex my-[20px]">
                             <td className="flex-1 xsm:min-w-[136px] sm:min-w-[136px]">{u.userName}</td>
@@ -97,7 +98,7 @@ if(user.role !== "manager"){
                                     {/* <option value={"admin"} selected={u.role === "admin"?true:false}>Admin</option> */}
                                     {/* <option value={"manager"} selected={u.role === "manager"?true:false}>Training Manager</option> */}
                                     <option value={"franchisee"} selected={u.role === "franchisee"?true:false}>Franchisee</option>
-                                    <option value={"member"} selected={u.role === "member"?true:false}>Member</option>
+                                    <option value={"member"} selected={u.role === "member"?true:false}>Future Franchisee</option>
                                 </select>
                             </td>
                             <td className="flex-1"><button onClick={()=>{showModalHandler();setUserId(u.id)}} className="bg-[#36c0f8] text-white h-[2.26vh] min-h-[30px] min-w-[110px] text-[14px] rounded-full w-[8vw]">Check Status</button></td>

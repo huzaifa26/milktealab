@@ -212,7 +212,7 @@ export default function MessageBoard(props){
             }
     }
 
-    if(logUser.role !== "member"){
+    if(logUser.role !== "franchisee"){
         return <Navigate to={"/"}/>
     }
 
