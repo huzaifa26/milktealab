@@ -2,7 +2,7 @@ import Layout from "./Layout/Layout";
 import Login from "./Pages/Login/Login";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {BrowserRouter,Routes,Route} from "react-router-dom";
+import {BrowserRouter,Routes,Route, Navigate} from "react-router-dom";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import FutureDashboard from "./Pages/Dashboard/FutureDashboard";
 import ManagerDashboard from "./Pages/Dashboard/ManagerDashboard";
@@ -16,7 +16,7 @@ import Protected from "./Components/Protected";
 import MessageBoard from "./Pages/MessageBoard/MessageBoard";
 import AdminShowQuestion from "./Pages/Exam/AdminShowQuestion";
 import AttemptExam from "./Pages/Exam/AttemptExam";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ChangePassword from "./Pages/Login/ChangePassword";
 import GetEmailFromUser from "./Pages/Login/GetEmailFromUser";
 
@@ -26,6 +26,27 @@ export const URL="http://localhost:5000/api";
 
 
 function App() {
+  const [changeState,setChangeState]=useState(false);
+
+  const changeStateHandler=()=>{
+    setChangeState(!changeState);
+  }
+  
+  useEffect(() => {
+    const cleanup = () => {
+      let rememberme=localStorage.getItem("remember");
+      rememberme=JSON.parse(rememberme);
+      if(+rememberme === 0){
+        console.log("--------------------rememberme--------------------");
+        localStorage.clear();
+      }
+    }
+  
+    window.addEventListener('beforeunload', cleanup);
+    return () => {
+      window.removeEventListener('beforeunload', cleanup);
+    }
+  }, []);
 
   let user;
   user=localStorage.getItem("user");
@@ -54,7 +75,7 @@ function App() {
               <Route path="/futuredashboard" element={<Layout><FutureDashboard /></Layout>}></Route>
               <Route path="/managerdashboard" element={<Layout><ManagerDashboard /></Layout>}></Route>
               <Route path="/message-board" element={<Layout><MessageBoard /></Layout>}></Route>
-              <Route path="/setting" element={<Layout><Setting /></Layout>}></Route>
+              <Route path="/setting" element={<Layout><Setting changeStateHandler={changeStateHandler}/></Layout>}></Route>
               <Route path="/training" element={<Layout><Training /></Layout>}></Route>
               <Route path="/download-material" element={<Layout><Material /></Layout>}></Route>
               <Route path="/exam" element={<Layout><Exam /></Layout>}></Route>

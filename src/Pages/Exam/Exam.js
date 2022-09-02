@@ -5,6 +5,7 @@ import AddExamModal from "./AddExamModal";
 import EditExamModsl from "./EditExamModsl";
 import AddQuestionModel from "./AddQuestionModal";
 import { useNavigate } from "react-router-dom";
+import { ColorRing } from 'react-loader-spinner';
 
 export default function Exam(props){
     const navigate=useNavigate();
@@ -91,6 +92,8 @@ export default function Exam(props){
         {/* {editQuestionModel &&
             <EditExamModsl singleExam={singleExam} hideAddQuestionModelHandler={hideEditExamModelHandler}></EditExamModsl>
         } */}
+
+    {examData.length>0?
         <div className="w-[100%] h-[100%]">
             <div className="w-[91%] h-[100%] m-auto">
 
@@ -193,6 +196,20 @@ export default function Exam(props){
             </div>
             }
         </div>
+        :
+        
+        <div className="flex justify-center items-center h-full mt-[10px]">
+            <ColorRing 
+                visible={true} 
+                height="80" 
+                width="80" 
+                ariaLabel="blocks-loading" 
+                wrapperStyle={{}} 
+                wrapperClass="blocks-wrapper" 
+                colors={['#a4a5a5', '#a4a5a5', '#a4a5a5', '#a4a5a5', '#a4a5a5']} 
+                />
+        </div>
+        }
         </>
     )
 }

@@ -3,10 +3,9 @@ import { useCallback, useEffect, useState } from "react";
 import { URL } from "../../App";
 import ShowVideoModal from "./ShowVideoModal";
 import AddTrainingModal from "./AddTrainingModal";
-import { ref, deleteObject } from "firebase/storage";
-import { storage } from "../../Components/Firebase";
-import { type } from "@testing-library/user-event/dist/type";
 import { toast } from "react-toastify";
+import { ColorRing } from 'react-loader-spinner'
+
 
 export default function Training(props){
 
@@ -80,6 +79,8 @@ export default function Training(props){
         {showVideoModal &&
             <ShowVideoModal videoData={singletrainingData} hideVideoModalHandler={hideVideoModalHandler}/>
         }
+
+        {trainingData.length>0?
         <div className="w-[100%] h-[100%]">
             <div className="w-[91%] m-auto">
             {user.role === "admin" && 
@@ -135,7 +136,19 @@ export default function Training(props){
                 </table>
                 </div>
             </div>
+        </div>:
+        <div className="flex justify-center items-center h-full mt-[10px]">
+            <ColorRing 
+                visible={true} 
+                height="80" 
+                width="80" 
+                ariaLabel="blocks-loading" 
+                wrapperStyle={{}} 
+                wrapperClass="blocks-wrapper" 
+                colors={['#a4a5a5', '#a4a5a5', '#a4a5a5', '#a4a5a5', '#a4a5a5']} 
+                />
         </div>
+        }
     </>
     )
 }

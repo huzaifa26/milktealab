@@ -6,6 +6,7 @@ import { io } from "socket.io-client";
 import { toast } from "react-toastify";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../Components/Firebase";
+import { ColorRing } from 'react-loader-spinner';
 
 export default function MessageModal(props){
     let logUser=localStorage.getItem("user");
@@ -20,17 +21,19 @@ export default function MessageModal(props){
     const socket=useRef();
 
     useEffect(() => {
-        socket.current=io("ws://localhost:5000/");
+        socket.current=io("https://milktealab.herokuapp.com/");
         socket.current.on("getMessage", (data) => {
+            console.log(data);
             setArriavalMessage({
-            sender: data.senderId,
-            message: data.text,
-            createdTime: Date.now(),
+                sender: data.senderId,
+                message: data.text,
+                createdTime: Date.now(),
           });
         });
       }, []);
 
       useEffect(()=>{
+        console.log("2222222222222222222222222222222222222222222222222")
         arriavalMessage && (currentChat && currentChat[0][1]?.id === arriavalMessage?.sender) && setMessage(prev=>[...prev,arriavalMessage]);
     },[arriavalMessage, currentChat])
 
@@ -199,7 +202,7 @@ export default function MessageModal(props){
                     <div className="w-[100%]  flex max-h-[35vw] h-[35vw] overflow-y-scroll p-[25px] bg-[#f4fdff]">
                         <div className="flex flex-col justify-between flex-1 h-full">
                             <div className="flex flex-col">
-                                {message && message.map((m)=>{
+                                {message.length >0 ? message.map((m)=>{
                                     let own=false;
                                     if (m.sId === logUser.id){
                                         own=true
@@ -216,7 +219,20 @@ export default function MessageModal(props){
                                         </div>
                                         <p  className="messageBottom">{moment(m.createdTime).fromNow()}</p>
                                     </div>
-                                )})}
+                                )})
+                            :
+                            <div className="flex justify-center items-center h-full mt-[10px]">
+                                <ColorRing
+                                    visible={true}
+                                    height="80"
+                                    width="80"
+                                    ariaLabel="blocks-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClass="blocks-wrapper"
+                                    colors={['#a4a5a5', '#a4a5a5', '#a4a5a5', '#a4a5a5', '#a4a5a5']}
+                                />
+                            </div>
+                            }
                             </div>
                             <div className="flex my-[20px] self-end w-[100%] py-[10px] px-[10px] bg-[#f4f5f5] rounded-[10px]">
                                 <textarea ref={scrollRef} onChange={(e)=>setNewMessage(e.target.value)} value={newMessage} rows={"3"} placeholder="Type your message here" className="flex-1 bg-transparent flex py-[10px] "></textarea>

@@ -21,7 +21,7 @@ export default function AccouncementModel(props){
             title:formRef.current.title.value,
             description:formRef.current.description.value,
             body:formRef.current.body.value,
-            datetime:datetime
+            datetime:new Date()
         }
         axios.post(URL+"/announcement",data).then((res)=>{
             console.log(res);

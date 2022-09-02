@@ -5,7 +5,6 @@ import {  Outlet } from 'react-router-dom';
 function Protected() {
   const navigate=useNavigate();
   useEffect(() =>{
-    console.log(localStorage.getItem("user") === null);
       if (localStorage.getItem("user") === null) {
         navigate('/');
         return

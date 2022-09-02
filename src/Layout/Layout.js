@@ -1,9 +1,12 @@
 import PreviousMap from "postcss/lib/previous-map";
-import { Children, useState } from "react";
+import { Children, useEffect, useState } from "react";
 import { useNavigate, NavLink,useLocation,Link } from "react-router-dom";
 import { useRef } from "react";
 
 export default function Layout(props){
+
+
+
     let user;
     user=localStorage.getItem("user");
     user=JSON.parse(user);
@@ -94,6 +97,22 @@ export default function Layout(props){
         sideBarRef.current.style.display="none";
         setIsNavOpen(false);
     }
+
+
+    let role=""
+    if(user?.role === "member"){
+        role="Future Franchisee"
+    }
+    if(user?.role === "admin"){
+        role="Admin"
+    }
+    if(user?.role === "manager"){
+        role="Training Manager"
+    }
+    if(user?.role === "frachisee"){
+        role="Franchisee"
+    }
+
 
     return(
         <div class="flex h-screen">
@@ -192,14 +211,26 @@ export default function Layout(props){
                             <div className="my-[50px] px-[30px]">
                                 <h2 style={style1} className="text-center border-b-[2px] pb-[4px] mb-[15px] border-black">Third Party Login</h2>
                                 <div className="flex flex-col items-center gap-[3vh]">
-                                    <img style={style1} className="w-[4.83vw] min-w-[65.9778px]" src="./images/Doordash.png" alt=""/>
-                                    <img style={style1} className="w-[5.17vw] min-w-[70.6222px]" src="./images/Grubhub.png" alt=""/>
-                                    <img style={style1} className="w-[4.56vw] min-w-[70.68448959999999px]" src="./images/Ubereats.png" alt=""/>
-                                    <img style={style1} className="w-[5.95vw] min-w-[81.277px]" src="./images/Square.png" alt=""/>
-                                    <img style={style1} className="w-[6.34vw] min-w-[81.277px]" src="./images/Homebase.png" alt=""/>
-                                    <img style={style1} className="w-[7.47vw] min-w-[102.0402px]" src="./images/Quickbook.png" alt=""/>
+                                    <a target={"_blank"} href="https://identity.doordash.com/auth?client_id=1643580605860775164&redirect_uri=https%3A%2F%2Fmerchant-portal.doordash.com%2Fauth_callback&scope=*&prompt=none&response_type=code&layout=merchant_web_v2&state=19ad2ff6-108d-40a4-b24c-d6a7e0c43d71&allowRedirect=true&failureRedirect=%2Fmerchant%2Flogin">
+                                        <img style={style1} className="cursor-pointer w-[4.83vw] min-w-[65.9778px]" src="./images/Doordash.png" alt=""/>
+                                    </a>
+                                    <a target={"_blank"} href="https://restaurant.grubhub.com/login/">
+                                        <img style={style1} className="cursor-pointer w-[5.17vw] min-w-[70.6222px]" src="./images/Grubhub.png" alt=""/>
+                                    </a>
+                                    <a target={"_blank"} href="https://restaurant.uber.com/">
+                                        <img style={style1} className="cursor-pointer w-[4.56vw] min-w-[70.68448959999999px]" src="./images/Ubereats.png" alt=""/>
+                                    </a>
+                                    <a target={"_blank"} href="https://squareup.com/login">
+                                        <img style={style1} className="cursor-pointer w-[5.95vw] min-w-[81.277px]" src="./images/Square.png" alt=""/>
+                                    </a>
+                                    <a target={"_blank"} href="https://app.joinhomebase.com/accounts/sign-in">
+                                        <img style={style1} className="cursor-pointer w-[6.34vw] min-w-[81.277px]" src="./images/Homebase.png" alt=""/>
+                                    </a>
+                                    <a target={"_blank"} href="https://app.qbo.intuit.com/app/login?loadCustomerAssistanceAssets=us&product=qbOnline">
+                                        <img style={style1} className="cursor-pointer w-[7.47vw] min-w-[102.0402px]" src="./images/Quickbook.png" alt=""/>
+                                    </a>
                                 </div>
-                            </div>
+                            </div>                                 
                         </div>
                     </nav>
 
@@ -224,8 +255,8 @@ export default function Layout(props){
                                             <div className="flex gap-[10px] items-center">
                                                 <div className="rounded-full"><img src={user?.image || "./images/user-mock.png"} className="rounded-full w-[30px] h-[30px] object-cover" alt=""></img></div>
                                                 <div className="flex flex-col">
-                                                    <h2>{user.userName}</h2>
-                                                    <p className="text-[14px] text-[#A4A5AD]">{user.role}</p>
+                                                    <h2>{user?.userName}</h2>
+                                                    <p className="text-[14px] text-[#A4A5AD]">{role}</p>
                                                 </div>
                                                 <div className="rotate-180">
                                                     <img className="cursor-pointer" ref={imgRef} onClick={arrowOnClickHandler} src="./images/arrow.png" alt=""></img>

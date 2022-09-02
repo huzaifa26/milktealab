@@ -9,6 +9,7 @@ import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../Components/Firebase";
+import { ColorRing } from 'react-loader-spinner';
 
 export default function MessageBoard(props){
     const scrollRef=useRef();
@@ -26,8 +27,9 @@ export default function MessageBoard(props){
     logUser=JSON.parse(logUser);
 
     useEffect(() => {
-        socket.current=io("ws://localhost:5000/");
+        socket.current=io("https://milktealab.herokuapp.com");
         socket.current.on("getMessage", (data) => {
+            console.log(data);
             setArriavalMessage({
             sender: data.senderId,
             message: data.text,
@@ -35,7 +37,7 @@ export default function MessageBoard(props){
           });
         });
       }, []);
-
+      
     useEffect(()=>{
         arriavalMessage && (currentChat && currentChat[1]?.id === arriavalMessage?.sender) && setMessage(prev=>[...prev,arriavalMessage]);
     },[arriavalMessage, currentChat])
@@ -50,7 +52,6 @@ export default function MessageBoard(props){
     useEffect(()=>{
         axios.get(URL+"/userforConvo/"+logUser.assignedManager+"/"+logUser.id).then((res)=>{
             setUsers(res.data.res);
-            console.log(res.data.res);
         }).catch(err=>{
             console.log(err);
         })
@@ -68,7 +69,6 @@ export default function MessageBoard(props){
         let id=currentChat && currentChat[0]?.id;
         axios.get(URL+"/message/"+id).then((res)=>{
             setMessage(res.data.res);
-            console.log(res.data.res);
         }).catch(err=>{
             console.log(err);
         })
@@ -125,7 +125,6 @@ export default function MessageBoard(props){
             createdTime:datetime
         }
         axios.post(URL+"/conversation",data).then((res)=>{
-            console.log(res);
             setFecthConvo(!fetchConvo);
         }).catch((err)=>{
             console.log(err);
@@ -133,10 +132,8 @@ export default function MessageBoard(props){
     },[fetchConvo])
 
         useEffect(()=>{
-        console.log(logUser.id);
         axios.get(URL+"/conversation/"+logUser.id).then((res)=>{
             setConversation(res.data.res);
-            console.log(res.data.res);
         }).catch(err=>{
             console.log(err);
         })
@@ -144,8 +141,6 @@ export default function MessageBoard(props){
 
 
     const messageFileUploader=async(e)=>{
-        console.log("hahahahhah")
-        console.log(e.target.files[0]);
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const currentTime = moment().tz(timezone).format();
             const datetime = currentTime.slice(0, 19).replace('T', ' ');
@@ -163,10 +158,10 @@ export default function MessageBoard(props){
                   });
                   switch (snapshot.state) {
                     case 'paused':
-                      console.log('Upload is paused');
+                    //   console.log('Upload is paused');
                       break;
                     case 'running':
-                      console.log('Upload is running');
+                    //   console.log('Upload is running');
                       break;
                   }
                 }, 
@@ -217,31 +212,33 @@ export default function MessageBoard(props){
     }
 
     return(
+    <>
+    {conversation.length>0?
     <div className="w-[100%] h-[100%] pt-[20px]">
         <div className="w-[91%] flex flex-col m-auto gap-[30px]">
             <select onChange={(e)=>createNewConversation(e)} className="w-[30%]">
                 <option disabled selected>Create New Conversation</option>
                 {users && users.map((u)=>{
-                    if(u.id === logUser.id){
-                        return
-                    }
+                    // if(u?.id === logUser?.id){
+                    //     return
+                    // }
                     return(
-                        <option value={u.id}>{u.userName}</option>
+                        <option value={u?.id}>{u.userName}</option>
                     )
                 })
                 }
             </select>
             <div className="flex">
                 <div class="w-[20%] min-w-[120px]  h-full flex flex-col text-gray-900  bg-gray-100">
-                <ul className=" w-[100%]">
+                <div className=" w-[100%]">
                     {conversation && conversation.map((c)=>{
                         return(
-                            <li onClick={()=>{setNewMessage("");setCurrentChat(c);console.log(c)}} className="cursor-pointer hover:bg-gray-200 flex items-center gap-[8px] -[100%] h-[60px] xsm:pl-[5px] sm:pl-[10px] pl-[30px]">
+                            <li onClick={()=>{setNewMessage("");setCurrentChat(c);}} className="cursor-pointer hover:bg-gray-200 flex items-center gap-[8px] -[100%] h-[60px] xsm:pl-[5px] sm:pl-[10px] pl-[30px]">
                                 <h2>{c[1].userName}</h2>
                             </li>
                         )
                     })}
-                    </ul>
+                    </div>
                     
                 </div>
                 {currentChat !== null ?
@@ -287,6 +284,20 @@ export default function MessageBoard(props){
             </div>
         </div>
     </div>
+    :
+    <div className="flex justify-center items-center h-full mt-[10px]">
+        <ColorRing 
+            visible={true} 
+            height="80" 
+            width="80" 
+            ariaLabel="blocks-loading" 
+            wrapperStyle={{}} 
+            wrapperClass="blocks-wrapper" 
+            colors={['#a4a5a5', '#a4a5a5', '#a4a5a5', '#a4a5a5', '#a4a5a5']} 
+            />
+    </div>
+    }
+    </>
     )
 }
 

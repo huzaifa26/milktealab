@@ -38,7 +38,9 @@ export default function FutureDashboard(){
                 </div>
             </div>
 
-            <button className="bg-[#e6ecff] min-w-[140px] text-[#393a3a] place-self-center w-[9.7vw] rounded-full h-[6vh] mt-[5vh]">Contact us</button>
+            <a className="place-self-center" href="https://franchise.milktealab.com/contact.html">
+                <button className="bg-[#e6ecff] min-w-[140px] text-[#393a3a] w-[9.7vw] rounded-full h-[6vh] mt-[5vh]">Contact us</button>
+            </a>
         </div>
     )
 }

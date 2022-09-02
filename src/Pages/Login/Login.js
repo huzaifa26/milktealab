@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Login.css";
 import axios from "axios";
 import { URL } from "../../App";
@@ -8,21 +8,29 @@ import { toast } from "react-toastify";
 export default function Login(){
     const navigate=useNavigate();
     const formRef=useRef();
+    const [rememberMe,setRememberMe]=useState(false);
 
     const loginFormHandler=(e)=>{
         e.preventDefault();
+        toast.loading("Signing in");
         let data={
             email:formRef.current.email.value,
             password:formRef.current.password.value,
+        }
+        if(rememberMe === true){
+            localStorage.setItem("remember",1);
+        }else if(rememberMe === false){
+            localStorage.setItem("remember",0);
         }
 
         axios.post(URL+"/signin",data).then((res)=>{
             let user=res.data.res[0];
             delete user.pass
             localStorage.setItem('user',JSON.stringify(user));
+            toast.dismiss();
             toast("Login Successful")
             if(user.role === "admin"){
-                navigate("/dashboard");
+                navigate("/announcement");
             }
 
             if(user.role === "member"){
@@ -30,17 +38,21 @@ export default function Login(){
             }
 
             if(user.role === "manager"){
-                navigate("/managerdashboard");
+                navigate("/announcement");
             }
 
             if(user.role === "franchisee"){
-                navigate("/message-board");
+                navigate("/announcement");
             }
         }).catch((err)=>{
+            toast.dismiss();
             toast("Error or incorrect credentials.")
             console.log(err);
         })
     }
+
+
+
 
     return (
     <div class='bg-white h-screen w-screen flex justify-center items-center'>
@@ -51,8 +63,8 @@ export default function Login(){
             <form ref={formRef} onSubmit={loginFormHandler}>
                 {/* <!-- username --> */}
                 <div class="flex flex-col my-2">
-                    <label class="text-[clamp(14px,0.801vw,32.82px)] font-bold text-[#000000] ">Username</label>
-                    <input name="email" class="text-[clamp(14px,0.586vw,24px)] border-b-[0.23148148148148vh] rounded px-3 py-1 mt-2 emailIcon" type="text" placeholder="Type your username"/>
+                    <label class="text-[clamp(14px,0.801vw,32.82px)] font-bold text-[#000000] ">Email</label>
+                    <input name="email" class="text-[clamp(14px,0.586vw,24px)] border-b-[0.23148148148148vh] rounded px-3 py-1 mt-2 emailIcon" type="text" placeholder="Type your email"/>
                 </div>
                 <div class="flex flex-col mt-10">
                     <label class="text-[clamp(14px,0.801vw,32.82px)] font-bold text-[#000000]">Password</label>
@@ -60,7 +72,7 @@ export default function Login(){
                 </div>
                 <div class="flex flex-col items-center justify-center my-3">
                         <div class="flex w-full items-center justify-between text-xs text-gray-500">
-                            <label className="flex items-center justify-center text-[clamp(12px,0.659vw,27px)] text-[#000] font-semibold"><input type={"checkbox"}/> Remember me.</label>
+                            <label className="flex items-center justify-center text-[clamp(12px,0.659vw,27px)] text-[#000] font-semibold"><input onChange={(e)=>setRememberMe(!rememberMe)} type={"checkbox"}/> Remember me.</label>
                             <Link to="findUser">
                                 <p className="text-[clamp(12px,0.659vw,27px)] text-[#000] font-semibold">Forgot password?</p>
                             </Link>

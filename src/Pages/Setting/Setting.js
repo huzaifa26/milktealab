@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { URL } from "../../App";
 import { storage } from "../../Components/Firebase";
+import PropgressModal from "../Dashboard/PropgressModal";
 
-export default function Setting(){
+export default function Setting(props){
 
     const navigate=useNavigate()
     let user = localStorage.getItem('user'); 
@@ -35,7 +36,7 @@ export default function Setting(){
             data.newpass=formRef.current.newpass.value;
         }
 
-        console.log(file);
+        toast.loading("Updating User Information")
         if(file.image !== null){
             console.log("----------------------1----------------------------")
             try{
@@ -46,17 +47,21 @@ export default function Setting(){
                     data.image=url;
                     axios.put(URL+"/user/"+user.id,data).then((res)=>{
                         if(res.data.res==="password doesnot match"){
+                            toast.dismiss();
                             toast("Old password is incorrect");
                             return
                         }
                         axios.get(URL+"/user/"+user.id).then((res)=>{
                             localStorage.setItem('user',JSON.stringify(res.data.res[0]));
+                            toast.dismiss();
                             toast("User updated");
+                            props.changeStateHandler() 
                             navigate("#")
                         }).catch(err=>{
                             console.log(err);
                         })
                     }).catch((err)=>{
+                        toast.dismiss();
                         toast("User Updated Failed");
                         console.log(err)
                     })
@@ -75,6 +80,7 @@ export default function Setting(){
                 axios.get(URL+"/user/"+user.id).then((res)=>{
                     localStorage.setItem('user',JSON.stringify(res.data.res[0]));
                     toast("User updated");
+                    props.changeStateHandler() 
                     navigate("#")
                 })
             }).catch((err)=>{

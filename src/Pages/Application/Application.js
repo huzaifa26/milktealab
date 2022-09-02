@@ -11,6 +11,7 @@ export default function Application(props){
 
     const applicationFormhandler=(e)=>{
         e.preventDefault();
+        toast.loading("Registering");
         if(formRef.current.password.value !== formRef.current.confirmPassword.value){
             toast.warn("Password doesnot match");
             return
@@ -28,6 +29,8 @@ export default function Application(props){
 
         axios.post(URL+'/signup', data).then(function (response) {
             if(response.status === 200){
+                toast.dismiss();
+
                 toast("Application Submitted Succesfully");
 
                 let data2={
@@ -64,8 +67,10 @@ export default function Application(props){
           })
           .catch(function (error) {
             console.log(error)
-            if(error.response.data.err.code === "ER_DUP_ENTRY"){
+            if(error?.response?.data?.err?.code === "ER_DUP_ENTRY"){
+                toast.dismiss();
                 toast.error("Account already exists with this email");
+                return
             }
           });
     }

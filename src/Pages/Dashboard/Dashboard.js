@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { URL } from "../../App";
 import MessageModal from "./MessageModal";
 import PropgressModal from "./PropgressModal";
+import { ColorRing } from 'react-loader-spinner';
+
 
 export default function Dashboard(props){
     
@@ -95,6 +97,10 @@ export default function Dashboard(props){
         {showMessageModal &&
             <MessageModal userId={userId} hideshowMessageModalHandler={hideshowMessageModalHandler}></MessageModal>
         }
+
+        {users?.length > 0 ?
+
+        
         <div className="w-[100%] h-[100%]">
         <div className="w-[91%] m-auto overflow-x-auto">
             <table class=" table-auto w-[100%] mt-[30px]">
@@ -130,8 +136,6 @@ export default function Dashboard(props){
                                 <select onChange={(e)=>assignManager(e,u.id)} className="">
                                     <option selected disabled>Select Manager</option>
                                     {managers.map((m)=>{
-                                        console.log(m);
-                                        console.log(u);
                                         return(
                                             <option value={m.id} selected={+u.assignedManager===+m.id}>{m.userName}</option>
                                         )
@@ -148,6 +152,19 @@ export default function Dashboard(props){
                 </table>
             </div>
         </div>
+        :
+        <div className="flex justify-center items-center h-full mt-[10px]">
+            <ColorRing 
+                visible={true} 
+                height="80" 
+                width="80" 
+                ariaLabel="blocks-loading" 
+                wrapperStyle={{}} 
+                wrapperClass="blocks-wrapper" 
+                colors={['#a4a5a5', '#a4a5a5', '#a4a5a5', '#a4a5a5', '#a4a5a5']} 
+                />
+        </div>
+        }
         </>
     )
 }

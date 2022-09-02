@@ -6,7 +6,7 @@ import { URL } from "../../App";
 import AddMaterialModal from "./AddMaterialModal";
 import EditMaterialModal from "./EditMaterialModal";
 import { saveAs } from 'file-saver';
-
+import { ColorRing } from 'react-loader-spinner';
 
 export default function Material(props){
 
@@ -69,6 +69,8 @@ export default function Material(props){
         {showEditModal && 
             <EditMaterialModal singleMaterials={singleMaterials} hideEditModalHandler={hideEditModalHandler}></EditMaterialModal>
         }
+
+    {materialArr.length>0?
         <div className="w-[100%] h-[100%] ">
             <div className="w-[91%] m-auto">
                 {user.role === "admin" && 
@@ -122,6 +124,19 @@ export default function Material(props){
                 </div>
             </div>
         </div>
+        :
+        <div className="flex justify-center items-center h-full mt-[10px]">
+            <ColorRing 
+                visible={true} 
+                height="80" 
+                width="80" 
+                ariaLabel="blocks-loading" 
+                wrapperStyle={{}} 
+                wrapperClass="blocks-wrapper" 
+                colors={['#a4a5a5', '#a4a5a5', '#a4a5a5', '#a4a5a5', '#a4a5a5']} 
+                />
+        </div>    
+    }
         </>
     )
 }
