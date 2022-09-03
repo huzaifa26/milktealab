@@ -62,9 +62,9 @@ export default function EditQuestionModal(props){
                         <img onClick={hideModal} src="./images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[5%] text-gray-300 cursor-pointer"/>
                         <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[25px]"><h2>Edit Question</h2></div>
                     </div>
-                    <form ref={formRef} onSubmit={examFormHandler} className="flex-1 items-center flex flex-col xsm:gap-[40px] gap-[18px] xsm:w-[100%] w-[60%] m-auto justify-center">
+                    <form ref={formRef} onSubmit={examFormHandler} className="flex-1 items-center flex flex-col xsm:gap-[40px] gap-[18px] xsm:w-[100%] w-[65%] m-auto justify-center">
                         
-                        <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                        <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px] self-start">
                             <label className="inline-block w-[120px] font-bold ">Select Exam:</label>
                             <select name="examId" className="inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2 min-w-[280px]">
                             <option value={props?.singleQuestion[1]?.id} disabled selected>{props.singleQuestion && props?.singleQuestion[1]?.title}</option>
@@ -77,7 +77,7 @@ export default function EditQuestionModal(props){
                         </select>
                         </div>
                         
-                        <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                        <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px] self-start">
                             <label className="inline-block w-[120px] font-bold ">Question:</label><input defaultValue={props.singleQuestion[0].question} required name="question" placeholder="Type Question" type={"text"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
                         </div>
 
@@ -105,7 +105,7 @@ export default function EditQuestionModal(props){
                         </div>
 
                         <div className="flex justify-center mt-[20px] self-center mb-[50px]">
-                            <button type="submit" className="bg-[#81c2ff] min-w-[136px] w-[14.25vw] h-[4.351vh] text-white font-bold rounded-full">Apply now</button>
+                            <button type="submit" className="bg-[#81c2ff] min-w-[136px] w-[14.25vw] h-[4.351vh] min-h-[29px] text-white font-bold rounded-full">Apply now</button>
                         </div>
                         
                     </form>

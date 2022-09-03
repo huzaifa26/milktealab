@@ -34,7 +34,7 @@ export default function ChangePassword(props){
                     <label className="inline-block w-[120px] font-bold ">New password:</label><input required name="pass" placeholder="Type new password" type={"password"} className="min-w-[280px] inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2"></input>
                 </div>
                 <div className="flex justify-center">
-                    <button type="submit" className="bg-[#81c2ff] min-w-[150px] min-h-[30px] w-[14.25vw] h-[4.351vh] text-white font-bold rounded-full">Apply now</button>
+                    <button type="submit" className="bg-[#81c2ff]  min-w-[150px] min-h-[30px] w-[14.25vw] h-[4.351vh] text-white font-bold rounded-full">Apply now</button>
                 </div>
             </form>
         </div>

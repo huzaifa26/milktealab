@@ -89,7 +89,7 @@ export default function EditMaterialModal(props){
                         </div>
 
                         <div className="flex justify-center mt-[20px]">
-                            <button type="submit" className="bg-[#81c2ff] min-w-[136px] w-[14.25vw] h-[4.351vh] text-white font-bold rounded-full">Apply now</button>
+                            <button type="submit" className="bg-[#81c2ff] min-w-[136px] w-[14.25vw] min-h-[29px] h-[4.351vh] text-white font-bold rounded-full">Apply now</button>
                         </div>
                     </form>
                 </div>   

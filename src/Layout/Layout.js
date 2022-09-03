@@ -109,7 +109,7 @@ export default function Layout(props){
     if(user?.role === "manager"){
         role="Training Manager"
     }
-    if(user?.role === "frachisee"){
+    if(user?.role === "franchisee"){
         role="Franchisee"
     }
 

@@ -49,11 +49,11 @@ export default function AddQuestionModal(props){
                     
                     <div>
                         <img onClick={hideModal} src="./images/xmark-solid.svg" alt="" className="absolute right-[5%] w-[20px] top-[5%] text-gray-300 cursor-pointer"/>
-                        <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[25px]">Add Exam</div>
+                        <div className="text-center bg-[#f4f5f5] min-h-[15%] py-[25px]"><h2>Add Question</h2></div>
                     </div>
-                    <form ref={formRef} onSubmit={examFormHandler} className="m-auto flex-1 flex flex-col gap-[18px] items-center xsm:w-[100%] w-[60%] justify-center">
+                    <form ref={formRef} onSubmit={examFormHandler} className="m-auto flex-1 flex flex-col gap-[18px] items-center xsm:w-[100%] w-[65%] justify-center">
                         
-                        <div className="xsm:flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                        <div className="xsm:flex xsm:flex-col text-[clamp(14px,1vw,18px] xsm:self-center self-start">
                             <label className="inline-block w-[120px] font-bold ">Select Exam:</label>
                             <select required name="examId" className="inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2 min-w-[280px]">
                                 <option value={""}>Choose Exam</option>
@@ -67,7 +67,7 @@ export default function AddQuestionModal(props){
                             </select>
                         </div>
                         
-                        <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px]">
+                        <div className="flex xsm:flex-col text-[clamp(14px,1vw,18px] xsm:self-center self-start">
                             <label className="inline-block w-[120px] font-bold ">Question:</label><input required name="question" placeholder="Type Question" type={"text"} className="inline-block w-[17vw] text-[#a4a5a5] border-b-[2px] indent-2 min-w-[280px]"></input>
                         </div>
 
@@ -88,7 +88,7 @@ export default function AddQuestionModal(props){
                         </div>
 
                         <div className="flex justify-center mt-[20px] self-center xsm:mb-[30px]">
-                            <button type="submit" className="bg-[#81c2ff] w-[14.25vw] h-[28.847130000000003px] min-w-[136px] text-white font-bold rounded-full">Apply now</button>
+                            <button type="submit" className="bg-[#81c2ff] w-[14.25vw] h-[4.351vw] min-h-[29px] min-w-[136px] text-white font-bold rounded-full">Apply now</button>
                         </div>
                         
                     </form>

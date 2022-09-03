@@ -83,8 +83,8 @@ export default function AdminShowQuestion(props){
                     </div>
 
                     <div className="flex gap-[5px]">
-                        <button onClick={()=>{setSingleQuestion([q,e]);showEditQuestionModalHandler()}} type="submit" className="bg-[#81c2ff] min-w-[60px] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Edit</button>
-                        <button onClick={()=>{deleteQuestionHandler(q.id)}} type="submit" className="bg-[#e96857] w-[8.25vw] h-[4.351vh] min-w-[60px] text-white font-bold rounded-full">Delete</button>
+                        <button onClick={()=>{setSingleQuestion([q,e]);showEditQuestionModalHandler()}} type="submit" className="bg-[#81c2ff] min-w-[60px] w-[8.25vw] h-[4.351vh] min-h-[29px] text-white font-bold rounded-full">Edit</button>
+                        <button onClick={()=>{deleteQuestionHandler(q.id)}} type="submit" className="bg-[#e96857] w-[8.25vw] h-[4.351vh] min-h-[29px] min-w-[60px] text-white font-bold rounded-full">Delete</button>
                     </div>
                 </div>
             </div>

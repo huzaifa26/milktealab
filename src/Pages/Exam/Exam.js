@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { ColorRing } from 'react-loader-spinner';
 
 export default function Exam(props){
+    const [showSpinner,setShowSpinner]=useState(true);
+
     const navigate=useNavigate();
     const [addExamModel,setAddExamModel]=useState(false);
     const [editExamModel,setEditExamModel]=useState(false);
@@ -60,8 +62,9 @@ export default function Exam(props){
     const [result,setResult]=useState([]);
 
     useEffect(()=>{
-        axios.get(URL+"/result/"+user.id).then((res)=>{
+        axios.get(URL+"/result/"+user?.id).then((res)=>{
             setResult(res.data.res);
+            setShowSpinner(false);
             console.log(res.data.res)
         }).catch(err=>{
             console.log(err);
@@ -69,8 +72,10 @@ export default function Exam(props){
     },[])
 
     useEffect(()=>{
-        axios.get(URL+"/exam/"+user.id).then((res)=>{
+        axios.get(URL+"/exam/"+user?.id).then((res)=>{
             setExamData(res.data.res);
+            setShowSpinner(false);
+
             console.log(res);
         }).catch((err)=>{
             console.log(err);
@@ -93,7 +98,7 @@ export default function Exam(props){
             <EditExamModsl singleExam={singleExam} hideAddQuestionModelHandler={hideEditExamModelHandler}></EditExamModsl>
         } */}
 
-    {examData.length>0?
+    {showSpinner === false ?
         <div className="w-[100%] h-[100%]">
             <div className="w-[91%] h-[100%] m-auto">
 
@@ -102,7 +107,7 @@ export default function Exam(props){
                         <button onClick={showAddExamModelHandler} class="min-w-[140px] h-[28.852777777778098px] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
                             Add Exam
                         </button>
-                        <button onClick={showAddQuestionModelHandler} class="min-w-[140px] h-[28.852777777778098px] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
+                        <button onClick={showAddQuestionModelHandler} class="min-w-[140px] min-h-[28.852777777778098px] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
                             Add Question
                         </button>
                     </div>
@@ -113,7 +118,7 @@ export default function Exam(props){
                     <thead>
                         <tr className="flex border-b-[2px] justify-between">
                             <th className="flex-1 text-left">Chapter Title</th>
-                            {user.role === "member" &&
+                            {user.role === "franchisee" &&
                                 <th className="flex-1 w-[11.42vw] text-center min-w-[155.9972px]">Progress</th>
                             }
                            {user.role === "admin" && <th className="flex-1 w-[16.5vw] text-center">Actions</th>}
@@ -139,7 +144,7 @@ export default function Exam(props){
                                     <p className="text-[#a4a5a5] text-[14px]">{e.description}</p>
                                 </div>
                             </td>
-                            {user.role === "member" &&
+                            {user.role === "franchisee" &&
                                 <td className="flex-1  flex flex-col items-center text-blue-400">
                                     <h2 className="w-[11.42vw] text-center">{examStatus}</h2>
                                     <div className="w-[11.42vw] min-w-[155.9972px] h-[3px] bg-gray-200">
@@ -149,7 +154,7 @@ export default function Exam(props){
                             }
                             {user.role === "admin" && 
                                 <td className="flex-1 flex gap-[5px] justify-center">
-                                    <button onClick={()=>{setSingleExam(e);showEditExamnModelHandler(true);}} type="submit" className="bg-[#81c2ff] w-[8.25vw] h-[4.351vh] min-w-[60px] text-white font-bold rounded-full">Edit</button>
+                                    <button onClick={()=>{setSingleExam(e);showEditExamnModelHandler(true);}} type="submit" className="bg-[#81c2ff] w-[8.25vw] h-[4.351vh] min-h-[29px] min-w-[60px] text-white font-bold rounded-full">Edit</button>
                                     {/* <button type="submit" className="bg-[#e96857] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Delete</button> */}
                                 </td>
                             }

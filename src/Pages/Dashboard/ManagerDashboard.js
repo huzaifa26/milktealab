@@ -11,6 +11,8 @@ import { ColorRing } from 'react-loader-spinner';
 
 
 export default function ManagerDashboard(props){
+    const [showSpinner,setShowSpinner]=useState(true);
+
     let user;
     user=localStorage.getItem("user");
     user=JSON.parse(user);
@@ -52,11 +54,10 @@ export default function ManagerDashboard(props){
         })
     },[])
 
-
-
     useEffect(()=>{
         axios.get(URL+"/managerUser/"+user.id).then(res=>{
             setUsers(res.data.res);
+            setShowSpinner(false)
         }).catch(err=>{
             console.log(err);
         })
@@ -77,7 +78,7 @@ if(user.role !== "manager"){
             <MessageModal userId={userId} hideshowMessageModalHandler={hideshowMessageModalHandler}></MessageModal>
         }
 
-    {users.length>0?
+    {showSpinner === false ?
         <div className="w-[100%] h-[100%]">
             <div className="w-[91%] m-auto overflow-x-auto">
 

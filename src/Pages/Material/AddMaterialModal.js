@@ -18,14 +18,14 @@ export default function AddMaterialModal(props){
     const announcementFormHandler=async(e)=>{
         e.preventDefault();
 
-        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const currentTime = moment().tz(timezone).format();
-        const datetime = currentTime.slice(0, 19).replace('T', ' ');
+        // const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        // const currentTime = moment().tz(timezone).format();
+        // const datetime = currentTime.slice(0, 19).replace('T', ' ');
     
         let data={
             title:formRef.current.title.value,
             description:formRef.current.description.value,
-            datetime:datetime
+            datetime:new Date(),
         }
         try{
             const storageRef = ref(storage, `/Materials/${file[0].name}`);
@@ -73,7 +73,7 @@ export default function AddMaterialModal(props){
                         </div>
 
                         <div className="flex justify-center mt-[20px]">
-                            <button type="submit" className="bg-[#81c2ff] w-[14.25vw] h-[4.351vh] min-w-[136px] text-white font-bold rounded-full">Apply now</button>
+                            <button type="submit" className="bg-[#81c2ff] w-[14.25vw] h-[4.351vh] min-h-[29px] min-w-[136px] text-white font-bold rounded-full">Apply now</button>
                         </div>
                     </form>
                 </div>   

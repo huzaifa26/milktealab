@@ -8,6 +8,7 @@ import { ColorRing } from 'react-loader-spinner'
 
 
 export default function Training(props){
+    const [showSpinner,setShowSpinner]=useState(true);
 
     let user;
     user=localStorage.getItem("user");
@@ -63,8 +64,9 @@ export default function Training(props){
     },[isDeleted])
 
     useEffect(()=>{
-        axios.get(URL+"/training/"+user.id).then((res)=>{
+        axios.get(URL+"/training/"+user?.id).then((res)=>{
             setTrainingData(res.data.res);
+            setShowSpinner(false);
             console.log(res.data.res);
         }).catch((err)=>{
             console.log(err);
@@ -80,12 +82,12 @@ export default function Training(props){
             <ShowVideoModal videoData={singletrainingData} hideVideoModalHandler={hideVideoModalHandler}/>
         }
 
-        {trainingData.length>0?
+        {showSpinner === false ?
         <div className="w-[100%] h-[100%]">
             <div className="w-[91%] m-auto">
             {user.role === "admin" && 
                 <div>
-                    <button onClick={showTrainingModal} class="min-w-[136px] h-[4.3518518518519vh] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
+                    <button onClick={showTrainingModal} class="min-w-[136px] h-[4.3518518518519vh] min-h-[29px] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
                         Add Videos
                     </button>
                 </div>
@@ -116,7 +118,7 @@ export default function Training(props){
                                     <p className="text-[#a4a5a5] text-[14px]">{t.description}</p>
                                 </div>
                             </td>
-                            {user.role === "member" &&
+                            {user.role === "franchisee" &&
                                 <td className=" flex flex-col">
                                     <h2 className="text-blue-400 w-[11.42vw] text-center">{t.progress}%</h2>
                                     <div className="w-[11.42vw] h-[3px] bg-gray-200">
@@ -125,8 +127,8 @@ export default function Training(props){
                                 </td>
                             }
                             {user.role === "admin" && 
-                                <td className="flex gap-[5px]">
-                                    <button onClick={()=>deleteTraining(t.id,t.video)} type="submit" className="bg-[#e96857] min-w-[60px] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Delete</button>
+                                <td className="flex gap-[5px] w-[16.5vw] justify-center">
+                                    <button onClick={()=>deleteTraining(t.id,t.video)} type="submit" className="bg-[#e96857] min-w-[60px] w-[8.25vw] h-[4.351vh] min-h-[29px] text-white font-bold rounded-full">Delete</button>
                                 </td>
                             }
                         </tr>

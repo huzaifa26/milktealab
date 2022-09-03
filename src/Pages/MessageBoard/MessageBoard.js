@@ -13,7 +13,7 @@ import { ColorRing } from 'react-loader-spinner';
 
 export default function MessageBoard(props){
     const scrollRef=useRef();
-
+    const [showSpinner,setShowSpinner]=useState(true);
     const socket=useRef();
     const [users,setUsers]=useState([]);
     const [user,setUser]=useState([]);
@@ -29,7 +29,7 @@ export default function MessageBoard(props){
     useEffect(() => {
         socket.current=io("https://milktealab.herokuapp.com");
         socket.current.on("getMessage", (data) => {
-            console.log(data);
+            console.log(1);
             setArriavalMessage({
             sender: data.senderId,
             message: data.text,
@@ -39,6 +39,7 @@ export default function MessageBoard(props){
       }, []);
       
     useEffect(()=>{
+        console.log(2);
         arriavalMessage && (currentChat && currentChat[1]?.id === arriavalMessage?.sender) && setMessage(prev=>[...prev,arriavalMessage]);
     },[arriavalMessage, currentChat])
 
@@ -50,7 +51,8 @@ export default function MessageBoard(props){
     },[logUser])
 
     useEffect(()=>{
-        axios.get(URL+"/userforConvo/"+logUser.assignedManager+"/"+logUser.id).then((res)=>{
+        axios.get(URL+"/userforConvo/"+logUser?.assignedManager+"/"+logUser?.id).then((res)=>{
+            setShowSpinner(false)
             setUsers(res.data.res);
         }).catch(err=>{
             console.log(err);
@@ -132,7 +134,7 @@ export default function MessageBoard(props){
     },[fetchConvo])
 
         useEffect(()=>{
-        axios.get(URL+"/conversation/"+logUser.id).then((res)=>{
+        axios.get(URL+"/conversation/"+logUser?.id).then((res)=>{
             setConversation(res.data.res);
         }).catch(err=>{
             console.log(err);
@@ -207,13 +209,14 @@ export default function MessageBoard(props){
             }
     }
 
-    if(logUser.role !== "franchisee"){
+    if(logUser?.role !== "franchisee"){
         return <Navigate to={"/"}/>
     }
 
+
     return(
     <>
-    {conversation.length>0?
+    {showSpinner === false ?
     <div className="w-[100%] h-[100%] pt-[20px]">
         <div className="w-[91%] flex flex-col m-auto gap-[30px]">
             <select onChange={(e)=>createNewConversation(e)} className="w-[30%]">

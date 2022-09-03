@@ -55,7 +55,7 @@ export default function AddExamModal(props){
                         </div>
 
                         <div className="flex justify-center mt-[20px]">
-                            <button type="submit" className="bg-[#81c2ff] w-[14.25vw] h-[28.847130000000003px] text-white font-bold rounded-full min-w-[136px]">Apply now</button>
+                            <button type="submit" className="bg-[#81c2ff] w-[14.25vw] h-[4.351vw] min-h-[29px] text-white font-bold rounded-full min-w-[136px]">Apply now</button>
                         </div>
                     </form>
                 </div>   

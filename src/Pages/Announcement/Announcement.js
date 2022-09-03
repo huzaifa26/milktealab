@@ -10,6 +10,7 @@ import { ColorRing } from 'react-loader-spinner';
 
 
 export default function Announcement(props){
+    const [showSpinner,setShowSpinner]=useState(true);
 
     let user;
     user=localStorage.getItem("user");
@@ -79,6 +80,7 @@ export default function Announcement(props){
         axios.get(URL+"/announcement/"+user?.id).then((res)=>{
             console.log(res.data.res);
             setAnnouncements(res.data.res)
+            setShowSpinner(false)
         }).catch((err)=>{
             console.log(err);
         })
@@ -98,12 +100,12 @@ export default function Announcement(props){
         <ShowAnnouncementModal singleAnnouncements={singleAnnouncements} hideAnnouncementModalHandler={hideAnnouncementModalHandler}></ShowAnnouncementModal>
     }
 
-    {announcements?.length>0?
+    {showSpinner === false?
     <div className="w-[100%] h-[100%] pt-[20px]">
         <div className="w-[91%] m-auto">
             {user!==null && user?.role === "admin" && 
             <div>
-                <button onClick={showAnnouncementModal} class="min-w-[166px] h-[4.3518518518519vh] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
+                <button onClick={showAnnouncementModal} class="min-w-[166px] h-[4.351vw] min-h-[29px] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
                     Add Announcement
                 </button>
             </div>
@@ -115,8 +117,8 @@ export default function Announcement(props){
                 <table class="table-auto w-[100%] mt-[30px]">
                     <thead>
                         <tr className="min-w-[500px] flex border-b-[2px] justify-between">
-                            <th className="text-left">Title</th>
-                            <th className="w-[16.42vw] text-center">Date</th>
+                            <th className="text-start w-[14.641288433382138vw] min-w-[190px]">Title</th>
+                            <th className="w-[20.42vw] text-center">Date</th>
                             {user?.role === "admin" &&
                                 <th className="w-[16.5vw] text-center">Actions</th>
                             }
@@ -135,22 +137,22 @@ export default function Announcement(props){
 
                         return(
                             <tr key={a.id} className="min-w-[500px] flex my-[20px] justify-between">
-                                <td title="Open to marks as read" onClick={()=>{setSingleAnnouncements(a);announcementClickHandler(a.id);}} className="flex gap-[10px] items-center cursor-pointer min-w-[200px]">
+                                <td title="Open to marks as read" onClick={()=>{setSingleAnnouncements(a);announcementClickHandler(a.id);}} className="flex gap-[10px] items-center cursor-pointer min-w-[14.641288433382138vw]">
                                     <div className="flex flex-col">
-                                        <h3 className={"max-w-[200px]"}>{a.title}</h3>
-                                        <p className="text-[#a4a5a5] text-[14px] max-w-[200px]">{a.description}</p>
+                                        <h3 className={"max-w-[14.641288433382138vw] "}>{a.title}</h3>
+                                        <p className="text-[#a4a5a5] text-[14px] min-w-[120px] max-w-[14.641288433382138vw]">{a.description}</p>
                                     </div>
                                     {a.isOpened === false &&
                                         <div className="w-[2.36vw] min-w-[50px] h-[1.9vh] min-h-[25px] text-center text-white bg-[#f7275f] rounded-full">New</div>
                                     }
                                 </td>
                                 <td className=" flex flex-col">
-                                    <h2 className="text-[#a4a5a5] text-center">Published on {datetime}</h2>
+                                    <h2 className="text-[#a4a5a5] xsm:w-[190px] text-center">Published on {datetime}</h2>
                                 </td>
                                 {user?.role === "admin" &&
                                     <td className="flex xsm:flex-col gap-[5px]">
-                                        <button onClick={()=>{setSingleAnnouncements(a);showEditAnnouncementModal(true);}} type="submit" className="bg-[#81c2ff] w-[8.25vw] h-[4.351vh] text-white min-w-[65px] font-bold rounded-full">Edit</button>
-                                        <button onClick={()=>deleteAccouncement(a.id)} type="submit" className="bg-[#e96857] min-w-[65px] w-[8.25vw] h-[4.351vh] text-white font-bold rounded-full">Delete</button>
+                                        <button onClick={()=>{setSingleAnnouncements(a);showEditAnnouncementModal(true);}} type="submit" className="bg-[#81c2ff] w-[8.25vw] h-[4.351vh] min-h-[29px] text-white min-w-[65px] font-bold rounded-full">Edit</button>
+                                        <button onClick={()=>deleteAccouncement(a.id)} type="submit" className="bg-[#e96857] min-w-[65px] w-[8.25vw] h-[4.351vh] min-h-[29px] text-white font-bold rounded-full">Delete</button>
                                     </td>
                                 }
                             </tr>

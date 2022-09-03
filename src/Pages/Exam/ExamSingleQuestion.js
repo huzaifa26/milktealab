@@ -67,7 +67,7 @@ export default function ExamSingleQuestion(props){
             </div>
 
             <div className="flex justify-center mt-[20px] self-center">
-                <button type="submit" className="bg-[#81c2ff] min-h-[20px] min-w-[60px] w-[14.25vw] h-[4.351vh] text-white font-bold rounded-full">Next</button>
+                <button type="submit" className="bg-[#81c2ff] min-h-[29px] min-w-[60px] w-[14.25vw]  h-[4.351vh] text-white font-bold rounded-full">Next</button>
             </div>
                         
         </form>

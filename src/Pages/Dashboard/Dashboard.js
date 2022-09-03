@@ -9,6 +9,7 @@ import { ColorRing } from 'react-loader-spinner';
 
 
 export default function Dashboard(props){
+    const [showSpinner,setShowSpinner]=useState(true);
     
     let user;
     user=localStorage.getItem("user");
@@ -71,6 +72,7 @@ export default function Dashboard(props){
     useEffect(()=>{
         axios.get(URL+"/user").then(res=>{
             setUsers(res.data.res);
+            setShowSpinner(false)
         }).catch(err=>{
             console.log(err);
         })
@@ -84,7 +86,7 @@ export default function Dashboard(props){
         })
     },[assignManager])
 
-    if(user.role !== "admin"){
+    if(user?.role !== "admin"){
         return <Navigate to={"/"}/>
     }
 
@@ -98,9 +100,7 @@ export default function Dashboard(props){
             <MessageModal userId={userId} hideshowMessageModalHandler={hideshowMessageModalHandler}></MessageModal>
         }
 
-        {users?.length > 0 ?
-
-        
+        {showSpinner === false ?       
         <div className="w-[100%] h-[100%]">
         <div className="w-[91%] m-auto overflow-x-auto">
             <table class=" table-auto w-[100%] mt-[30px]">
@@ -129,8 +129,8 @@ export default function Dashboard(props){
                                     <option value={"member"} selected={u.role === "member"?true:false}>Future Franchisee</option>
                                 </select>
                             </td>
-                            <td className="flex-1"><button onClick={()=>{showModalHandler();setUserId(u.id)}} className="bg-[#36c0f8] text-white h-[2.26vh] min-h-[30px] min-w-[95px] rounded-full w-[8vw] text-[14px]">Check Status</button></td>
-                            <td className="flex-1"><button onClick={()=>{showshowMessageModalHandler();setUserId(u.id)}} className="bg-[#36f87a] text-white h-[2.26vh] min-h-[30px] rounded-full min-w-[110px] w-[10vw] text-[14px]">Check Message</button></td>
+                            <td className="flex-1"><button onClick={()=>{showModalHandler();setUserId(u.id)}} className="bg-[#36c0f8] text-white h-[2.26vh] min-h-[29px] min-w-[95px] rounded-full w-[8vw] text-[14px]">Check Status</button></td>
+                            <td className="flex-1"><button onClick={()=>{showshowMessageModalHandler();setUserId(u.id)}} className="bg-[#36f87a] text-white h-[2.26vh] min-h-[29px] rounded-full min-w-[110px] w-[10vw] text-[14px]">Check Message</button></td>
 
                             <td className="flex-1">
                                 <select onChange={(e)=>assignManager(e,u.id)} className="">

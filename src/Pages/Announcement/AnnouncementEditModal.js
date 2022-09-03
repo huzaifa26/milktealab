@@ -61,7 +61,7 @@ export default function AnnouncementEditModal(props){
                         </div>
 
                         <div className="flex justify-center mt-[20px]">
-                            <button type="submit" className="bg-[#81c2ff] w-[14.25vw] h-[4.351vh] min-w-[136px] text-white font-bold rounded-full">Apply Now</button>
+                            <button type="submit" className="bg-[#81c2ff] w-[14.25vw] min-h-[29px] h-[4.351vh] min-w-[136px] text-white font-bold rounded-full">Apply Now</button>
                         </div>
                     </form>
                 </div>   

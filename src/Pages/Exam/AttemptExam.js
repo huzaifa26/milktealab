@@ -82,7 +82,7 @@ export default function AttemptExam(props){
                     <>
                         <h2 >Exam Name: {e?.title}</h2>
                         <h3>Total Questions: {questions?.length} Questions</h3>
-                        <button onClick={startExamhandler} class="min-w-[136px] h-[4.3518518518519vh] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
+                        <button onClick={startExamhandler} class="min-w-[136px] h-[4.3518518518519vh] min-h-[29px] mt-[2.051vw] mb-[1.221vw] rounded-full py-1 w-[14.258vw] text-[clamp(14px,0.801vw,32.82px)] bg-[#81c2ff] text-white uppercase font-bold">
                             Start Exam
                         </button>
                     </>

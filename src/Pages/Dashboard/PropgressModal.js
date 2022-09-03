@@ -4,6 +4,9 @@ import { URL } from "../../App";
 import { ColorRing } from 'react-loader-spinner';
 
 export default function PropgressModal(props) {
+
+    const [showSpinner,setShowSpinner]=useState(true);
+
     const hideModal = () => {
         props.hideModalHandler()
     }
@@ -41,6 +44,7 @@ export default function PropgressModal(props) {
         axios.get(URL + "/training/" + userId).then((res) => {
             console.log(res.data.res)
             setTrainingData(res.data.res);
+            setShowSpinner(false)
         }).catch((err) => {
             console.log(err);
         })
@@ -57,7 +61,7 @@ export default function PropgressModal(props) {
                     <div className="text-center bg-[#f4f5f5] min-h-[15%] pt-[25px]"><h2>Progress</h2></div>
 
 
-                    {trainingData.length > 0 ?
+                    {showSpinner === false ?
                         <div className="flex xsm:flex-col sm:flex-col w-[100%]">
                             <div className="flex-1">
                                 <table class="table-auto w-[90%] xsm:m-auto ml-[30px] mt-[30px]">

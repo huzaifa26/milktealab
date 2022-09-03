@@ -57,7 +57,7 @@ export default function EditExamModsl(props){
                         </div>
 
                         <div className="flex justify-center mt-[20px]">
-                            <button type="submit" className="bg-[#81c2ff] min-w-[136px] w-[14.25vw] h-[28.847130000000003px] text-white font-bold rounded-full">Update</button>
+                            <button type="submit" className="bg-[#81c2ff] min-w-[136px] w-[14.25vw] h-[4.351vw] min-h-[29px] text-white font-bold rounded-full">Update</button>
                         </div>
                     </form>
                 </div>   

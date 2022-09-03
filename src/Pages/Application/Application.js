@@ -126,7 +126,7 @@ export default function Application(props){
                     </div>
 
                     <div className="flex justify-center xsm:mt-[30px] mt-[100px]">
-                        <button type="submit" className="bg-[#81c2ff] min-w-[150px] min-h-[30px] w-[14.25vw] h-[4.351vh] text-white font-bold rounded-full">Apply now</button>
+                        <button type="submit" className="bg-[#81c2ff] min-w-[150px] min-h-[28px] w-[14.25vw] h-[4.351vh] text-white font-bold rounded-full">Apply now</button>
                     </div>
                 </form>
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import moment from "moment-timezone";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { URL } from "../../App";
 import { io } from "socket.io-client";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ import { storage } from "../../Components/Firebase";
 import { ColorRing } from 'react-loader-spinner';
 
 export default function MessageModal(props){
+    const [showSpinner,setShowSpinner]=useState(true);
     let logUser=localStorage.getItem("user");
     logUser=JSON.parse(logUser);
     const scrollRef=useRef();
@@ -19,24 +20,35 @@ export default function MessageModal(props){
     const [conversation,setConversation]=useState([]);
     const [arriavalMessage,setArriavalMessage]=useState(null);
     const socket=useRef();
+    const [changeState,setChangeState]=useState(false);
+    const conversationRef=useRef();
 
     useEffect(() => {
-        socket.current=io("https://milktealab.herokuapp.com/");
+        socket.current=io("https://milktealab.herokuapp.com");
         socket.current.on("getMessage", (data) => {
-            console.log(data);
-            setArriavalMessage({
+            console.log(1);
+            console.log(conversationRef);
+            console.log(conversationRef.current[0][1]?.id === data?.senderId);
+            (conversationRef && conversationRef.current[0][1]?.id === data?.senderId) && setMessage(prev=>[...prev,{
                 sender: data.senderId,
                 message: data.text,
                 createdTime: Date.now(),
-          });
+              }]);
+
+        //     setArriavalMessage({
+        //     sender: data.senderId,
+        //     message: data.text,
+        //     createdTime: Date.now(),
+        //   });
         });
       }, []);
+      
+    // useEffect(()=>{
+    //     console.log(2);
+    //     arriavalMessage !== null && (currentChat && currentChat[0][1]?.id === arriavalMessage?.sender) && setMessage(prev=>[...prev,arriavalMessage]);
+    // },[arriavalMessage, currentChat])
 
-      useEffect(()=>{
-        console.log("2222222222222222222222222222222222222222222222222")
-        arriavalMessage && (currentChat && currentChat[0][1]?.id === arriavalMessage?.sender) && setMessage(prev=>[...prev,arriavalMessage]);
-    },[arriavalMessage, currentChat])
-
+    
     useEffect(()=>{
         socket.current.emit("addUser",logUser?.id);
         socket.current.on("getUsers",(users)=>{
@@ -61,21 +73,24 @@ export default function MessageModal(props){
                 }
                 axios.post(URL+"/conversation",data).then((res)=>{
                     console.log(res);
+                    setChangeState(!changeState)
                 }).catch((err)=>{
                     console.log(err);
                 })
             }else if(res.data.res.length>0){
+                conversationRef.current=res.data.res;
                 setCurrentChat(res.data.res);
             }
         }).catch(err=>{
             console.log(err);
         })
-    },[logUser?.id])
+    },[logUser?.id,changeState])
 
 
     useEffect(()=>{
         let id=currentChat && currentChat[0][0]?.id;
         axios.get(URL+"/message/"+id).then((res)=>{
+            setShowSpinner(false);
             setMessage(res.data.res);
         }).catch(err=>{
             console.log(err);
@@ -166,6 +181,8 @@ export default function MessageModal(props){
                         createdTime:datetime
                     }
 
+                    console.log(currentChat);
+
                     axios.post(URL+"/message",newMessageData2).then((res)=>{
                         newMessageData2.id=res.data.res.insertedId;
                         setMessage([...message,newMessageData2]);
@@ -202,7 +219,7 @@ export default function MessageModal(props){
                     <div className="w-[100%]  flex max-h-[35vw] h-[35vw] overflow-y-scroll p-[25px] bg-[#f4fdff]">
                         <div className="flex flex-col justify-between flex-1 h-full">
                             <div className="flex flex-col">
-                                {message.length >0 ? message.map((m)=>{
+                                {showSpinner === false ? message.map((m)=>{
                                     let own=false;
                                     if (m.sId === logUser.id){
                                         own=true
